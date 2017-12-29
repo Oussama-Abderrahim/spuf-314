@@ -14,7 +14,7 @@ export default {
 <style>
 #about {
   background: url("http://lorempicsum.com/up/800/600/2");
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
 
   height: 100%;

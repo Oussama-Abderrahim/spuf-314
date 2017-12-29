@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <transition name="slide" mode="in-out">
+    <transition name="slide">
       <router-view></router-view>
     </transition>
 
     <ul class="timeline-nav">
       <li class="timeline-nav-link" v-for="(page,i) in pages" :key="i" @click.prevent="goto(i)">
-        <router-link tag="a" :class="{active : i === index}" :to='"/"+page'></router-link>
+        <router-link tag="a" :class="{active : i == index}" :to='"/"+page'></router-link>
       </li>
     </ul>
 
@@ -21,8 +21,19 @@ export default {
   name: 'app',
   data () {
     return {
-      index: 0,
       pages: ['welcome', 'about']
+    }
+  },
+  computed: {
+    index: {
+      set (value) {
+        if (this.index !== value) {
+          this.goto(value)
+        }
+      },
+      get () {
+        return this.pages.indexOf(this.$route.path.substring(1))
+      }
     }
   },
   methods: {
@@ -30,12 +41,11 @@ export default {
       i = (i + this.pages.length) % this.pages.length
       setTimeout(() => {
         this.index = i
-        this.$router.push({ path: '/' + this.pages[i] })
+        console.log(this.index)
       }, 250)
     },
     slideUp () {
       this.goto(this.index - 1)
-      console.log('scrolled')
     },
     slideDown () {
       this.goto(this.index + 1)
@@ -69,7 +79,6 @@ $timeline-link-size-active : 10px;
     margin: 5px 0;
     text-align: center;
 
-    &:hover {}
     a {
       display: inline-block;
 
@@ -105,20 +114,21 @@ $timeline-link-size-active : 10px;
   color: #FFF;
 }
 
+// SLIDE ANIMATION
 .slide-enter-active {
-  animation: slide-in 1s;
+  animation: slide-in 1s ease-out;
   position: absolute;
   top:0;
   left: 0;
 }
 
 .slide-leave-active {
+  animation: slide-out 1s ease-out;
   position: absolute;
   z-index: -1;
   top:0;
   left: 0;
 }
-
 
 @keyframes slide-in {
   from { transform: translateY(100%); }

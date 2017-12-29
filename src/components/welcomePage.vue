@@ -13,7 +13,7 @@ export default {
 <style>
 #welcome {
   background: url("http://lorempicsum.com/up/800/600/1");
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   height: 100%;
   width: 100%;
