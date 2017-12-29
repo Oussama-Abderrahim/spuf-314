@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <transition name="slide">
+    <transition :name="slideDirection">
       <router-view></router-view>
     </transition>
 
@@ -21,7 +21,9 @@ export default {
   name: 'app',
   data () {
     return {
-      pages: ['welcome', 'about']
+      prev: 0,
+      pages: ['welcome', 'about'],
+      slideDirection: 'slide-down'   // The slide transition name we'll use ( up/down )
     }
   },
   computed: {
@@ -39,10 +41,17 @@ export default {
   },
   methods: {
     goto (i) {
+      // rotate index
       i = (i + this.pages.length) % this.pages.length
+
+      // update direction
+      if (i > this.prev) this.slideDirection = 'slide-down'
+      else this.slideDirection = 'slide-up'
+
+      // change page
       setTimeout(() => {
         this.index = i
-        console.log(this.index)
+        this.prev = index
       }, 250)
     },
     slideUp () {
@@ -105,8 +114,9 @@ $timeline-link-size-active : 10px;
   position: absolute;
   top: 50%;
   left: 25px;
-  height: 25px;
-  width: 25px;
+  height: 35px;
+  width: 35px;
+  transform: rotate(-20deg);
   transform: translateY(-50%);
   
   outline: none;
@@ -117,28 +127,5 @@ $timeline-link-size-active : 10px;
 }
 
 // SLIDE ANIMATION
-.slide-enter-active {
-  animation: slide-in 1s ease-out;
-  position: absolute;
-  top:0;
-  left: 0;
-}
-
-.slide-leave-active {
-  animation: slide-out 1s ease-out;
-  position: absolute;
-  z-index: -1;
-  top:0;
-  left: 0;
-}
-
-@keyframes slide-in {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
-}
-
-@keyframes slide-out {
-  from { transform: translateY(0); }
-  to { transform: translateY(-100%); }
-}
+@import "assets/css/slide-animation";
 </style>
