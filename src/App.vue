@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <transition name="slide">
+    <transition name="slide" mode="in-out">
       <router-view></router-view>
     </transition>
 
@@ -11,7 +11,7 @@
     </ul>
 
     <button class="menu-trigger">
-      <i>///</i>
+      <i class="fa fa-bars"></i>
     </button>
   </div>
 </template>
@@ -22,13 +22,23 @@ export default {
   data () {
     return {
       index: 0,
-      pages: ['welcome', 'about', 'welcome', 'about']
+      pages: ['welcome', 'about']
     }
   },
   methods: {
     goto (i) {
-      this.index = i
-      console.log(this.index)
+      i = (i + this.pages.length) % this.pages.length
+      setTimeout(() => {
+        this.index = i
+        this.$router.push({ path: '/' + this.pages[i] })
+      }, 250)
+    },
+    slideUp () {
+      this.goto(this.index - 1)
+      console.log('scrolled')
+    },
+    slideDown () {
+      this.goto(this.index + 1)
     }
   }
 }
@@ -45,7 +55,6 @@ $timeline-link-size-active : 10px;
   border : 0;
   height: 100%;
   width: 100%;
-  overflow: hidden;
 }
 
 
@@ -84,41 +93,40 @@ $timeline-link-size-active : 10px;
 
 .menu-trigger {
   position: absolute;
-  
   top: 50%;
   left: 25px;
   height: 25px;
   width: 25px;
-  appearance: none;
+  transform: translateY(-50%);
+  
   border: none;
+  border-radius: 100%;
   background-color: #000;
   color: #FFF;
-  border-radius: 100%;
 }
 
 .slide-enter-active {
-  background-color: rgba(0,0,0,0);
-  animation: slide-in .5s;
-}
-.slide-leave-active {
+  animation: slide-in 1s;
   position: absolute;
+  top:0;
+  left: 0;
 }
 
+.slide-leave-active {
+  position: absolute;
+  z-index: -1;
+  top:0;
+  left: 0;
+}
+
+
 @keyframes slide-in {
-  0% {
-    transform: translateY(100%);
-  }
-  100% {
-    transform: translateY(0);
-  }
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
 }
 
 @keyframes slide-out {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-100%);
-  }
+  from { transform: translateY(0); }
+  to { transform: translateY(-100%); }
 }
 </style>
