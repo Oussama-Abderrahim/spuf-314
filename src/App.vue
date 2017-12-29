@@ -32,7 +32,8 @@ export default {
         }
       },
       get () {
-        return this.pages.indexOf(this.$route.path.substring(1))
+        var i = this.pages.indexOf(this.$route.path.substring(1))
+        return (i > 0) ? i : 0
       }
     }
   },
@@ -108,6 +109,7 @@ $timeline-link-size-active : 10px;
   width: 25px;
   transform: translateY(-50%);
   
+  outline: none;
   border: none;
   border-radius: 100%;
   background-color: #000;
