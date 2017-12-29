@@ -1,8 +1,12 @@
 <template>
   <div id="app">
-    <transition :name="slideDirection">
-      <router-view></router-view>
-    </transition>
+    
+      <sidebar class="sidebar" :class="{out: sideBarOn}"></sidebar>
+      
+      <transition :name="slideDirection">
+        <router-view @click.prevent.native="hideSideBar"></router-view>
+      </transition>
+    
 
     <ul class="timeline-nav">
       <li class="timeline-nav-link" v-for="(page,i) in pages" :key="i" @click.prevent="goto(i)">
@@ -10,20 +14,27 @@
       </li>
     </ul>
 
-    <button class="menu-trigger">
+    <button class="menu-trigger" v-if="!sideBarOn" @click.prevent='showSideBar'>
       <i class="fa fa-bars"></i>
     </button>
+
   </div>
 </template>
 
 <script>
+import SideBar from './components/sideBar'
+
 export default {
   name: 'app',
+  components: {
+    'sidebar': SideBar
+  },
   data () {
     return {
       prev: 0,
       pages: ['welcome', 'about'],
-      slideDirection: 'slide-down'   // The slide transition name we'll use ( up/down )
+      slideDirection: 'slide-down',   // The slide transition name we'll use ( up/down )
+      sideBarOn: false
     }
   },
   computed: {
@@ -40,6 +51,12 @@ export default {
     }
   },
   methods: {
+    hideSideBar () {
+      this.sideBarOn = false
+    },
+    showSideBar () {
+      this.sideBarOn = true
+    },
     goto (i) {
       // rotate index
       i = (i + this.pages.length) % this.pages.length
@@ -47,11 +64,11 @@ export default {
       // update direction
       if (i > this.prev) this.slideDirection = 'slide-down'
       else this.slideDirection = 'slide-up'
-
+      this.hideSideBar()
       // change page
       setTimeout(() => {
         this.index = i
-        this.prev = index
+        this.prev = this.index
       }, 250)
     },
     slideUp () {
@@ -75,6 +92,11 @@ $timeline-link-size-active : 10px;
   border : 0;
   height: 100%;
   width: 100%;
+}
+
+.sidebar.out {
+  position: absolute;
+  transform: translateX(200px);
 }
 
 
