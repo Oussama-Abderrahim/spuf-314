@@ -33,7 +33,7 @@ nav {
     width: 200px;
     background-color: #323e44;
     transform: translateX(0px);
-    transition: transform .7s;
+    transition: transform .6s;
 }
 
 </style>
