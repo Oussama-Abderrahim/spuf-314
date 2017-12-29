@@ -1,6 +1,5 @@
 <template>
   <div id="welcome">
-      <h1>Welcome !</h1>
   </div>
 </template>
 
@@ -13,7 +12,9 @@ export default {
 
 <style>
 #welcome {
-  background-color: red;
+  background: url("http://lorempicsum.com/up/800/600/1");
+  background-size: contain;
+  background-repeat: no-repeat;
   height: 100%;
   width: 100%;
   margin: auto;

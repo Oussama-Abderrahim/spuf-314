@@ -1,6 +1,5 @@
 <template>
   <div id="about">
-    <h1>About</h1>
   </div>
 </template>
 
@@ -14,7 +13,10 @@ export default {
 
 <style>
 #about {
-  background-color: green;
+  background: url("http://lorempicsum.com/up/800/600/2");
+  background-size: contain;
+  background-repeat: no-repeat;
+
   height: 100%;
   width: 100%;
   margin: auto;
