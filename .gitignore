@@ -1,4 +1,3 @@
 .sass-cache
 node_modules
 .env
-public/css/*.css
