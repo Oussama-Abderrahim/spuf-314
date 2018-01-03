@@ -1,0 +1,23 @@
+{
+  "name": "project_name",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run build && nodemon server.js",
+    "build": "compass compile"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "dotenv": "^4.0.0",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "helmet": "^3.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.7"
+  }
+}
