@@ -32,7 +32,7 @@ export default {
   data () {
     return {
       prev: 0,
-      pages: ['welcome', 'about'],
+      pages: ['welcome', 'about', 'request'],
       slideDirection: 'slide-down',   // The slide transition name we'll use ( up/down )
       sideBarOn: false
     }
