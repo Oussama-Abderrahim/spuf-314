@@ -3,6 +3,8 @@
 </template>
 
 <script>
+/*  eslint-disable */
+
 export default {
   name: 'google-map',
   props: ['name'],
@@ -17,9 +19,9 @@ export default {
       zoom: 14,
       center: new google.maps.LatLng(51.501527,-0.1921837)
     }
-    const map = new google.maps.Map(element, options);
+    const map = new google.maps.Map(element, options)
   }
-};
+}
 </script>
 
 <style scoped>

@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import WelcomePage from '@/components/WelcomePage'
-import AboutPage from '@/components/AboutPage'
-import RequestPage from '@/components/RequestPage'
-import ErrorPage from '@/components/ErrorPage'
+import WelcomePage from '@/pages/WelcomePage'
+import AboutPage from '@/pages/AboutPage'
+import RequestPage from '@/pages/RequestPage'
+import ErrorPage from '@/pages/ErrorPage'
 
 Vue.use(Router)
 

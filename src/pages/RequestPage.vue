@@ -53,10 +53,14 @@
 
 
 <script>
+/*  eslint-disable */
+import "../components/MapSection"
+
 export default {
  name: 'about',
   component: {
-    // put custom components here 
+    MapSection
+    // put custom components here
   },
   data () {
     return {
