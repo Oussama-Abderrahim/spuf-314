@@ -54,12 +54,12 @@
 
 <script>
 /*  eslint-disable */
-import "../components/MapSection"
+import MapSection from "../components/MapSection"
 
 export default {
  name: 'about',
-  component: {
-    MapSection
+  components: {
+    "google-map": MapSection
     // put custom components here
   },
   data () {
