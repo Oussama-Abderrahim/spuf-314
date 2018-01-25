@@ -16,7 +16,7 @@ export default {
 
 <style>
 #about {
-  /* background: url("http://lorempicsum.com/up/800/600/2"); */
+  background: url("http://lorempicsum.com/up/800/600/2");
   background-size: cover;
   background-repeat: no-repeat;
 
