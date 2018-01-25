@@ -26,7 +26,7 @@ export default {
 
 <style scoped>
 .google-map {
-  width: 800px;
+  width: 650px;
   height: 600px;
   margin: 0 auto;
   background: gray;

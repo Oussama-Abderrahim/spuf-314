@@ -47,8 +47,8 @@
 
     <div class="col-sm-6">
       <google-map name="example"></google-map>
-      <div class="Center_Button">
-        <button class="ui huge brown button" type="submit">Avoir le chemin</button>
+      <div class="My_Button">
+        <button class="ui massive brown button" type="submit">Avoir le chemin</button>
       </div>
     </div>
 
