@@ -11,6 +11,8 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "jquery": "^3.3.1",
+    "semantic-ui": "^2.2.13",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
