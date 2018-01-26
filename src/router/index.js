@@ -6,7 +6,6 @@ import RequestPage from '@/pages/RequestPage'
 import ResponsePage from '@/pages/Response'
 import ErrorPage from '@/pages/ErrorPage'
 
-
 Vue.use(Router)
 
 const routes = [
