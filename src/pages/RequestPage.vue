@@ -35,22 +35,22 @@
               <label class="push_down push_up">Facteurs:</label>
               <br>
               <div class="field">
-                <div class="ui slider huge checkbox">
-                  <input type="radio" name="time">
+                <div class="ui huge slider checkbox">
+                  <input type="checkbox" name="time">
                   <label for="time">Minimum de temps</label>
                 </div>
               </div>
 
               <div class="field">
-                <div class="ui slider huge checkbox">
-                  <input type="radio" name="walk">
-                  <label form="walk">Minimum de changement</label>
+                <div class="ui huge slider checkbox">
+                  <input type="checkbox" name="walk">
+                  <label for="walk">Minimum de changement</label>
                 </div>
               </div>
 
               <div class="field">
-                <div class="ui slider huge checkbox">
-                  <input type="radio" name="cost">
+                <div class="ui huge slider checkbox">
+                  <input type="checkbox" name="cost">
                   <label for="cost">Minimum de dépense</label>
                 </div>
               </div>
