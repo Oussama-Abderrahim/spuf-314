@@ -1,72 +1,75 @@
 <template>
   <div id="request">
 
-    <section class="request-form row">
-      <!-- Left Form -->
-      <div class="col-sm-12 col-md-6 request-form-left">
+    <section class="request-form">
+      <div class="ui grid">
+        <!-- Left Form -->
+        <div class="eight wide column">
 
-        <form class="ui massive form">
-          <!-- CHAMP DEPART -->
-          <div class="ten wide field push_up">
-            <label for="depart">Départ</label>
-            <br>
-            <input type="text" name="depart" placeholder="Adresse de départ">
-          </div>
-
-          <!-- CHAMP ARRIVEE -->
-          <div class="ten wide field">
-            <label for="arrivee">Arrivée</label>
-            <br>
-            <input type="text" name="arrivee" placeholder="Adresse d'arrivée">
-          </div>
-
-          <!-- CHAMP OPTIONS -->
-          <div class="request-form-options">
-            <label class="push_down">Options:</label>
-            <br>
-            <i class="big bus icon"></i>
-            <i class="big subway icon"></i>
-          </div>
-
-          <!-- CHAMP FACTEURS  -->
-          <div class="request-form-factors grouped fields">
-            <br>
-            <label class="push_down push_up">Facteurs:</label>
-            <br>
-            <div class="field">
-              <div class="ui slider huge checkbox">
-                <input type="radio" name="time">
-                <label for="time">Minimum de temps</label>
-              </div>
+          <form class="request-form-left ui massive form">
+            <!-- CHAMP DEPART -->
+            <div class="ten wide field push_up">
+              <label for="depart">Départ</label>
+              <br>
+              <input type="text" name="depart" placeholder="Adresse de départ">
             </div>
 
-            <div class="field">
-              <div class="ui slider huge checkbox">
-                <input type="radio" name="walk">
-                <label form="walk">Minimum de changement</label>
-              </div>
+            <!-- CHAMP ARRIVEE -->
+            <div class="ten wide field">
+              <label for="arrivee">Arrivée</label>
+              <br>
+              <input type="text" name="arrivee" placeholder="Adresse d'arrivée">
             </div>
 
-            <div class="field">
-              <div class="ui slider huge checkbox">
-                <input type="radio" name="cost">
-                <label for="cost">Minimum de dépense</label>
+            <!-- CHAMP OPTIONS -->
+            <div class="request-form-options">
+              <label class="push_down">Options:</label>
+              <br>
+              <i class="big bus icon"></i>
+              <i class="big subway icon"></i>
+            </div>
+
+            <!-- CHAMP FACTEURS  -->
+            <div class="request-form-factors grouped fields">
+              <br>
+              <label class="push_down push_up">Facteurs:</label>
+              <br>
+              <div class="field">
+                <div class="ui slider huge checkbox">
+                  <input type="radio" name="time">
+                  <label for="time">Minimum de temps</label>
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="ui slider huge checkbox">
+                  <input type="radio" name="walk">
+                  <label form="walk">Minimum de changement</label>
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="ui slider huge checkbox">
+                  <input type="radio" name="cost">
+                  <label for="cost">Minimum de dépense</label>
+                </div>
               </div>
             </div>
-          </div>
-        </form>
-      </div>
-
-      <!-- RIGHT FORM -->
-      <div class="col-sm-12 col-md-6 request-form-right">
-        <div class="map">
-          <google-map name="example" class="google-map"></google-map>
+          </form>
         </div>
-        <div class="center-button">
-          <button class="ui huge brown button" type="submit">Avoir le chemin</button>
+
+        <!-- RIGHT FORM -->
+        <div class="eight wide column">
+          <div class="request-form-right">
+            <div class="map">
+              <google-map name="example" class="google-map"></google-map>
+            </div>
+            <div class="center-button">
+              <button class="ui huge brown button" type="submit">Avoir le chemin</button>
+            </div>
+          </div>
         </div>
       </div>
-
     </section>
 
   </div>
