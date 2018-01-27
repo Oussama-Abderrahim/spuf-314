@@ -4,6 +4,7 @@ import WelcomePage from '@/pages/WelcomePage'
 import AboutPage from '@/pages/AboutPage'
 import RequestPage from '@/pages/RequestPage'
 import ResponsePage from '@/pages/Response'
+import InfoPage from '@/pages/Info'
 import ErrorPage from '@/pages/ErrorPage'
 
 Vue.use(Router)
@@ -33,6 +34,11 @@ const routes = [
     path: '/response',
     name: 'response',
     component: ResponsePage
+  },
+  {
+    path: '/info',
+    name: 'info',
+    component: InfoPage
   },
   {
     path: '*',

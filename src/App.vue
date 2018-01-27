@@ -30,10 +30,10 @@
     components: {
       'sidebar': SideBar
     },
-    data() {
+    data() {    
       return {
         prev: 0,
-        pages: ['welcome', 'about', 'request', 'response'],
+        pages: ['welcome', 'request', 'response','info','about'],
         slideDirection: 'slide-down', // The slide transition name we'll use ( up/down )
         sideBarOn: false
       }

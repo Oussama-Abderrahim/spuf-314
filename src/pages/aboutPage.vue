@@ -1,5 +1,6 @@
 <template>
   <div id="about">
+  <div class="blur"></div>
     <div class="ui message error">
       This is the about page
     </div>
@@ -16,7 +17,7 @@ export default {
 
 <style>
 #about {
-  background: url("http://lorempicsum.com/up/800/600/2");
+  background: url("../assets/img/bg2.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 
@@ -25,4 +26,21 @@ export default {
   margin: auto;
   text-align: center;
 }
+
+.blur {
+    background: url('../assets/img/bg4.jpg') no-repeat center center fixed;
+    background-size: cover;
+    overflow: hidden;
+    filter: blur(10px);
+    position: absolute;
+    
+    height: 750px;
+    width: 70%;
+    margin: auto;
+    top: 10%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
 </style>

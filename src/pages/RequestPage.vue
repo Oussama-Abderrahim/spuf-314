@@ -2,11 +2,12 @@
   <div id="request">
 
     <section class="request-form">
+    <div class="blur"></div>
       <div class="ui grid">
         <!-- Left Form -->
         <div class="eight wide column">
 
-          <form class="request-form-left ui massive form">
+          <form class="request-form-left ui massive form push_up">
             <!-- CHAMP DEPART -->
             <div class="ten wide field push_up">
               <label for="depart">Départ</label>
@@ -24,9 +25,14 @@
             <!-- CHAMP OPTIONS -->
             <div class="request-form-options">
               <label class="push_down">Options:</label>
-              <br>
-              <i class="big bus icon"></i>
-              <i class="big subway icon"></i>
+              <br><br>
+              <div class="ui icon buttons">
+               <div class="ui big button"><i class="big bus icon"></i></div>
+               <div class="ui big button"><i class="big subway icon"></i></div>
+               <div class="ui big button"><i class="big male icon"></i></div>
+               <div class="ui big button"><i class="big child icon"></i></div>
+               <div class="ui big button"><i class="big handicap icon"></i></div>
+              </div>
             </div>
 
             <!-- CHAMP FACTEURS  -->
@@ -50,10 +56,18 @@
 
               <div class="field">
                 <div class="ui huge slider checkbox">
+                  <input type="checkbox" name="walk">
+                  <label for="walk">Minimum de marche</label>
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="ui huge slider checkbox">
                   <input type="checkbox" name="cost">
                   <label for="cost">Minimum de dépense</label>
                 </div>
               </div>
+
             </div>
           </form>
         </div>
@@ -109,7 +123,7 @@
     right: 0;
     bottom: 0;
 
-    background: url("../assets/img/blue-blur.jpg") no-repeat center center fixed;
+    background: url("../assets/img/bg4.jpg") no-repeat center center fixed;
     background-size: cover;
 
     height: 100%;
@@ -120,15 +134,19 @@
   }
 
   .blur {
-    background: url('http://saxony-blue.com/data/out/72/5784265-wallpaper-blur.jpg') no-repeat center center fixed;
+    background: url('../assets/img/bg4.jpg') no-repeat center center fixed;
     background-size: cover;
     overflow: hidden;
-    filter: blur(20px);
+    filter: blur(10px);
     position: absolute;
-    top: -50px;
-    left: -50px;
-    right: -50px;
-    bottom: -50px;
+    
+    height: 65%;
+    width: 70%;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
   }
 
   .request-form {
@@ -168,7 +186,7 @@
     padding: 0;
     margin: 20px;
     width: 100%;
-    height: 300px;
+    height: 500px;
     border: 1px solid black;
 
     .google-map {

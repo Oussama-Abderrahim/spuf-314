@@ -5,7 +5,6 @@ import App from './App'
 import router from './router'
 // eslint-disable-next-line
 import JQuery from 'jquery'
-import 'semantic-ui-css/semantic.min.css'
 
 Vue.config.productionTip = false
 
