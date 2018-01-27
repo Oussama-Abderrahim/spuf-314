@@ -2,21 +2,21 @@
   <div id="request">
 
     <section class="request-form">
-    <div class="blur"></div>
-      <div class="ui grid">
+      <div class="ui grid fluid container">
+        <div class="blur"></div>
         <!-- Left Form -->
         <div class="eight wide column">
 
           <form class="request-form-left ui massive form push_up">
             <!-- CHAMP DEPART -->
-            <div class="ten wide field push_up">
+            <div class="fifteen wide field push_up">
               <label for="depart">Départ</label>
               <br>
               <input type="text" name="depart" placeholder="Adresse de départ">
             </div>
 
             <!-- CHAMP ARRIVEE -->
-            <div class="ten wide field">
+            <div class="fifteen wide field">
               <label for="arrivee">Arrivée</label>
               <br>
               <input type="text" name="arrivee" placeholder="Adresse d'arrivée">
@@ -75,7 +75,10 @@
         <!-- RIGHT FORM -->
         <div class="eight wide column">
           <div class="request-form-right">
-            <div class="map">
+            <div class="ui inverted dimmer">
+              <div class="ui text loader">Loading</div>
+            </div>
+            <div class="map container">
               <google-map name="example" class="google-map"></google-map>
             </div>
             <div class="center-button">
@@ -116,13 +119,16 @@
 </script>
 
 <style lang="scss" scoped>
+
+$form-width: 65%;
+$form-height: 600px;
+
   #request {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-
     background: url("../assets/img/bg4.jpg") no-repeat center center fixed;
     background-size: cover;
 
@@ -139,30 +145,40 @@
     overflow: hidden;
     filter: blur(10px);
     position: absolute;
-    
-    height: 65%;
-    width: 70%;
+    height: $form-height;
+    width: $form-width;
     margin: auto;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    top: -15px;
+    left: -50px;
+    right: -50px;
+    bottom: -50px;
   }
 
   .request-form {
     display: block;
+    padding: 10px;
     width: 65%;
-    height: 600px;
-    margin: 200px auto;
+    height: $form-height;
+    margin: 15vh auto;
+    border: 5px solid rgba(255, 255, 255, .5);
 
     &-left {
-      height: 100%;
+      overflow: hidden;
+      height: $form-height;
     }
     &-right {
-      height: 100%;
+      overflow: hidden;
+      position: relative;
+      height: $form-height;
+      margin: auto;
     }
     &-factors {
       margin-top: 30px;
+    }
+    &-options {
+      .buttons {
+        // could add some 100% width or center .-.
+      }
     }
   }
 
@@ -186,7 +202,7 @@
     padding: 0;
     margin: 20px;
     width: 100%;
-    height: 500px;
+    height: 100%;
     border: 1px solid black;
 
     .google-map {

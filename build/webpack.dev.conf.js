@@ -43,7 +43,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
-      'semantic-ui': 'semantic-ui-css'
+      'semantic-ui': 'semantic-ui'
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
