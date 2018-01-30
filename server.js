@@ -30,7 +30,9 @@ server.listen(process.env.PORT, () => {
 });
 
 /* Routes */
-require("./api/routes.js")(app);
+var Routes = require("./api/routes.js");
+
+app.use("/api", Routes);
 
 app.get("/", (request, response) => {
     response.render("index"); // render views/index

@@ -1,16 +1,11 @@
 bodyParser = require("body-parser");
+const express = require("express");
 
 
-var routes = function (app) {
-  
-    var message = {
-        message : "Hello ! Got me from a GET request ?"
-    };
+var routes = express.Router();
 
-    app.get("/api", function (request, response) {
-        response.json(message);
-    });
-};
-
+routes.route('/').get((req, res) => {
+    res.json({message:"Welcome to our API, see *link* for documentation"})
+});
 
 module.exports = routes;
