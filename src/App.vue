@@ -1,28 +1,29 @@
 <template>
   <div id="app">
 
-    <sidebar class="sidebar" :class="{out: sideBarOn}"></sidebar>
+    <sidebar id="sidebar"></sidebar>
+    <div class="pusher">
+      <transition :name="slideDirection">
+        <router-view  @click.native="hideSideBar"></router-view>
+      </transition>
 
-    <transition :name="slideDirection">
-      <router-view @click.prevent.native="hideSideBar"></router-view>
-    </transition>
 
+      <ul class="timeline-nav">
+        <li class="timeline-nav-link" v-for="(page,i) in pages" :key="i" @click.prevent="goto(i)">
+          <router-link tag="a" :class="{active : i == index}" :to='"/"+page'></router-link>
+        </li>
+      </ul>
 
-    <ul class="timeline-nav">
-      <li class="timeline-nav-link" v-for="(page,i) in pages" :key="i" @click.prevent="goto(i)">
-        <router-link tag="a" :class="{active : i == index}" :to='"/"+page'></router-link>
-      </li>
-    </ul>
-
-    <button class="menu-trigger" v-if="!sideBarOn" @click.prevent='showSideBar'>
-      <i class="fa fa-bars"></i>
-    </button>
+      <button class="menu-trigger" v-if="!sideBarOn" @click.prevent='showSideBar'>
+        <i class="fa fa-bars"></i>
+      </button>
+    </div>
 
   </div>
 </template>
 
 <script>
-/* eslint-disable */
+  /* eslint-disable */
   import SideBar from './components/sideBar'
 
   export default {
@@ -30,15 +31,18 @@
     components: {
       'sidebar': SideBar
     },
-    data() {    
+    data() {
       return {
         prev: 0,
-        pages: ['welcome', 'request', 'response','info','about'],
+        pages: ['welcome', 'request', 'response', 'info', 'about'],
         slideDirection: 'slide-down', // The slide transition name we'll use ( up/down )
         sideBarOn: false
       }
     },
     computed: {
+      sideBarOn() {
+        return false
+      },
       index: {
         set(value) {
           if (this.index !== value) {
@@ -52,11 +56,8 @@
       }
     },
     methods: {
-      hideSideBar() {
-        this.sideBarOn = false
-      },
       showSideBar() {
-        this.sideBarOn = true
+        $('#sidebar').sidebar('toggle')
       },
       goto(i) {
         // rotate index
@@ -78,6 +79,9 @@
       slideDown() {
         this.goto(this.index + 1)
       }
+    },
+    mounted () {
+      $("#sidebar").sidebar('setting', 'dimPage', 'false')
     }
   }
 
@@ -94,12 +98,6 @@
     height: 100%;
     width: 100%;
   }
-
-  .sidebar.out {
-    position: absolute;
-    transform: translateX(200px);
-  }
-
 
   .timeline-nav {
     position: absolute;
@@ -148,9 +146,7 @@
     border-radius: 100%;
     background-color: #000;
     color: #FFF;
-  }
-
-  // SLIDE ANIMATION
+  } // SLIDE ANIMATION
   @import "assets/css/slide-animation";
 
 </style>
