@@ -3,7 +3,7 @@
  */
 const mongoose = require('mongoose');
 
-const SegmentSchema = new  mongoose.Schema({
+let SegmentSchema = new  mongoose.Schema({
     Buses : Array,  //array of bus objects 
     hasTramway : boolean, 
     canWalk : boolean,
