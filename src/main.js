@@ -3,8 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-// eslint-disable-next-line
-import JQuery from 'jquery'
+import './semantic/dist/semantic.css'
+import './semantic/dist/semantic.js'
 
 Vue.config.productionTip = false
 

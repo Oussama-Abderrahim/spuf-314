@@ -49,7 +49,7 @@
 
               <div class="field">
                 <div class="ui huge slider checkbox">
-                  <input type="checkbox" name="walk">
+                  <input type="checkbox" name="walk" @click="nb += 1">
                   <label for="walk">Minimum de changement</label>
                 </div>
               </div>
@@ -107,7 +107,11 @@
     data() {
       return {
         // put variables here
+        nb: 0
       }
+    },
+    mounted () {
+      $('.ui.checkbox').checkbox();
     },
     methods: {
       beFancy() {
