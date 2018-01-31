@@ -8,6 +8,7 @@ require('dotenv').config();
 const helmet = require('helmet');
 const express = require("express");
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
 const server = require('http').Server(app);
@@ -21,11 +22,11 @@ app.use(express.static(`${__dirname}/public`));
 /* Middlewares */
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 app.use(helmet());
 
 /* Start Server */
 server.listen(process.env.PORT, () => {
-    // log stuff 
     console.log("listening at port " + process.env.PORT);
 });
 
