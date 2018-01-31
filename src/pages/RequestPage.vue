@@ -1,25 +1,24 @@
 <template>
   <div id="request">
 
-    <section class="request-form">
+    <form class="request-form" @submit.prevent="getPath" action='#' method="GET">
       <div class="ui grid fluid container">
         <div class="blur"></div>
         <!-- Left Form -->
         <div class="eight wide column">
-
-          <form class="request-form-left ui massive form push_up">
+          <section class="request-form-left ui massive form push_up">
             <!-- CHAMP DEPART -->
             <div class="fifteen wide field push_up">
               <label for="depart">Départ</label>
               <br>
-              <input type="text" name="depart" placeholder="Adresse de départ">
+              <input type="text" name="depart" v-model="query.depart" placeholder="Adresse de départ">
             </div>
 
             <!-- CHAMP ARRIVEE -->
             <div class="fifteen wide field">
               <label for="arrivee">Arrivée</label>
               <br>
-              <input type="text" name="arrivee" placeholder="Adresse d'arrivée">
+              <input type="text" name="arrivee" v-model="query.arrivee" placeholder="Adresse d'arrivée">
             </div>
 
             <!-- CHAMP OPTIONS -->
@@ -69,25 +68,26 @@
               </div>
 
             </div>
-          </form>
+          </section>
         </div>
 
         <!-- RIGHT FORM -->
-        <div class="eight wide column">
+        <section class="eight wide column">
           <div class="request-form-right">
-            <div class="ui inverted dimmer">
+            <!-- TODO : add a dimmer while map is loading -->
+            <!-- <div class="ui inverted dimmer">
               <div class="ui text loader">Loading</div>
-            </div>
+            </div> -->
             <div class="map container">
               <google-map name="example" class="google-map"></google-map>
             </div>
             <div class="center-button">
-              <button class="ui huge brown button" type="submit">Avoir le chemin</button>
+              <button type="submit" class="ui huge brown button">Avoir le Chemin</button>
             </div>
           </div>
-        </div>
+        </section>
       </div>
-    </section>
+    </form>
 
   </div>
 </template>
@@ -107,15 +107,24 @@
     data() {
       return {
         // put variables here
-        nb: 0
+        query: {
+          depart: "",
+          arrivee: "",
+          options: {},
+          facteurs: {}
+        }
       }
     },
     mounted () {
       $('.ui.checkbox').checkbox();
     },
     methods: {
-      beFancy() {
-        // whoosh
+      testClick (e) {
+        console.log("click")
+      },
+      getPath (event) {
+        console.log("Push")
+        this.router.push("response")
       }
     }
   }
@@ -202,11 +211,12 @@ $form-height: 600px;
   }
 
   .map {
+    overflow: hidden;
     position: relative;
     padding: 0;
     margin: 20px;
     width: 100%;
-    height: 100%;
+    height: 60%;
     border: 1px solid black;
 
     .google-map {
