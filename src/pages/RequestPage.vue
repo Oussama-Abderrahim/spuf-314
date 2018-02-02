@@ -39,6 +39,11 @@
               <br>
               <label class="push_down push_up">Facteurs:</label>
               <br>
+              <!--<select name="skills" multiple="" class="ui fluid dropdown">
+              <option value="">Skills</option>
+              <option value="">Skills</option>
+              <option value="">Skills</option>
+              </select>
               <div class="field">
                 <div class="ui huge slider checkbox">
                   <input type="checkbox" name="time">
@@ -65,7 +70,14 @@
                   <input type="checkbox" name="cost">
                   <label for="cost">Minimum de dépense</label>
                 </div>
-              </div>
+              </div>-->
+
+              <select name="factors" multiple="" class="ui fluid dropdown">
+                <option value="">Minimum de temps</option>
+                <option value="angular">Minimum de dépense</option>
+                <option value="css">Minimum de marche</option>
+                <option value="design">Minimum de changement</option>
+              </select>
 
             </div>
           </section>

@@ -7,7 +7,7 @@
         <!-- Left Form -->
         <div class="eight wide column">
 
-         
+          
           <h1 class="ui header">
             
             <i class="massive arrow right icon"></i>
@@ -18,8 +18,9 @@
            </div>
           </h1>
            
+        <div class ="scrollbar">
+          <div class="ui steps vertical force-overflow">
 
-          <div class="ui vertical steps">
             <div class="completed step">
              <i class="icon"></i>
               <div class="content">
@@ -77,7 +78,7 @@
   
           </div>
 
-
+        </div>
         </div>
 
         <!-- RIGHT FORM -->
@@ -125,6 +126,25 @@
 </script>
 
 <style lang="scss" scoped>
+
+  .scrollbar
+{
+    margin-left: 30px;
+    float: left;
+    height: 70%;
+    width: 80%;
+    background: #F5F5F5;
+    overflow-y: scroll;
+    margin-bottom: 25px;
+}
+
+.force-overflow
+{
+    min-height: 450px;
+}
+
+
+
   #request {
     position: absolute;
     top: 0;
@@ -191,7 +211,7 @@
   }
 
   .steps{
-    width:80%;
+    width:100%;
   }
 
   .map {
