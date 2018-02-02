@@ -1,7 +1,8 @@
 bodyParser = require("body-parser");
 const express = require("express");
 
-var getAll = require("./modules/DatabaseManager");
+var DatabaseManager = require("./modules/DatabaseManager");
+var PathFinder = require("./modules/PathFinder")
 
 var routes = express.Router();
 
@@ -10,9 +11,16 @@ routes.route('/').get((req, res) => {
 });
 
 routes.route('/station').get((req, res) => {
-    getAll((stations)=>{
+    DatabaseManager.getAllStations((stations)=>{
         res.json(stations)
     });
 });
 
+routes.route('/direction').get((req, res)=>{
+    //TODO : check params 
+    PathFinder.getPath(req.query.start, req.query.end, (result)=>{
+        res.json(result)
+    });
+
+});
 module.exports = routes;
