@@ -165,10 +165,6 @@
  
   @import '../assets/css/form-layout.scss';
 
-  .select.ui.dropdown {
-      min-height: 2.71428571em;
-      height: auto;
-  }
   .push_down {
     margin-bottom: 30px;
   }

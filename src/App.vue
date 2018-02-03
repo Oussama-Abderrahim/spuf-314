@@ -64,7 +64,6 @@
         // update direction
         if (i > this.prev) this.slideDirection = 'slide-down'
         else this.slideDirection = 'slide-up'
-        this.hideSideBar()
         // change page
         setTimeout(() => {
           this.index = i
