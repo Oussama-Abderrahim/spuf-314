@@ -1,0 +1,17 @@
+<h1>Ask for direction</h1>
+
+<form action="/api/direction" method="GET">
+    <input type="text" name="start" placeholder="start station">
+    <input type="text" name="end" placeholder="end station">
+    <input type="submit" value="Show me da wey">
+</form>
+
+<%if(steps) { %>
+    <h1>Directions </h1>
+
+    <ul>
+        <% steps.forEach(step => { %>
+            <li><%=step.name%></li>
+        <%}) %>
+    </ul>
+<% } %>

@@ -11,9 +11,8 @@ var getDirection = function(start, end, callback){
                 WHERE (A)-[]-(startA) and (endB)-[]-(B)
                 Match p = ShortestPath((startA)-[:Segment*]-(endB)) return A,p,B;`)
         .then((result) => {
-            console.log(result)
             session.close();
-            callback(result)
+            callback(result.records)
         }).catch(err => console.log(err))
 }
 
