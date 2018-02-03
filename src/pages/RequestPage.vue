@@ -1,9 +1,9 @@
 <template>
   <div id="request">
 
-    <form class="request-form" @submit.prevent="getPath" action='#' method="GET">
+    <form class="request-form blurred-bg tinted" @submit.prevent="getPath" action='#' method="GET">
       <div class="ui grid fluid container">
-        <div class="blur"></div>
+        <!-- <div class="blur"></div> -->
         <!-- Left Form -->
         <div class="eight wide column">
           <section class="request-form-left ui massive form push_up">
@@ -94,10 +94,6 @@
       }
     },
     mounted () {
-      $('.ui.checkbox').checkbox();
-      $('.ui.dropdown').dropdown();
-      $('.ui.button.toggle').state();
-  ;
     },
     methods: {
       testClick (e) {
@@ -114,9 +110,9 @@
 
 <style lang="scss" scoped>
 
-$form-width: 65%;
-$form-height: 600px;
-
+$background: url("../assets/img/bg4.jpg");
+// $blurred-img: url("https://lh3.googleusercontent.com/-m8TxQMObg6c/U474EWu7Y9I/AAAAAAAAI2k/xkRGoIEC1iU/s1600/blur.jpg");
+$blurred-img: url("../assets/img/blur_bg.jpg");
 
   #request {
     position: absolute;
@@ -124,8 +120,9 @@ $form-height: 600px;
     left: 0;
     right: 0;
     bottom: 0;
-    background: url("../assets/img/bg4.jpg") no-repeat center center fixed;
+    background: $background no-repeat center center fixed;
     background-size: cover;
+    background-attachment: fixed;
 
     height: 100%;
     width: 100%;
@@ -134,49 +131,22 @@ $form-height: 600px;
     color: black;
   }
 
-  .blur {
-    background: url('../assets/img/bg4.jpg') no-repeat center center fixed;
+  .blurred-bg{
+    background-image:url($blurred-img);
+    background-repeat:no-repeat;
     background-size: cover;
-    overflow: hidden;
-    filter: blur(10px);
-    position: absolute;
-    height: $form-height;
-    width: $form-width;
-    margin: auto;
-    top: -150px;
-    left: -50px;
-    right: -50px;
-    bottom: -50px;
-  }
-
-  .request-form {
-    display: block;
-    padding: 10px;
-    width: 65%;
-    height: $form-height;
-    margin: 15vh auto;
-    border: 5px solid rgba(255, 255, 255, .5);
-
-    &-left {
-      //overflow: hidden;
-      height: $form-height;
-    }
-    &-right {
-      overflow: hidden;
-      position: relative;
-      height: $form-height;
-      margin: auto;
-    }
-    &-factors {
-      margin-top: 30px;
-      width:95%;
-    }
-    &-options {
-      .buttons {
-        // could add some 100% width or center .-.
-      }
+    background-attachment: fixed;
+    
+    &.tinted{
+      // background-image: $blurred-img;
+      background:$blurred-img, -webkit-linear-gradient(0deg, rgba(255,255,255,.2),rgba(255,255,255,.2));
+      background-repeat:no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
     }
   }
+
+  @import '../assets/css/form-layout.scss';
 
   .push_down {
     margin-bottom: 30px;
@@ -192,8 +162,6 @@ $form-height: 600px;
     align-items: center;
     justify-content: center;
   }
-
- 
 
   .map {
     overflow: hidden;

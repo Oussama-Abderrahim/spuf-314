@@ -82,6 +82,9 @@
     },
     mounted () {
       $("#sidebar").sidebar('setting', 'dimPage', 'false')
+      $('.ui.checkbox').checkbox();
+      $('.ui.dropdown').dropdown();
+      $('.ui.button.toggle').state();
     }
   }
 

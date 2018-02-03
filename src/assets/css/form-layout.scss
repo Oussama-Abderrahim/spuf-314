@@ -1,0 +1,30 @@
+$form-width: 65%;
+$form-height: 600px;
+
+.request-form {
+  display: block;
+  padding: 10px;
+  width: 65%;
+  height: $form-height;
+  margin: 15vh auto;
+  border: 5px solid rgba(255, 255, 255, .5);
+  &-left {
+    //overflow: hidden;
+    height: $form-height;
+  }
+  &-right {
+    overflow: hidden;
+    position: relative;
+    height: $form-height;
+    margin: auto;
+  }
+  &-factors {
+    margin-top: 30px;
+    width: 95%;
+  }
+  &-options {
+    .buttons {
+      // could add some 100% width or center .-.
+    }
+  }
+}

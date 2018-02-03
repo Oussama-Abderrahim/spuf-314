@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import WelcomePage from '@/pages/WelcomePage'
 import AboutPage from '@/pages/AboutPage'
 import RequestPage from '@/pages/RequestPage'
-import ResponsePage from '@/pages/Response'
+import ResponsePage from '@/pages/ResponsePage'
 import InfoPage from '@/pages/Info'
 import ErrorPage from '@/pages/ErrorPage'
 
