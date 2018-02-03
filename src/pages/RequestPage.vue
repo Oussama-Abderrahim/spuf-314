@@ -26,11 +26,11 @@
               <label class="push_down">Options:</label>
               <br><br>
               <div class="ui icon buttons">
-               <div class="ui big button"><i class="big bus icon"></i></div>
-               <div class="ui big button"><i class="big subway icon"></i></div>
-               <div class="ui big button"><i class="big male icon"></i></div>
-               <div class="ui big button"><i class="big child icon"></i></div>
-               <div class="ui big button"><i class="big handicap icon"></i></div>
+               <div class="ui toggle big active button"><i class="big bus icon"></i></div>
+               <div class="ui toggle big active button"><i class="big subway icon"></i></div>
+               <div class="ui toggle big active button"><i class="big male icon"></i></div>
+               <div class="ui toggle big button"><i class="big child icon"></i></div>
+               <div class="ui toggle big button"><i class="big handicap icon"></i></div>
               </div>
             </div>
 
@@ -38,47 +38,13 @@
             <div class="request-form-factors grouped fields">
               <br>
               <label class="push_down push_up">Facteurs:</label>
-              <br>
-              <!--<select name="skills" multiple="" class="ui fluid dropdown">
-              <option value="">Skills</option>
-              <option value="">Skills</option>
-              <option value="">Skills</option>
-              </select>
-              <div class="field">
-                <div class="ui huge slider checkbox">
-                  <input type="checkbox" name="time">
-                  <label for="time">Minimum de temps</label>
-                </div>
-              </div>
-
-              <div class="field">
-                <div class="ui huge slider checkbox">
-                  <input type="checkbox" name="walk" @click="nb += 1">
-                  <label for="walk">Minimum de changement</label>
-                </div>
-              </div>
-
-              <div class="field">
-                <div class="ui huge slider checkbox">
-                  <input type="checkbox" name="walk">
-                  <label for="walk">Minimum de marche</label>
-                </div>
-              </div>
-
-              <div class="field">
-                <div class="ui huge slider checkbox">
-                  <input type="checkbox" name="cost">
-                  <label for="cost">Minimum de dépense</label>
-                </div>
-              </div>-->
-
-              <select name="factors" multiple="" class="ui fluid dropdown">
-                <option value="">Minimum de temps</option>
-                <option value="angular">Minimum de dépense</option>
-                <option value="css">Minimum de marche</option>
-                <option value="design">Minimum de changement</option>
-              </select>
-
+              <br><br>
+                <select name="factors" class="ui fluid dropdown">
+                  <option value="min_temps">Minimum de temps</option>
+                  <option value="min_changement">Minimum de correspondance</option>
+                  <option value="min_depense">Minimum de dépense</option>
+                  <option value="min_marche">Minimum de marche</option>
+                </select>
             </div>
           </section>
         </div>
@@ -129,6 +95,9 @@
     },
     mounted () {
       $('.ui.checkbox').checkbox();
+      $('.ui.dropdown').dropdown();
+      $('.ui.button.toggle').state();
+  ;
     },
     methods: {
       testClick (e) {
@@ -147,6 +116,7 @@
 
 $form-width: 65%;
 $form-height: 600px;
+
 
   #request {
     position: absolute;
@@ -173,7 +143,7 @@ $form-height: 600px;
     height: $form-height;
     width: $form-width;
     margin: auto;
-    top: -15px;
+    top: -150px;
     left: -50px;
     right: -50px;
     bottom: -50px;
@@ -188,7 +158,7 @@ $form-height: 600px;
     border: 5px solid rgba(255, 255, 255, .5);
 
     &-left {
-      overflow: hidden;
+      //overflow: hidden;
       height: $form-height;
     }
     &-right {
@@ -199,6 +169,7 @@ $form-height: 600px;
     }
     &-factors {
       margin-top: 30px;
+      width:95%;
     }
     &-options {
       .buttons {
@@ -221,6 +192,8 @@ $form-height: 600px;
     align-items: center;
     justify-content: center;
   }
+
+ 
 
   .map {
     overflow: hidden;
