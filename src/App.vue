@@ -4,9 +4,8 @@
     <sidebar id="sidebar"></sidebar>
     <div class="pusher">
       <transition :name="slideDirection">
-        <router-view  @click.native="hideSideBar"></router-view>
+        <router-view></router-view>
       </transition>
-
 
       <ul class="timeline-nav">
         <li class="timeline-nav-link" v-for="(page,i) in pages" :key="i" @click.prevent="goto(i)">
@@ -36,7 +35,6 @@
         prev: 0,
         pages: ['welcome', 'request', 'response', 'info', 'about'],
         slideDirection: 'slide-down', // The slide transition name we'll use ( up/down )
-        sideBarOn: false
       }
     },
     computed: {

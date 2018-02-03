@@ -101,7 +101,7 @@
       },
       getPath (event) {
         console.log("Push")
-        this.router.push("response")
+        // this.router.push("response")
       }
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <div id="request">
+  <div id="response">
 
     <form class="request-form blurred-bg tinted" @submit.prevent="getPath" action='#' method="GET">
       <div class="ui grid fluid container">
@@ -129,7 +129,7 @@
   $blurred-img: url("../assets/img/blur_bg.jpg");
 
 
-  #request {
+  #response {
     position: absolute;
     top: 0;
     left: 0;
@@ -165,6 +165,10 @@
  
   @import '../assets/css/form-layout.scss';
 
+  .select.ui.dropdown {
+      min-height: 2.71428571em;
+      height: auto;
+  }
   .push_down {
     margin-bottom: 30px;
   }
