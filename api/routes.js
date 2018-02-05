@@ -20,7 +20,10 @@ routes.route('/direction').get((req, res)=>{
     //TODO : check params 
     if(req.query.start && req.query.end){
         PathFinder.getPath(req.query.start, req.query.end, (result)=>{
-            res.render("direction", {steps: result})
+            if(req.query.format && req.query.format == "JSON")
+                res.json(result)
+            else
+                res.render("direction", {steps: result})
         });
     } else {
         res.render("direction", {steps: null})
