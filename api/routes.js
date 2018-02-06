@@ -12,7 +12,10 @@ routes.route('/').get((req, res) => {
 
 routes.route('/station').get((req, res) => {
     DatabaseManager.getAllStations((stations)=>{
-        res.render("stations", {stations})
+        if(req.query.format == "JSON")
+            res.json(stations)
+        else
+            res.render("stations", {stations})
     });
 });
 
