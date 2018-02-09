@@ -6,10 +6,9 @@ var session = driver.session();
 
 var getDirection = function(start, end, callback){
     session
-        .run(`MATCH(A:Station {name:"${start}"}), (B:Station {name:"${end}"}),
-                (startA:Station), (endB:Station)
-                WHERE (A)-[]-(startA) and (endB)-[]-(B)
-                Match p = ShortestPath((startA)-[:Segment*]-(endB)) return A,p,B;`)
+        .run(`MATCH 
+                p = AllShortestPaths((A:Station {name:"${start}"})-[:Segment*..5]->(B:Station {name:"${end}"}))
+                return NODES(p);`)
         .then((result) => {
             session.close();
             callback(result.records)
