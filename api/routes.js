@@ -12,10 +12,7 @@ routes.route('/').get((req, res) => {
 
 routes.route('/station').get((req, res) => {
     DatabaseManager.getAllStations((stations)=>{
-        if(req.query.format == "JSON")
             res.json(stations)
-        else
-            res.render("stations", {stations})
     });
 });
 
@@ -23,13 +20,11 @@ routes.route('/direction').get((req, res)=>{
     //TODO : check params 
     if(req.query.start && req.query.end){
         PathFinder.getPath(req.query.start, req.query.end, (result)=>{
-            if(req.query.format && req.query.format == "JSON")
                 res.json(result)
-            else
-                res.render("direction", {steps: result})
         });
     } else {
-        res.render("direction", {steps: null})
+        res.json({})
     }
 });
+
 module.exports = routes;

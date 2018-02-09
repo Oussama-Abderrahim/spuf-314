@@ -42,3 +42,30 @@ app.get("/", (request, response) => {
 app.post("/", (request, response) => {
     response.json("")
 });
+
+var DatabaseManager = require("./api/modules/DatabaseManager");
+var PathFinder = require("./api/modules/PathFinder")
+
+app.get("/user", (req,res)=>{
+    res.render("user")
+})
+
+app.get('/station', (req, res)=> {
+    DatabaseManager.getAllStations((stations)=>{
+        res.render("stations", {stations})
+    });
+});
+
+app.get('/direction', (req, res)=> {
+    //TODO : check params 
+    DatabaseManager.getAllStations((stations)=>{
+        if(req.query.start && req.query.end){
+            PathFinder.getPath(req.query.start, req.query.end, (result)=>{
+                res.render("direction", {steps: result, stations})
+            });
+        } else {
+            res.render("direction", {steps: null, stations})
+        }
+    })
+});
+

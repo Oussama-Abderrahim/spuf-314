@@ -1,8 +1,16 @@
 <h1>Ask for direction</h1>
 
-<form action="/api/direction" method="GET">
-    <input type="text" name="start" placeholder="start station">
-    <input type="text" name="end" placeholder="end station">
+<form action="/direction" method="GET">
+    <select name="start" id="start">
+        <%stations.forEach(station => { %>
+            <option value="<%=station.name%>"><%=station.name%></option>
+        <% })%>
+    </select>
+    <select name="end" id="end">
+        <% stations.forEach(station => { %>
+            <option value='<%=station.name%>'> <%=station.name%> </option>
+        <% })%>
+    </select>
     <input type="submit" value="Trouver chemin">
 </form>
 
