@@ -6,10 +6,13 @@ var session = driver.session();
 
 var getDirection = function(params, callback){
 
+    var transports = `["BusSegment","TramSegment","Walk"]`;
+
     session
-        .run(`MATCH 
-                p = AllShortestPaths((A:Station {name:"${params.start}"})-[:Segment*..5]->(B:Station {name:"${params.end}"}))
-                return NODES(p);`)
+        .run(`MATCH p = AllShortestPaths((A:Station)-[*..20]->(B:Station))
+                WHERE A.name = "${params.start}" AND B.name = "${params.end}"
+                AND ALL(rel IN relationships(p) WHERE type(rel) IN ${transports})
+                return NODES(p), RELATIONSHIPS(p)`)
         .then((result) => {
             session.close();
             callback(result.records)
