@@ -94,6 +94,10 @@
       }
     },
     mounted () {
+      $("#sidebar").sidebar('setting', 'dimPage', 'false')
+      $('.ui.checkbox').checkbox();
+      $('.ui.dropdown').dropdown();
+      $('.ui.button.toggle').state();
     },
     methods: {
       testClick (e) {
@@ -127,26 +131,6 @@ $blurred-img: url("../assets/img/blur_bg.jpg");
     background-attachment: fixed;
   }
 
-  // .blurred-bg {
-  //   position: relative;
-  //   &:before {
-  //     content:'';
-  //     position:absolute;
-  //     z-index: 0;
-  //     top:0;
-  //     left:0;
-  //     bottom:0;
-  //     right:0;
-  //     background :$background fixed center;
-  //     -webkit-filter: blur(14px);
-  //     -moz-filter: blur(14px);
-  //     -ms-filter: blur(4px);
-  //     -o-filter: blur(14px);
-  //     filter: blur(14px);
-  //     background-size:100vw auto;
-  //     box-shadow:inset 0 0 0 50vw rgba(255,255,255,0.2)
-  //   }
-  // }
   .blurred-bg {
     background :url($blurred-img) fixed center;
     background-repeat:no-repeat;
