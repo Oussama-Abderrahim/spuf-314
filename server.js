@@ -8,6 +8,7 @@ require('dotenv').config();
 const helmet = require('helmet');
 const express = require("express");
 const bodyParser = require('body-parser');
+const request = require('request');
 const cors = require('cors');
 
 const app = express();
@@ -43,29 +44,29 @@ app.post("/", (request, response) => {
     response.json("")
 });
 
-var DatabaseManager = require("./api/modules/DatabaseManager");
-var PathFinder = require("./api/modules/PathFinder")
-
 app.get("/user", (req,res)=>{
     res.render("user")
 })
 
-app.get('/station', (req, res)=> {
-    DatabaseManager.getAllStations((stations)=>{
-        res.render("stations", {stations})
+app.get('/station', (req, response)=> {
+    request('https://project314.herokuapp.com/api/station', { json: true }, (err, res, body) => {
+        response.render("stations", {stations: res.body})
     });
 });
 
-app.get('/direction', (req, res)=> {
-    //TODO : check params 
-    DatabaseManager.getAllStations((stations)=>{
-        if(req.query.start && req.query.end){
-            PathFinder.getPath(req.query.start, req.query.end, (result)=>{
-                res.render("direction", {steps: result, stations})
-            });
+app.get('/direction', (req, response)=> {
+    request('https://project314.herokuapp.com/api/station', { json: true }, (err, res, body) => {
+        if (err) { return console.log(err); }
+        var stations = res.body;
+        if(req.query.start && req.query.end) {
+            request(`https://project314.herokuapp.com/api/direction?start=${req.query.start}&end=${req.query.end}`, {json: true}, (err, res2, body) => {
+                if (err) { return console.log(err); }    
+                var steps = res2.body;
+                response.render("direction", {steps, stations})
+            })
         } else {
-            res.render("direction", {steps: null, stations})
+            response.render("direction", {steps: [], stations})
         }
-    })
+    });
 });
 
