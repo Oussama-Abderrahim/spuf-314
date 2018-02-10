@@ -11,6 +11,8 @@
             <option value='<%=station.name%>'> <%=station.name%> </option>
         <% })%>
     </select>
+    <label for="tram">Include tramway</label>
+    <input type="checkbox" name="tram" id="tram">
     <input type="submit" value="Trouver chemin">
 </form>
 
@@ -23,3 +25,6 @@
         <%}) %>
     </ul>
 <% } %>
+
+
+<a href="/user">Back</a>

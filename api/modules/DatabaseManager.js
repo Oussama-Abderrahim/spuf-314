@@ -4,10 +4,11 @@ const neo4j = require('neo4j-driver').v1;
 var driver = neo4j.driver(process.env.NEO4J_URL, neo4j.auth.basic(process.env.NEO4J_USER, process.env.NEO4J_PASSWORD));
 var session = driver.session();
 
-var getDirection = function(start, end, callback){
+var getDirection = function(params, callback){
+
     session
         .run(`MATCH 
-                p = AllShortestPaths((A:Station {name:"${start}"})-[:Segment*..5]->(B:Station {name:"${end}"}))
+                p = AllShortestPaths((A:Station {name:"${params.start}"})-[:Segment*..5]->(B:Station {name:"${params.end}"}))
                 return NODES(p);`)
         .then((result) => {
             session.close();

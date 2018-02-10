@@ -1,8 +1,9 @@
 var DatabaseManager = require("./DatabaseManager");
 
 
-var getPath = function(start, end, callback){
-    DatabaseManager.getDirection(start, end, (result)=>{
+var getPath = function(params, callback){
+
+    DatabaseManager.getDirection(params, (result)=>{
         var steps = []
         
         result[0]._fields[0].forEach(station => {

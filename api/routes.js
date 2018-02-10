@@ -19,7 +19,14 @@ routes.route('/station').get((req, res) => {
 routes.route('/direction').get((req, res)=>{
     //TODO : check params 
     if(req.query.start && req.query.end){
-        PathFinder.getPath(req.query.start, req.query.end, (result)=>{
+        var params = {
+            start : req.query.start,
+            end: req.query.end,
+            options : {
+                tram : (req.query.tram)? true: false
+            }
+        }
+        PathFinder.getPath(params, (result)=>{
                 res.json(result)
         });
     } else {
