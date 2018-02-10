@@ -136,7 +136,7 @@
     right: 0;
     bottom: 0;
 
-    background: $background no-repeat center center fixed;
+    background: $background no-repeat;
     background-size: cover;
 
     height: 100%;
@@ -148,13 +148,13 @@
 
 
   .blurred-bg {
-    background-image: url($blurred-img);
+    background-image: $blurred-img;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
 
     &.tinted {
-      // background-image: $blurred-img;
+      // background-image: $blurred-img
       background: $blurred-img, -webkit-linear-gradient(0deg, rgba(255, 255, 255, .2), rgba(255, 255, 255, .2));
       background-repeat: no-repeat;
       background-size: cover;

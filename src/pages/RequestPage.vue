@@ -120,27 +120,45 @@ $blurred-img: url("../assets/img/blur_bg.jpg");
     left: 0;
     right: 0;
     bottom: 0;
-    background: $background no-repeat center center fixed;
-    background-size: cover;
-    background-attachment: fixed;
-
-    height: 100%;
-    width: 100%;
-    margin: auto;
-
+    display:flex;
     color: black;
+    background: $background no-repeat;
+    background-size:cover;
+    background-attachment: fixed;
   }
 
-  .blurred-bg{
-    background-image:url($blurred-img);
+  // .blurred-bg {
+  //   position: relative;
+  //   &:before {
+  //     content:'';
+  //     position:absolute;
+  //     z-index: 0;
+  //     top:0;
+  //     left:0;
+  //     bottom:0;
+  //     right:0;
+  //     background :$background fixed center;
+  //     -webkit-filter: blur(14px);
+  //     -moz-filter: blur(14px);
+  //     -ms-filter: blur(4px);
+  //     -o-filter: blur(14px);
+  //     filter: blur(14px);
+  //     background-size:100vw auto;
+  //     box-shadow:inset 0 0 0 50vw rgba(255,255,255,0.2)
+  //   }
+  // }
+  .blurred-bg {
+    background :url($blurred-img) fixed center;
     background-repeat:no-repeat;
-    background-size: cover;
+    background-size:100vw auto;
+    background-position: fixed;
     background-attachment: fixed;
     
     &.tinted{
       // background-image: $blurred-img;
-      background:$blurred-img, -webkit-linear-gradient(0deg, rgba(255,255,255,.2),rgba(255,255,255,.2));
+      background:$blurred-img, -webkit-linear-gradient(0deg, rgba(255,255,255,.2),rgba(255,255,255,.2)) fixed center;
       background-repeat:no-repeat;
+      background-position: fixed;
       background-size: cover;
       background-attachment: fixed;
     }
@@ -150,7 +168,7 @@ $blurred-img: url("../assets/img/blur_bg.jpg");
 
  #request.select.ui.dropdown {
       min-height: 2.71428571em;
-      height: auto;
+      height: auto !important;
   }
   .push_down {
     margin-bottom: 30px;
