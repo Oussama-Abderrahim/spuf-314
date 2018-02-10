@@ -14,64 +14,20 @@
           </h1>
 
           <scrollbar>
-            <div class="ui steps vertical force-overflow">
+            <ul class="ui steps vertical force-overflow">
 
-              <div class="completed step">
-                <i class="icon"></i>
-                <div class="content">
-                  <i class="big bus icon right floated"></i>
-                  <div class="title">Prendre ce chemin</div>
-                  <div class="description">400m , 20DA , 5minutes</div>
+              <li class="step" v-for='(step,i) in steps' :key='i'>
+                <div class="content step-content">
+                  <i class="big icon left floated" :class="step.type"></i>
+                  <div class="step-text">
+                    <div class="title">{{step.name}}</div>
+                    <div class="description">{{step.dist}}m , {{step.price}}Da, {{step.time}} minutes</div>
+                  </div>
                 </div>
-              </div>
+                <!-- <i class="icon right floated"></i> -->
+              </li>
 
-              <div class="completed step">
-                <i class="icon"></i>
-                <div class="content">
-                  <i class="ui floated right big bus icon"></i>
-                  <div class="title">Prendre ce chemin</div>
-                  <div class="description">400m , 20DA , 5minutes</div>
-                </div>
-              </div>
-
-              <div class="step">
-                <i class="icon"></i>
-                <div class="content">
-                  <i class="big subway icon On_Right"></i>
-                  <div class="title">Prendre ce chemin</div>
-                  <div class="description">400m , 40DA , 2minutes</div>
-                </div>
-              </div>
-
-              <div class="step">
-                <i class="icon"></i>
-                <div class="content">
-                  <i class="big bus icon On_Right"></i>
-                  <div class="title">Prendre ce chemin</div>
-                  <div class="description">400m , 20DA , 5minutes</div>
-                </div>
-              </div>
-
-              <div class="step">
-                <i class="icon"></i>
-                <div class="content">
-                  <i class="big male icon On_Right"></i>
-                  <div class="title">Prendre ce chemin</div>
-                  <div class="description">400m , 10minutes</div>
-                </div>
-              </div>
-
-              <div class="step">
-                <i class="icon"></i>
-                <div class="content">
-                  <i class="big bus icon"></i>
-                  <div class="title">Prendre ce chemin</div>
-                  <div class="description">400m , 20DA , 5minutes</div>
-                </div>
-              </div>
-
-
-            </div>
+            </ul>
 
           </scrollbar>
         </div>
@@ -110,7 +66,43 @@
     },
     data() {
       return {
-        // put variables here
+        steps : [
+          {
+            name : "Prendre Bus 11 pour 3 arrets",
+            type: "bus",
+            time: 5,
+            price: 20,
+            dist: 200
+          },
+          {
+            name : "Marcher jusqu'à arret12",
+            type: "male",
+            time: 5,
+            price: 0,
+            dist: 200
+          },
+          {
+            name : "Tramway pour 6 arrets",
+            type: "train",
+            time: 15,
+            price: 40,
+            dist: 850
+          },
+          {
+            name : "Take a break",
+            type: "male",
+            time: 5,
+            price: 0,
+            dist: 0
+          },
+          {
+            name : "Marcher jusqu'a votre destination",
+            type: "male",
+            time: 5,
+            price: 0,
+            dist: 200
+          }
+        ]
       }
     },
     methods: {
@@ -182,6 +174,33 @@
 
   .steps {
     width: 100%;
+    padding: 0;
+  }
+
+  .step {
+    display: block;
+    padding: 10px 0;
+    height: 100%;
+  
+    &:hover {
+      background-color: #eee;
+    }
+  }
+
+  .step-content {
+    display: flex;
+
+    .step-text {
+      display: flex;
+      flex-direction: column;
+      margin-left: 20px;
+    }
+
+    i.icon {
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+    }
   }
 
   .map {

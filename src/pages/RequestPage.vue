@@ -24,13 +24,24 @@
             <!-- CHAMP OPTIONS -->
             <div class="request-form-options">
               <label class="push_down">Options:</label>
-              <br><br>
+              <br>
+              <br>
               <div class="ui icon buttons">
-               <div class="ui toggle big active button"><i class="big bus icon"></i></div>
-               <div class="ui toggle big active button"><i class="big subway icon"></i></div>
-               <div class="ui toggle big active button"><i class="big male icon"></i></div>
-               <div class="ui toggle big button"><i class="big child icon"></i></div>
-               <div class="ui toggle big button"><i class="big handicap icon"></i></div>
+                <div class="ui toggle big active button">
+                  <i class="big bus icon"></i>
+                </div>
+                <div class="ui toggle big active button">
+                  <i class="big subway icon"></i>
+                </div>
+                <div class="ui toggle big active button">
+                  <i class="big male icon"></i>
+                </div>
+                <div class="ui toggle big button">
+                  <i class="big child icon"></i>
+                </div>
+                <div class="ui toggle big button">
+                  <i class="big handicap icon"></i>
+                </div>
               </div>
             </div>
 
@@ -38,13 +49,14 @@
             <div class="request-form-factors grouped fields">
               <br>
               <label class="push_down push_up">Facteurs:</label>
-              <br><br>
-                <select name="factors" class="ui fluid dropdown">
-                  <option value="min_temps">Minimum de temps</option>
-                  <option value="min_changement">Minimum de correspondance</option>
-                  <option value="min_depense">Minimum de dépense</option>
-                  <option value="min_marche">Minimum de marche</option>
-                </select>
+              <br>
+              <br>
+              <select name="factors" class="ui fluid dropdown">
+                <option value="min_temps">Minimum de temps</option>
+                <option value="min_changement">Minimum de correspondance</option>
+                <option value="min_depense">Minimum de dépense</option>
+                <option value="min_marche">Minimum de marche</option>
+              </select>
             </div>
           </section>
         </div>
@@ -93,17 +105,17 @@
         }
       }
     },
-    mounted () {
+    mounted() {
       $("#sidebar").sidebar('setting', 'dimPage', 'false')
       $('.ui.checkbox').checkbox();
       $('.ui.dropdown').dropdown();
       $('.ui.button.toggle').state();
     },
     methods: {
-      testClick (e) {
+      testClick(e) {
         console.log("click")
       },
-      getPath (event) {
+      getPath(event) {
         console.log("Push")
         // this.router.push("response")
       }
@@ -113,10 +125,9 @@
 </script>
 
 <style lang="scss" scoped>
-
-$background: url("../assets/img/bg4.jpg");
-// $blurred-img: url("https://lh3.googleusercontent.com/-m8TxQMObg6c/U474EWu7Y9I/AAAAAAAAI2k/xkRGoIEC1iU/s1600/blur.jpg");
-$blurred-img: url("../assets/img/blur_bg.jpg");
+  $background: url("../assets/img/bg4.jpg");
+  // $blurred-img: url("https://lh3.googleusercontent.com/-m8TxQMObg6c/U474EWu7Y9I/AAAAAAAAI2k/xkRGoIEC1iU/s1600/blur.jpg");
+  $blurred-img: url("../assets/img/blur_bg.jpg");
 
   #request {
     position: absolute;
@@ -124,24 +135,24 @@ $blurred-img: url("../assets/img/blur_bg.jpg");
     left: 0;
     right: 0;
     bottom: 0;
-    display:flex;
+    display: flex;
     color: black;
     background: $background no-repeat;
-    background-size:cover;
+    background-size: cover;
     background-attachment: fixed;
   }
 
   .blurred-bg {
-    background :url($blurred-img) fixed center;
-    background-repeat:no-repeat;
-    background-size:100vw auto;
+    background: url($blurred-img) fixed center;
+    background-repeat: no-repeat;
+    background-size: 100vw auto;
     background-position: fixed;
     background-attachment: fixed;
-    
-    &.tinted{
+
+    &.tinted {
       // background-image: $blurred-img;
-      background:$blurred-img, -webkit-linear-gradient(0deg, rgba(255,255,255,.2),rgba(255,255,255,.2)) fixed center;
-      background-repeat:no-repeat;
+      background: $blurred-img, -webkit-linear-gradient(0deg, rgba(255, 255, 255, .2), rgba(255, 255, 255, .2)) fixed center;
+      background-repeat: no-repeat;
       background-position: fixed;
       background-size: cover;
       background-attachment: fixed;
@@ -150,10 +161,6 @@ $blurred-img: url("../assets/img/blur_bg.jpg");
 
   @import '../assets/css/form-layout.scss';
 
- #request.select.ui.dropdown {
-      min-height: 2.71428571em;
-      height: auto !important;
-  }
   .push_down {
     margin-bottom: 30px;
   }

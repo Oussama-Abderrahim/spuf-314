@@ -1,6 +1,6 @@
 <template>
   <div class ="scrollbar">
-      <slot class="force-overflow"></slot>
+      <slot :class="force-overflow"></slot>
   </div>
 </template>
 
