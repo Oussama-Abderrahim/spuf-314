@@ -8,7 +8,7 @@ require('dotenv').config();
 const helmet = require('helmet');
 const express = require("express");
 const bodyParser = require('body-parser');
-const request = require('request');
+const request = require('request-promise');
 const cors = require('cors');
 
 const app = express();
@@ -49,24 +49,43 @@ app.get("/user", (req,res)=>{
 })
 
 app.get('/station', (req, response)=> {
-    request('https://project314.herokuapp.com/api/station', { json: true }, (err, res, body) => {
-        response.render("stations", {stations: res.body})
-    });
+
+    var options = {
+        uri: 'https://project314.herokuapp.com/api/station',
+        headers: {
+            'User-Agent': 'Request-Promise'
+        },
+        json: true // Automatically parses the JSON string in the response
+    };
+    
+    request(options)
+        .then(function (stations) {
+            response.render("stations", {stations})
+        })
+        .catch(err => console.log(err))
 });
 
 app.get('/direction', (req, response)=> {
-    request('https://project314.herokuapp.com/api/station', { json: true }, (err, res, body) => {
-        if (err) { return console.log(err); }
-        var stations = res.body;
-        if(req.query.start && req.query.end) {
-            request(`https://project314.herokuapp.com/api/direction?start=${req.query.start}&end=${req.query.end}`, {json: true}, (err, res2, body) => {
-                if (err) { return console.log(err); }    
-                var steps = res2.body;
-                response.render("direction", {steps, stations})
-            })
-        } else {
-            response.render("direction", {steps: [], stations})
-        }
-    });
+
+    request({url:'https://project314.herokuapp.com/api/station', json:true})
+        .then((stations)=>{
+            /// TODO: add validator
+            if(req.query.start, req.query.end){
+                request({url:`https://project314.herokuapp.com/api/direction?start=${req.query.start}&end=${req.query.end}`, json:true})
+                .then((steps) => {
+                    response.render("direction", {steps, stations})
+                })
+                .catch(err => {
+                    console.log(err)
+                    response.render("direction", {steps: [], stations})
+                })
+            } else {
+                response.render("direction", {steps: [], stations})
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            response.send(error)
+        })
 });
 
