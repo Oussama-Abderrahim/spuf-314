@@ -71,7 +71,11 @@ app.get('/direction', (req, response)=> {
         .then((stations)=>{
             /// TODO: add validator
             if(req.query.start, req.query.end){
-                request({url:`https://project314.herokuapp.com/api/direction?start=${req.query.start}&end=${req.query.end}`, json:true})
+                var transports = "";
+                if(req.query.bus == "on") transports += "bus=on&"
+                if(req.query.tram == "on") transports += "tram=on&"
+                if(req.query.walk == "on") transports += "walk=on&"
+                request({url:`https://project314.herokuapp.com/api/direction?start=${req.query.start}&end=${req.query.end}&${transports}`, json:true})
                 .then((steps) => {
                     response.render("direction", {steps, stations})
                 })

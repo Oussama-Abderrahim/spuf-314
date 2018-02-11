@@ -20,10 +20,12 @@ routes.route('/direction').get((req, res)=>{
     //TODO : check params 
     if(req.query.start && req.query.end){
         var params = {
-            start : req.query.start,
+            start: req.query.start,
             end: req.query.end,
-            options : {
-                tram : (req.query.tram)? true: false
+            transport: {
+                bus: (req.query.bus)? true: false,
+                tram: (req.query.tram)? true: false,
+                walk: (req.query.walk)? true: false
             }
         }
         PathFinder.getPath(params, (result)=>{

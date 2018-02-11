@@ -1,9 +1,20 @@
-<h1>Stations</h1>
-
-<ul>
-    <% stations.forEach((station)=>{ %>
-        <li><%=station.name%></li>
-    <% }) %>
-</ul>
-
-<a href="/user">Back</a>
+<!DOCTYPE HTML>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<title>Index</title>
+		
+		<link rel="stylesheet" href="/css/app.css">
+	</head>
+	<body>
+		<h1>Public Transit App SPUF</h1>
+		<h1>Stations</h1>
+		<ul>
+			<% stations.forEach((station)=>{ %>
+			<li><%=station.name%></li>
+			<% }) %>
+		</ul>
+		<a href="/user">Back</a>
+	</body>
+	<script src="/js/index.js"></script>
+</html>

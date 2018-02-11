@@ -1,30 +1,47 @@
-<h1>Ask for direction</h1>
-
-<form action="/direction" method="GET">
-    <select name="start" id="start">
-        <%stations.forEach(station => { %>
-            <option value="<%=station.name%>"><%=station.name%></option>
-        <% })%>
-    </select>
-    <select name="end" id="end">
-        <% stations.forEach(station => { %>
-            <option value='<%=station.name%>'> <%=station.name%> </option>
-        <% })%>
-    </select>
-    <label for="tram">Include tramway</label>
-    <input type="checkbox" name="tram" id="tram">
-    <input type="submit" value="Trouver chemin">
-</form>
-
-<%if(steps) { %>
-    <h1>Directions </h1>
-
-    <ul>
-        <% steps.forEach(step => { %>
+<!DOCTYPE HTML>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Index</title>
+        
+        <link rel="stylesheet" href="/css/app.css">
+    </head>
+    <body>
+        <h1>Public Transit App SPUF</h1>
+        <h1>Ask for direction</h1>
+        <form action="/direction" method="GET">
+            <label for="start">Start Station :</label>
+            <select name="start" id="start">
+                <%stations.forEach(station => { %>
+                <option value="<%=station.name%>"><%=station.name%></option>
+                <% })%>
+            </select>
+            <br>
+            <label for="End">Destination Station :</label>
+            <select name="end" id="end">
+                <% stations.forEach(station => { %>
+                <option value='<%=station.name%>'> <%=station.name%> </option>
+                <% })%>
+            </select>
+            <br>
+            <label for="bus">Include Buses</label>
+            <input type="checkbox" name="bus" id="bus">
+            <label for="tram">Include Buses</label>
+            <input type="checkbox" name="tram" id="tram">
+            <label for="walk">Include walking</label>
+            <input type="checkbox" name="walk" id="walk">
+            <br>
+            <input type="submit" value="Trouver chemin">
+        </form>
+        <%if(steps) { %>
+        <h1>Directions </h1>
+        <ul>
+            <% steps.forEach(step => { %>
             <li><%=step.name%></li>
-        <%}) %>
-    </ul>
-<% } %>
-
-
-<a href="/user">Back</a>
+            <%}) %>
+        </ul>
+        <% } %>
+        <a href="/user">Back</a>
+    </body>
+    <script src="/js/index.js"></script>
+</html>
