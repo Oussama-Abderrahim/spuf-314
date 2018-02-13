@@ -36,7 +36,7 @@
         <div class="eight wide column">
           <div class="request-form-right">
             <div class="map">
-              <google-map name="example" class="google-map"></google-map>
+              <google-map name="response" class="google-map"></google-map>
             </div>
             <div class="center-button">
               <button class="ui huge brown button" type="submit">Avoir le chemin</button>

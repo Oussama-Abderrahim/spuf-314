@@ -69,7 +69,7 @@
               <div class="ui text loader">Loading</div>
             </div> -->
             <div class="map container">
-              <google-map name="example" class="google-map"></google-map>
+              <google-map name="request" class="google-map"></google-map>
             </div>
             <div class="center-button">
               <button type="submit" class="ui huge brown button">Avoir le Chemin</button>
