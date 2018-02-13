@@ -76,15 +76,15 @@ app.get('/direction', (req, response)=> {
                 if(req.query.tram == "on") transports += "tram=on&"
                 if(req.query.walk == "on") transports += "walk=on&"
                 request({url:`https://project314.herokuapp.com/api/direction?start=${req.query.start}&end=${req.query.end}&${transports}`, json:true})
-                .then((steps) => {
-                    response.render("direction", {steps, stations})
+                .then((paths) => {
+                    response.render("direction", {paths, stations})
                 })
                 .catch(err => {
                     console.log(err)
-                    response.render("direction", {steps: [], stations})
+                    response.render("direction", {paths: [], stations})
                 })
             } else {
-                response.render("direction", {steps: [], stations})
+                response.render("direction", {paths: [], stations})
             }
         })
         .catch(err => {
