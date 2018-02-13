@@ -1,25 +1,16 @@
 class Step {
-    constructor(sourceStation, destStation, price, dist, type, name = "") {
-        this.from = {
-            name = sourceStation.name,
-            coords: {
-                lat: sourceStation.coords[0],
-                lon: sourceStation.coords[1]
-            }
-        }
+    constructor(sourceStation, destStation, price, dist, time, type, name = "") {
+        this.from = sourceStation
 
-        this.to = {
-            name = destStation.name,
-            coords: {
-                lat: destStation.coords[0],
-                lon: destStation.coords[1]
-            }
-        }
+        this.to = destStation
 
         this.price = price
         this.dist = dist
+        this.time = time
         this.type = type
         this.name = name
     }
    
 }
+
+module.exports = Step
