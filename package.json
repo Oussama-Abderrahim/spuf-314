@@ -11,10 +11,13 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "beautify": "0.0.8",
     "jquery": "^3.3.1",
     "semantic-ui": "^2.2.13",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-resource": "^1.4.0",
+    "vue-router": "^3.0.1",
+    "vuetify": "^1.0.5"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
