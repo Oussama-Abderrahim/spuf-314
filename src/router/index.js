@@ -6,7 +6,7 @@ import RequestPage from '@/pages/RequestPage'
 import ResponsePage from '@/pages/ResponsePage'
 import InfoPage from '@/pages/Info'
 import ErrorPage from '@/pages/ErrorPage'
-import AdminPage from '@/pages/AdminPage'
+import AdminPage from '@/pages/adminDashboard/AdminPage'
 
 Vue.use(Router)
 
