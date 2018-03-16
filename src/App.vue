@@ -1,9 +1,9 @@
 <template>
   <v-app id="app">
 
-    <sidebar id="sidebar"></sidebar>
+    <sidebar></sidebar>
 
-    <v-content class="pusher">
+    <v-content>
 
       <v-container fluid fill-height>
         <transition :name="slideDirection">
@@ -24,7 +24,7 @@
     </v-content>
 
     <v-footer app>
-      <span>&copy; 2017</span>
+      <span>&copy; SPUF 2018</span>
     </v-footer>
 
   </v-app>
@@ -32,461 +32,66 @@
 
 <script>
   /* eslint-disable */
-
-
   import SideBar from './components/sideBar'
 
   export default {
 
     name: 'app',
-
-
-
-
     components: {
-
-
-
       'sidebar': SideBar
-
-
-
-
-
-
-
     },
-
-
-
-
-
-
-
     data() {
-
-
-
-
-
-
-
       return {
-
-
-
-
-
-
-
         prev: 0,
-
-
-
-
-
-
-
-        pages: ['welcome', 'request', 'response', 'info', 'about'],
-
-
-
-
-
-
-
+        pages: ['adminpage', 'request', 'response', 'info', 'about'],
         slideDirection: 'slide-down', // The slide transition name we'll use ( up/down )
-
-
-
-
-
-
-
       }
-
-
-
-
-
-
-
     },
-
-
-
-
-
-
-
     computed: {
-
-
-
-
-
-
-
       sideBarOn() {
-
-
-
-
-
-
-
         return false
-
-
-
-
-
-
-
       },
-
-
-
-
-
-
-
       index: {
-
-
-
-
-
-
-
         set(value) {
-
-
-
-
-
-
-
           if (this.index !== value) {
-
-
-
-
-
-
-
             this.goto(value)
-
-
-
-
-
-
-
           }
-
-
-
-
-
-
-
         },
-
-
-
-
-
-
-
         get() {
-
-
-
-
-
-
-
           var i = this.pages.indexOf(this.$route.path.substring(1))
-
-
-
-
-
-
-
           return (i > 0) ? i : 0
-
-
-
-
-
-
-
         }
-
-
-
-
-
-
-
       }
-
-
-
-
-
-
-
     },
-
-
-
-
-
-
-
     methods: {
-
-
-
-
-
-
-
       showSideBar() {
-
-
-
-
-
-
-
-        $('#sidebar').sidebar('toggle')
-
-
-
-
-
-
-
+        this.sidebar.drawer = true
       },
-
-
-
-
-
-
-
       goto(i) {
-
-
-
-
-
-
-
         // rotate index
-
-
-
-
-
-
-
         i = (i + this.pages.length) % this.pages.length
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         // update direction
-
-
-
-
-
-
-
         if (i > this.prev) this.slideDirection = 'slide-down'
-
-
-
-
-
-
-
         else this.slideDirection = 'slide-up'
-
-
-
-
-
-
-
         // change page
-
-
-
-
-
-
-
         setTimeout(() => {
-
-
-
-
-
-
-
           this.index = i
-
-
-
-
-
-
-
           this.prev = this.index
-
-
-
-
-
-
-
         }, 250)
-
-
-
-
-
-
-
       },
-
-
-
-
-
-
-
       slideUp() {
-
-
-
-
-
-
-
         this.goto(this.index - 1)
-
-
-
-
-
-
-
       },
-
-
-
-
-
-
-
       slideDown() {
-
-
-
-
-
-
-
         this.goto(this.index + 1)
-
-
-
-
-
-
-
       }
-
-
-
-
-
-
-
     },
-
-
-
-
-
-
-
     mounted() {
-
-
-
-
-
-
-
       $("#sidebar").sidebar('setting', 'dimPage', 'false')
-
-
-
-
-
-
-
       $('.ui.checkbox').checkbox();
-
-
-
-
-
-
-
       $('.ui.dropdown').dropdown();
-
-
-
-
-
-
-
       $('.ui.button.toggle').state();
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
   }
 
 </script>

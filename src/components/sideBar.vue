@@ -1,29 +1,40 @@
 <template>
-  <nav class="ui left demo vertical inverted sidebar labeled icon menu">
-    <a class="item">
-      <i class="home icon"></i>
-      Home
-    </a>
-    <a class="item">
-      <i class="block layout icon"></i>
-      Topics
-    </a>
-    <a class="item">
-      <i class="smile icon"></i>
-      Friends
-    </a>
-  </nav>
+  <v-navigation-drawer temporary floating fixed v-model="drawer" app dark>
+    <v-list dense>
+      <v-list-tile >
+        <v-list-tile-action>
+          <v-icon>dashboard</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>Dashboard</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile >
+        <v-list-tile-action>
+          <v-icon>settings</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>Settings</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+    </v-list>
+  </v-navigation-drawer>
 </template>
 
 
 
 <script>
-export default {
-
-}
+  export default {
+    data () {
+      return {
+        drawer: false
+      }
+    }
+  }
 </script>
 
 
 <style lang="scss" scoped>
+
 
 </style>
