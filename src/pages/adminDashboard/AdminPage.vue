@@ -7,19 +7,17 @@
 
             <v-card dark color="primary" class="bus-content">
               <v-card-text>BUS</v-card-text>
-              <v-btn color="purple" dark>Ajouter une nouvelle ligne
-                <v-icon dark right>arrow_left</v-icon>
-              </v-btn>
+                <v-btn fab dark large color="purple">
+                  <v-icon dark large>add</v-icon>
+                </v-btn>Ajouter une ligne
               <br>
-              <v-btn dark color="purple">
-                Modifier une ligne
-                <v-icon dark>/</v-icon>
-              </v-btn>
+                <v-btn fab dark large color="purple">
+                  <v-icon dark large>edit</v-icon>
+                </v-btn>Modifier une ligne
               <br>
-              <v-btn dark color="purple">
-                Le catalogue des bus
-                <v-icon dark>/</v-icon>
-              </v-btn>
+                <v-btn fab dark large color="purple">
+                  <v-icon dark large>directions_bus</v-icon>
+                </v-btn>Catalogue de bus
             </v-card>
 
         </v-flex>
@@ -27,21 +25,19 @@
         <v-flex d-flex xs7>
           <v-layout row wrap>
             <v-flex d-flex class="tram">
-
               <v-card dark color="tram-content">
                 <v-card-text>TRAM</v-card-text>
                 <v-btn fab dark large color="purple">
-                  <v-icon dark>/</v-icon>
+                  <v-icon dark large>tram</v-icon>
                 </v-btn>Gestion de Tram
               </v-card>
-
             </v-flex>
   
             <v-flex xs12 class="taxi">
               <v-card dark color="taxi-content">
                 <v-card-text>TAXI</v-card-text>
                 <v-btn fab dark large color="purple">
-                  <v-icon dark>/</v-icon>
+                  <v-icon dark large>local_taxi</v-icon>
                 </v-btn>Modifier la liste des taxis
               </v-card>
             </v-flex>
