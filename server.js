@@ -40,6 +40,8 @@ app.get("/", (request, response) => {
     response.render("index"); // render views/index
 });
 
+/* USER VIEWS */
+
 app.post("/", (request, response) => {
     response.json("")
 });
@@ -93,3 +95,24 @@ app.get('/direction', (req, response)=> {
         })
 });
 
+/* ADMIN VIEWS */
+app.get("/admin", (req,res)=>{
+    res.render("admin")
+})
+
+app.get('/admin/editstation', (req, response)=> {
+
+    var options = {
+        uri: 'https://project314.herokuapp.com/api/station',
+        headers: {
+            'User-Agent': 'Request-Promise'
+        },
+        json: true // Automatically parses the JSON string in the response
+    };
+    
+    request(options)
+        .then(function (stations) {
+            response.render("editstation", {stations})
+        })
+        .catch(err => console.log(err))
+});

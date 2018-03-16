@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Index</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.js"></script>
+        <link rel="stylesheet" href="/css/app.css">
+    </head>
+    <body>
+        <h1>Public Transit App SPUF</h1>
+        <h1>Edit station</h1>
+
+        <form action="#" method="PUT">
+            <label for="station">Station : </label>
+            <select class="ui search dropdown" id="stationSelect">
+                <option value="">Station</option>
+                <% stations.forEach(station => { %>
+                    <option value="<%=station.name%>"><%=station.name%></option>
+                <% }) %>
+            </select>
+        </form>
+    </body>
+    <script src="/js/editstation.js"></script>
+</html>
