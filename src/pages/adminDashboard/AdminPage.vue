@@ -1,5 +1,5 @@
 <template>
-  <v-content fluid fill-height>
+  <v-container fluid id="admin" fill-height>
     <v-container grid-list-xs align-center justify-center>
 
       <v-layout row>
@@ -51,38 +51,42 @@
       </v-layout>
       
     </v-container>
-  </v-content>
+  </v-container>
 </template>
 
 <script>
   /* eslint-disable */
   
   export default {
-  
     data() {
-  
       return {
-  
-  
-  
       }
-  
     }
-  
   }
   
   /*Name
-  
   icon
-  
   Default
-  
   false
-  
   Type*/
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
+  $background: url("../../assets/img/bg4.jpg"); 
+  $blurred-img: url("../../assets/img/blur_bg.jpg");
 
+  #admin {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 100%;
+    color: black;
+    background: $background no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
 
 </style>

@@ -10,19 +10,28 @@
             <section class="request-form-left ui massive form push_up">
               <v-layout row wrap>
                 <!-- CHAMP DEPART -->
-                <v-flex xs11 class="field push_up">
-                  <label for="depart">Départ</label>
-                  <input type="text" name="depart" v-model="query.depart" placeholder="Adresse de départ">
-                </v-flex>
-
-                <!-- CHAMP ARRIVEE -->
-                <v-flex xs11 class="field push_up">
-                  <label for="arrivee">Arrivée</label>
-                  <input type="text" name="arrivee" v-model="query.arrivee" placeholder="Adresse d'arrivée">
+                <v-flex xs11 class="field">
+                  <v-form>
+                    <v-text-field
+                      box
+                      name="depart"
+                      label="Départ"
+                      placeholder="Adresse de départ"
+                      v-model="query.depart"
+                    ></v-text-field>
+                  <!-- CHAMP ARRIVEE -->
+                    <v-text-field
+                      box
+                      name="arrivee"
+                      label="Arrivée"
+                      placeholder="Adresse d'arrivée"
+                      v-model="query.arrivee"
+                    ></v-text-field>
+                  </v-form>
                 </v-flex>
 
                 <!-- CHAMP OPTIONS -->
-                <div class="request-form-options">
+                <!-- <div class="request-form-options">
                   <label> Options:</label>
                   <br>
                   <div class="ui icon buttons">
@@ -42,10 +51,10 @@
                       <i class="big handicap icon"></i>
                     </div>
                   </div>
-                </div>
+                </div> -->
 
                 <!-- CHAMP FACTEURS  -->
-                <div class="request-form-factors grouped fields">
+                <!-- <div class="request-form-factors grouped fields">
                   <label class="push_down push_up">Facteurs:</label>
                   <br>
                   <select name="factors" class="ui fluid dropdown">
@@ -54,7 +63,7 @@
                     <option value="min_depense">Minimum de dépense</option>
                     <option value="min_marche">Minimum de marche</option>
                   </select>
-                </div>
+                </div> -->
               </v-layout>
             </section>
           </v-flex>
@@ -69,9 +78,9 @@
               <div class="map container">
                 <google-map name="request" class="google-map"></google-map>
               </div>
-              <div class="center-button">
-                <button type="submit" class="ui huge brown button">Avoir le Chemin</button>
-              </div>
+              <container class="center-button">
+                <v-btn type="submit" color="brown" dark large>Avoir le Chemin</v-btn>
+              </container>
             </section>
           </v-flex>
 

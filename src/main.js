@@ -7,8 +7,8 @@ import Vuetify from 'vuetify'
 import App from './App'
 import router from './router'
 
-import './semantic/dist/semantic.css'
-import './semantic/dist/semantic.js'
+// import './semantic/dist/semantic.css'
+// import './semantic/dist/semantic.js'
 import 'vuetify/dist/vuetify.min.css'
 
 Vue.use(Vuetify)
