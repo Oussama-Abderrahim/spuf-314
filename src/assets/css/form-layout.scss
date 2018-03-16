@@ -6,10 +6,11 @@ $form-height: 600px;
   padding: 10px;
   width: 65%;
   height: $form-height;
-  margin: 15vh auto;
+  margin-left:auto;
+  margin-right:auto;
   border: 5px solid rgba(255, 255, 255, .5);
+  overflow: hidden;
   &-left {
-    //overflow: hidden;
     height: $form-height;
   }
   &-right {

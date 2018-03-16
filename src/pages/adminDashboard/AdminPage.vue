@@ -1,6 +1,6 @@
 <template>
-  <v-content>
-    <v-container grid-list-xs>
+  <v-content fluid fill-height>
+    <v-container grid-list-xs align-center justify-center>
 
       <v-layout row>
         <v-flex d-flex xs5 class="bus">
