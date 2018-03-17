@@ -16,6 +16,12 @@ routes.route('/station').get((req, res) => {
     });
 });
 
+routes.route('/station/:id').get((req, res) => {
+    DatabaseManager.getStation(req.params.id, (station)=>{
+            res.json(station)
+    });
+});
+
 routes.route('/direction').get((req, res)=>{
     //TODO : check params 
     if(req.query.start && req.query.end){

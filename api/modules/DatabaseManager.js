@@ -1,5 +1,6 @@
 const neo4j = require('neo4j-driver').v1;
 
+const Station =  require('../../models/Station')
 
 var driver = neo4j.driver(process.env.NEO4J_URL, neo4j.auth.basic(process.env.NEO4J_USER, process.env.NEO4J_PASSWORD));
 var session = driver.session();
@@ -37,6 +38,7 @@ var getAllStations = function (callback) {
         .then((result) => {
             result.records.forEach(function (record) {
                 stations.push({
+                    id: record._fields[0].identity.low,
                     name: record._fields[0].properties.name,
                     coord: {
                         lat: record._fields[0].properties.coord[0],
@@ -50,7 +52,30 @@ var getAllStations = function (callback) {
         .catch(err => console.log(err));
 }
 
+var getStation = function (id, callback) {
+    var station = {}
+    session
+        .run(`MATCH (s:Station) WHERE ID(s)=${id} RETURN s`)
+        .then((result) => {
+            station = {
+                id : result.records[0]._fields[0].identity.low,
+                name: result.records[0]._fields[0].properties.name,
+                coord: {
+                    lat: result.records[0]._fields[0].properties.coord[0],
+                    lon: result.records[0]._fields[0].properties.coord[1]
+                }
+            }
+            session.close()
+            callback(station)
+        })
+        .catch(err => {
+            console.log(err)
+            callback(station)
+        })
+}
+
 module.exports = {
     getAllStations,
-    getDirection
+    getDirection,
+    getStation
 };
