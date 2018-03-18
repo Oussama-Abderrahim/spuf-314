@@ -7,11 +7,10 @@
         <!-- Left Form -->
         <v-layout row>
           <v-flex xs6>
-            <section class="request-form-left ui massive form push_up">
+            <v-form class="request-form-left ui massive form push_up">
               <v-layout row wrap>
                 <!-- CHAMP DEPART -->
                 <v-flex xs11 class="field">
-                  <v-form>
                     <v-text-field
                       box
                       name="depart"
@@ -27,7 +26,6 @@
                       placeholder="Adresse d'arrivée"
                       v-model="query.arrivee"
                     ></v-text-field>
-                  </v-form>
                 </v-flex>
 
                 <!-- CHAMP OPTIONS -->
@@ -65,7 +63,7 @@
                   </select>
                 </div> -->
               </v-layout>
-            </section>
+            </v-form>
           </v-flex>
 
           <!-- RIGHT FORM -->
@@ -115,10 +113,6 @@
       }
     },
     mounted() {
-      $("#sidebar").sidebar('setting', 'dimPage', 'false')
-      $('.ui.checkbox').checkbox();
-      $('.ui.dropdown').dropdown();
-      $('.ui.button.toggle').state();
     },
     methods: {
       testClick(e) {

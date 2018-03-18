@@ -3,23 +3,28 @@
 
     <sidebar></sidebar>
 
-    <v-content>
-
-      <v-container fluid fill-height>
-        <transition :name="slideDirection">
-          <router-view></router-view>
-        </transition>
-      </v-container>
-
-      <ul class="timeline-nav">
+    <v-content align-center justify-center>
+        <full-page :options='fullPageOptions'>
+          <div class="section">
+            <request-page/>
+          </div>
+          <div class="section">
+            <admin-page/>
+          </div>
+          <div class="section">
+            <router-view></router-view>
+          </div>
+        </full-page>
+      <!-- <ul class="timeline-nav">
         <li class="timeline-nav-link" v-for="(page,i) in pages" :key="i" @click.prevent="goto(i)">
           <router-link tag="a" :class="{active : i == index}" :to='"/"+page'></router-link>
         </li>
-      </ul>
+      </ul> -->
 
-      <button class="menu-trigger" v-if="!sideBarOn" @click.prevent='showSideBar'>
+      <!-- <button class="menu-trigger" v-if="!sideBarOn" @click.prevent='showSideBar'>
         <i class="fa fa-bars"></i>
-      </button>
+        <v-icon></v-icon>
+      </button> -->
 
     </v-content>
 
@@ -32,16 +37,28 @@
 
 <script>
   /* eslint-disable */
+  import RequestPage from './pages/RequestPage'
+  import AdminPage from './pages/adminDashboard/AdminPage'
   import SideBar from './components/sideBar'
+  import FullPage from 'vue-fullpage.js/src/FullPage';
 
   export default {
 
     name: 'app',
     components: {
+      'request-page': RequestPage,
+      'admin-page': AdminPage,
+      'full-page': FullPage,
       'sidebar': SideBar
     },
     data() {
       return {
+        fullPageOptions: {
+        scrollBar: true,
+        navigation: true,
+        anchors: ['Request', 'adminpage', 'Welcome', 'Response'],
+        sectionsColor: ['#000', '#000', '#41b883'],
+        },
         prev: 0,
         pages: ['adminpage', 'request', 'response', 'info', 'about'],
         slideDirection: 'slide-down', // The slide transition name we'll use ( up/down )
@@ -87,10 +104,6 @@
       }
     },
     mounted() {
-      $("#sidebar").sidebar('setting', 'dimPage', 'false')
-      $('.ui.checkbox').checkbox();
-      $('.ui.dropdown').dropdown();
-      $('.ui.button.toggle').state();
     }
   }
 
