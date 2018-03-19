@@ -7,6 +7,8 @@ import ResponsePage from '@/pages/ResponsePage'
 import InfoPage from '@/pages/Info'
 import ErrorPage from '@/pages/ErrorPage'
 import AdminPage from '@/pages/adminDashboard/AdminPage'
+import AddNewLine from '@/pages/adminDashboard/AddNewLine'
+import EditLine from '@/pages/adminDashboard/EditLine'
 
 Vue.use(Router)
 
@@ -45,6 +47,16 @@ const routes = [
     path: '/adminpage',
     name: 'adminpage',
     component: AdminPage
+  },
+  {
+    path: '/addnewline',
+    name: 'addnewline',
+    component: AddNewLine
+  },
+  {
+    path: '/editLine',
+    name: 'editline',
+    component: EditLine
   },
   {
     path: '*',
