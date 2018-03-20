@@ -1,90 +1,113 @@
 <template>
   <v-container id="add">
-    <v-dialog v-model="dialog" max-width="500px">
-      <v-card>
-        <v-card-title>
-          <span class="headline">{{ formTitle }}</span>
-        </v-card-title>
-        <v-card-text>
-          <v-layout wrap>
-            <v-flex xs12 sm6 md4>
-              <v-text-field label="Nom de l'arrêt" v-model="editedItem.name" disabled></v-text-field>
-            </v-flex>
-            <v-flex xs12 sm6 md4>
-              <v-text-field label="L'adresse" v-model="editedItem.address" disabled></v-text-field>
-            </v-flex>
-            <v-flex xs12 sm6 md4>
-              <v-text-field label="Les coordonnées" v-model="editedItem.coordinates" disabled></v-text-field>
-            </v-flex>
-            <v-flex xs12 sm6 md4>
-              <v-text-field label="La longueur" v-model="editedItem.dest"></v-text-field>
-            </v-flex>
-            <v-flex xs12 sm6 md4>
-              <v-text-field label="Durée (mn)" v-model="editedItem.time"></v-text-field>
-            </v-flex>
-          </v-layout>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click.native="save">Ajouter2</v-btn>
-          <v-btn color="blue darken-1" flat @click.native="close">Fermer</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <v-dialog v-model="dialogAdd" scrollable max-width="300px">
-      <v-btn color="primary" dark slot="activator">Ajouter un nouvel arrêt</v-btn>
-      <v-card>
-        <v-card-title>Select Country</v-card-title>
-        <v-divider></v-divider>
-        <v-card-text style="height: 300px;">
-          <v-radio-group v-model="dialogm1" column>
-            <v-radio label="Les castords" value="lescastords"></v-radio>
-            <v-radio label="Palais de justice" value="Palaisdejustice"></v-radio>
-          </v-radio-group>
-        </v-card-text>
-        <v-divider></v-divider>
-        <v-card-actions>
-          <v-btn color="blue darken-1" flat @click.native="save">Ajouter</v-btn>
-          <v-btn color="blue darken-1" flat @click.native="dialogAdd = false">Fermer</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <v-data-table :headers="headers" :items="items" hide-actions class="elevation-1">
-      <template slot="items" slot-scope="props">
-        <td>{{ props.item.name }}</td>
-        <td class="text-xs-right">{{ props.item.address }}</td>
-        <td class="text-xs-right">{{ props.item.coordinates }}</td>
-        <td class="text-xs-right">{{ props.item.dest }}</td>
-        <td class="text-xs-right">{{ props.item.time }}</td>
-        <td class="justify-center layout px-0">
-          <v-btn icon class="mx-0" @click="editItem(props.item)">
-            <v-icon color="teal">edit</v-icon>
-          </v-btn>
-          <v-btn icon class="mx-0" @click="deleteItem(props.item)">
-            <v-icon color="pink">delete</v-icon>
-          </v-btn>
-        </td>
-      </template>
-      <template slot="no-data">
-        <v-btn color="primary" @click="initialize">Reset</v-btn>
-      </template>
-    </v-data-table>
+    <v-form v-model="valid" ref="form" lazy-validation>
+    <v-container class="form-bus">
+      <v-text-field label="Nom du bus" v-model="bus.name"></v-text-field>
+      <v-text-field label="Fréquence de bus" v-model="bus.frequence" mask="##" required></v-text-field>
+      <v-text-field label="Temps d'attente moyen dans chaque arrêt" v-model="bus.avgWaitTime" suffix="MN:SS" mask="time" required></v-text-field>
+      <v-text-field label="Temps d'attente moyen durant les heures de pointe" suffix="MN:SS" mask="time" required></v-text-field>
+      <v-text-field label="Temps d'attente maximal" v-model="bus.maxWaitTime" suffix="MN:SS" mask="time" required></v-text-field>
+      <v-text-field label="Prix du ticket" v-model="bus.price" suffix="DA" required></v-text-field>
+    </v-container>
 
 
+      <v-dialog v-model="dialog" max-width="500px" class="form-stations">
+        <v-card>
+          <v-card-title>
+            <span class="headline">{{ formTitle }}</span>
+          </v-card-title>
+          <v-card-text>
+            <v-layout wrap>
+              <v-flex xs12 sm6 md4>
+                <v-text-field label="Nom de l'arrêt" v-model="editedItem.name" disabled></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md4>
+                <v-text-field label="L'adresse" v-model="editedItem.address" disabled></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md4>
+                <v-text-field label="Les coordonnées" v-model="editedItem.coordinates" disabled></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md4>
+                <v-text-field label="La longueur" v-model="editedItem.dest"></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md4>
+                <v-text-field label="Durée (mn)" v-model="editedItem.time"></v-text-field>
+              </v-flex>
+            </v-layout>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" flat @click.native="save">Ajouter2</v-btn>
+            <v-btn color="blue darken-1" flat @click.native="close">Fermer</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
 
+      <v-dialog v-model="dialogAdd" scrollable max-width="300px">
+        <v-btn color="primary" dark slot="activator">Ajouter un nouvel arrêt</v-btn>
+        <v-card>
+          <v-card-title>Select Country</v-card-title>
+          <v-divider></v-divider>
+          <v-card-text style="height: 300px;">
+            <v-radio-group v-model="dialogm1" column>
+              <v-radio label="Les castords" value="lescastords"></v-radio> 
+              <v-radio label="Palais de justice" value="Palaisdejustice"></v-radio>
+            </v-radio-group>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-btn color="blue darken-1" flat @click.native="save">Ajouter</v-btn>
+            <v-btn color="blue darken-1" flat @click.native="dialogAdd = false">Fermer</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
 
+      <v-data-table :headers="headers" :items="items" hide-actions class="elevation-1">
+        <template slot="items" slot-scope="props">
+          <td>{{ props.item.name }}</td>
+          <td class="text-xs-right">{{ props.item.address }}</td>
+          <td class="text-xs-right">{{ props.item.coordinates }}</td>
+          <td class="text-xs-right">{{ props.item.dest }}</td>
+          <td class="text-xs-right">{{ props.item.time }}</td>
+          <td class="justify-center layout px-0">
+            <v-btn icon class="mx-0" @click="editItem(props.item)">
+              <v-icon color="teal">edit</v-icon>
+            </v-btn>
+            <v-btn icon class="mx-0" @click="deleteItem(props.item)">
+              <v-icon color="pink">delete</v-icon>
+            </v-btn>
+          </td>
+        </template>
+        <template slot="no-data">
+          <v-btn color="primary" @click="initialize">Reset</v-btn>
+        </template>
+      </v-data-table>
+
+      <v-container class="form-btns">
+        <v-btn flat>Cancel</v-btn>
+        <v-btn color="primary" flat @click="submit">Submit</v-btn>
+      </v-container>
+
+    </v-form>
   </v-container>
 </template>
 
 
 <script>
+  /* edlint-disable */
   export default {
     data: () => ({
       dialog: false,
       dialogm1: '',
       dialogAdd: false,
+      bus: {
+        name:"",
+        frequence:0,
+        avgWaitTime:"00:00",
+        maxWaitTime:"00:00",
+        price:0
+      },
+
       headers: [{
           text: 'Nom de l\'arrêt',
           align: 'left',
@@ -191,6 +214,11 @@
 </script>
 
 <style lang="scss" scoped>
+.form-bus .v-text-field{
+  font-size: 1em
+}
 
-
+.form-btns{
+  text-align: center;
+}
 </style>
