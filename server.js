@@ -47,7 +47,7 @@ app.post("/", (request, response) => {
 });
 
 app.get("/user", (req,res)=>{
-    res.render("user")
+    res.render("user/user")
 })
 
 app.get('/station', (req, response)=> {
@@ -62,7 +62,7 @@ app.get('/station', (req, response)=> {
     
     request(options)
         .then(function (stations) {
-            response.render("stations", {stations})
+            response.render("user/stations", {stations})
         })
         .catch(err => console.log(err))
 });
@@ -83,10 +83,10 @@ app.get('/direction', (req, response)=> {
                 })
                 .catch(err => {
                     console.log(err)
-                    response.render("direction", {paths: [], stations})
+                    response.render("user/direction", {paths: [], stations})
                 })
             } else {
-                response.render("direction", {paths: [], stations})
+                response.render("user/direction", {paths: [], stations})
             }
         })
         .catch(err => {
@@ -97,7 +97,7 @@ app.get('/direction', (req, response)=> {
 
 /* ADMIN VIEWS */
 app.get("/admin", (req,res)=>{
-    res.render("admin")
+    res.render("admin/admin")
 })
 
 app.get('/admin/editstation', (req, response)=> {
@@ -112,7 +112,13 @@ app.get('/admin/editstation', (req, response)=> {
     
     request(options)
         .then(function (stations) {
-            response.render("editstation", {stations})
+            response.render("admin/editstation", {stations})
         })
         .catch(err => console.log(err))
 });
+
+app.post('/api/station', (req, res) => {
+    console.log("Station "+ req.body.station_id + " Changed")
+    console.log(req.body)
+    res.redirect("/admin/editStation")
+})

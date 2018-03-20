@@ -9,11 +9,24 @@
 	<body>
 		<h1>Public Transit App SPUF</h1>
 		<h1>Stations</h1>
-		<ul>
+
+		<table border="1">
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Lat</th>
+				<th>Lon</th>
+			</tr>
 			<% stations.forEach((station)=>{ %>
-			<li><%=station.name%></li>
+			<tr>
+				<td><%=station.id%></td>
+				<td><%=station.name%></td>
+				<td><%=station.coord.lat%></td>
+				<td><%=station.coord.lon%></td>
+			</tr>
 			<% }) %>
-		</ul>
+		</table>
+
 		<a href="/user">Back</a>
 	</body>
 	<script src="/js/index.js"></script>
