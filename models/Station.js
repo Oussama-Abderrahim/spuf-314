@@ -1,17 +1,23 @@
-/**
- * Station : 
- */
-const mongoose = require('mongoose');
 
-const StationSchema = new  mongoose.Schema({
-  name: String,
-  coord: {
-      lat: Number,
-      lon: Number
-  },
-  address: String
-},{
-	collection: 'stations'
-});
+class Station {
 
-module.exports = mongoose.model('Station', StationSchema);
+  /**
+   * 
+   * @param {ID} ID 
+   * @param {String} name 
+   * @param {String} address 
+   * @param {Number} coordLat 
+   * @param {Number} coordLon 
+   */
+  constructor(ID, name, address, coordLat, coordLon) {
+    this.ID = ID,
+    this.name = name,
+    this.address = address,
+    this.coord = {
+      lat: coordLat,
+      lon: coordLon
+    }
+  }
+}
+
+module.exports = Station
