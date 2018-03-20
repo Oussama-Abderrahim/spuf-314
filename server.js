@@ -79,7 +79,7 @@ app.get('/direction', (req, response)=> {
                 if(req.query.walk == "on") transports += "walk=on&"
                 request({url:`https://project314.herokuapp.com/api/direction?start=${req.query.start}&end=${req.query.end}&${transports}`, json:true})
                 .then((paths) => {
-                    response.render("direction", {paths, stations})
+                    response.render("user/direction", {paths, stations})
                 })
                 .catch(err => {
                     console.log(err)
@@ -112,7 +112,7 @@ app.get('/admin/editstation', (req, response)=> {
     
     request(options)
         .then(function (stations) {
-            response.render("admin/editstation", {stations})
+            response.render("admin/editStation", {stations})
         })
         .catch(err => console.log(err))
 });
