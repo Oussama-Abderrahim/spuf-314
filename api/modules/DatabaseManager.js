@@ -1,6 +1,8 @@
 const neo4j = require('neo4j-driver').v1;
 
 const Station =  require('../../models/Station')
+const GraphSegment =  require('../../models/GraphSegment')
+const TransportType =  require('../../models/TransportType')
 
 var driver = neo4j.driver(process.env.NEO4J_URL, neo4j.auth.basic(process.env.NEO4J_USER, process.env.NEO4J_PASSWORD));
 var session = driver.session();
@@ -8,9 +10,9 @@ var session = driver.session();
 var getDirection = function (params, callback) {
 
     var transports = [];
-    if (params.transport.bus) transports.push("BusSegment")
-    if (params.transport.tram) transports.push("TramSegment")
-    if (params.transport.walk) transports.push("WalkSegment")
+    if (params.transport.bus) transports.push(TransportType.Bus.db_label)
+    if (params.transport.tram) transports.push(TransportType.Tramway.db_label)
+    if (params.transport.walk) transports.push(TransportType.Walk.db_label)
 
     session
         .run(`MATCH p = AllShortestPaths((A:Station)-[*..20]->(B:Station))
@@ -74,8 +76,38 @@ var getStation = function (id, callback) {
         })
 }
 
+/**
+ * Builds query to CREATE a line from an array of GraphSegment
+ * @param {GraphSegment} segments 
+ */
+var createLine = function(segments) {
+
+    var query = ""
+
+    // Match initial Station
+    query += `MATCH (s${0}:Station) WHERE ID(s${0} = ${segments[0].srcStationID}) `
+
+    segments.forEach((segment, index)=>{
+        // Match next station
+        query += `MATCH (s${index+1}:Station) `
+                    + `WHERE ID(s${index+1} = ${segment.srcStationID}) `
+
+        // Create segment between last station and current one
+        query += `CREATE (s${index}) - [
+            :${segment.type.db_label}
+            {
+                distance: ${segment.distance},
+                avgTime: ${segment.avgTime},
+            }
+        ] -> (s${index+1}) `
+    })
+
+    console.log(query)
+}
+
 module.exports = {
     getAllStations,
     getDirection,
-    getStation
+    getStation,
+    createLine
 };
