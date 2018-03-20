@@ -5,28 +5,31 @@ class Line {
     /**
      * @param {String} name Name of the line (usualy same name as Bus)
      * @param {Station[]} stations an array of Station, sorted from source to destination
-     * @param {Bus} bus line's Bus
-     */
-    constructor(name, stations, bus) {
+     * @param {ID} busID line's Bus's ID
+   */
+    constructor(name, busID, stations = []) {
         this.name = name
         this.line = []
-        stations.forEach((station) => {
+        stations.forEach((stationID) => {
             this.line.push({
-                station, 
+                stationID, 
                 distFromPrev: 0,
                 timeFromPrev: 0
             })
         })
-        this.bus = bus
+        this.busID = busID
     }
 
     /**
-     * Add station to line
-     * @param {Station} station a station
+     * 
+     * @param {Station} stationID station to add to line
+     * @param {Number} distFromPrev distance from previous station (in meters)
+     * @param {Number} timeFromPrev time to get to this station from previous (in minutes)
+     * @param {Number} index position of Station in line (default : last)
      */
-    addStation(station, distFromPrev, timeFromPrev, index = this.stations.length) {
+    addStation(stationID, distFromPrev, timeFromPrev, index = this.line.length) {
         this.line.push({
-            station,
+            stationID,
             distFromPrev,
             timeFromPrev
         })
@@ -36,8 +39,8 @@ class Line {
      * Set Bus
      * @param {Bus} bus
      */
-    setBus(bus) {
-        this.bus = bus
+    setBus(busID) {
+        this.busID = busID
     }
 }
 

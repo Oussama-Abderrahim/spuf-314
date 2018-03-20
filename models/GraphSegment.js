@@ -4,8 +4,9 @@
 class GraphSegment {
 
     /**
+     * 
      * @param {ID} srcStationID ID of the source station
-     * @param {ID} destStationID 
+     * @param {ID} destStationID ID of the destination station
      * @param {TransportType} type 
      * @param {Number} distance in meters
      * @param {Number} avgTime average time to get from src to dst (in minutes)
