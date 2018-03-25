@@ -1,10 +1,8 @@
 <template>
   <v-app id="app">
-
     <sidebar></sidebar>
 
     <v-content>
-
       <v-container fluid fill-height>
         <transition :name="slideDirection">
           <router-view></router-view>
@@ -16,11 +14,9 @@
           <router-link tag="a" :class="{active : i == index}" :to='"/"+page'></router-link>
         </li>
       </ul>
-
       <button class="menu-trigger" v-if="!sideBarOn" @click.prevent='showSideBar'>
         <i class="fa fa-bars"></i>
       </button>
-
     </v-content>
 
     <v-footer app>
@@ -87,10 +83,6 @@
       }
     },
     mounted() {
-      $("#sidebar").sidebar('setting', 'dimPage', 'false')
-      $('.ui.checkbox').checkbox();
-      $('.ui.dropdown').dropdown();
-      $('.ui.button.toggle').state();
     }
   }
 
