@@ -4,8 +4,8 @@ const Bus  = require("./Bus")
 class Line {
     /**
      * @param {String} name Name of the line (usualy same name as Bus)
-     * @param {Station[]} stations an array of Station, sorted from source to destination
      * @param {ID} busID line's Bus's ID
+     * @param {Station[]} stations an array of Station, sorted from source to destination
    */
     constructor(name, busID, stations = []) {
         this.name = name

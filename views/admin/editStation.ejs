@@ -43,20 +43,22 @@
             <input type="text" name="station_coord_lon" id="station_coord_lon" placeholder="Station coord_lon">
         </div>
 
-        <input type="submit" value="Submit" class="ui button primary">
+        <input type="submit" id="submit-btn" value="Submit" class="ui button primary">
     </form>
 </body>
 <script>
     $('#stationSelect').dropdown({
         onChange: function () {
             var id = $('#stationSelect').dropdown('get value');
-
+            
+            // $("#submit-btn").disabled(true)
             $.getJSON(`https://project314.herokuapp.com/api/station/${id}`, (result)=>{
                 $("#station_id").val(result.id)
                 $("#station_name").val(result.name)
-                // // $("#station_address").val(result.address)
+                $("#station_address").val(result.address)
                 $("#station_coord_lat").val(result.coord.lat)
                 $("#station_coord_lon").val(result.coord.lon)
+                // $("#submit-btn").disabled(false)
             })
         }
     });

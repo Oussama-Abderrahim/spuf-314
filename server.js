@@ -114,11 +114,5 @@ app.get('/admin/editstation', (req, response)=> {
         .then(function (stations) {
             response.render("admin/editStation", {stations})
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err.name))
 });
-
-app.post('/api/station', (req, res) => {
-    console.log("Station "+ req.body.station_id + " Changed")
-    console.log(req.body)
-    res.redirect("/admin/editStation")
-})

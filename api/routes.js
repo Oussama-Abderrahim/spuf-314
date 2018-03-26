@@ -3,6 +3,8 @@ const express = require("express");
 
 var DatabaseManager = require("./modules/DatabaseManager");
 var PathFinder = require("./modules/PathFinder")
+var LinesManager = require("./modules/LinesManager")
+var Station = require("../models/Station") // TODO: TEMPORARY
 
 var routes = express.Router();
 
@@ -41,5 +43,19 @@ routes.route('/direction').get((req, res)=>{
         res.json({})
     }
 });
+
+/* POST */
+routes.route('/station').post((req, res) => {
+    LinesManager.updateStation(new Station(
+        req.body.station_id,
+        req.body.station_name,
+        req.body.station_address,
+        req.body.station_coord_lat,
+        req.body.station_coord_lon
+    ))
+    console.log("Station "+ req.body.station_id + " Changed")
+    
+    res.redirect("/admin/editStation")
+})
 
 module.exports = routes;
