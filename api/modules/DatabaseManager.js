@@ -1,8 +1,8 @@
 const neo4j = require('neo4j-driver').v1;
 
-const Station =  require('../../models/Station')
-const GraphSegment =  require('../../models/GraphSegment')
-const TransportType =  require('../../models/TransportType')
+const Station = require('../../models/Station')
+const GraphSegment = require('../../models/GraphSegment')
+const TransportType = require('../../models/TransportType')
 
 var driver = neo4j.driver(process.env.NEO4J_URL, neo4j.auth.basic(process.env.NEO4J_USER, process.env.NEO4J_PASSWORD));
 var session = driver.session();
@@ -60,7 +60,7 @@ var getStation = function (id, callback) {
         .run(`MATCH (s:Station) WHERE ID(s)=${id} RETURN s`)
         .then((result) => {
             station = {
-                id : result.records[0]._fields[0].identity.low,
+                id: result.records[0]._fields[0].identity.low,
                 name: result.records[0]._fields[0].properties.name,
                 coord: {
                     lat: result.records[0]._fields[0].properties.coord[0],
@@ -77,20 +77,56 @@ var getStation = function (id, callback) {
 }
 
 /**
+ * 
+ * @param {GraphNode} station 
+ */
+var updateStation = function (station,
+        success = () => console.log("created"),
+        error = () => console.log("error")) {
+
+    query = `MATCH (s:Station) WHERE ID(s) = ${station.ID}
+            SET s.name = "${station.name}", s.address = "${station.address}",
+                s.coordLat = "${station.coordLat}", s.coordLon = "${station.coordLon}" 
+            return s`
+
+    session
+        .run(query)
+        .then((result) => {
+            session.close()
+            if (result.records)
+                success(result.records)
+        }).catch(err => {
+            error(err)
+        })
+}
+
+
+var createLine = function (segments, success = (s) =>console.log(s), error = err=>console.log(err)) {
+
+    var query = _createLineQuery(segments)
+
+    session
+        .run(query)
+        .then((result) => {
+            success(result.records)
+        }).catch(err => console.log(err))
+}
+
+/**
  * Builds query to CREATE a line from an array of GraphSegment
  * @param {GraphSegment} segments 
  */
-var createLine = function(segments) {
+var _createLineQuery = function (segments) {
 
     var query = ""
 
     // Match initial Station
-    query += `MATCH (s${0}:Station) WHERE ID(s${0} = ${segments[0].srcStationID}) `
+    query += `MATCH (s${0}:Station) WHERE ID(s${0}) = ${segments[0].srcStationID} `
 
-    segments.forEach((segment, index)=>{
+    segments.forEach((segment, index) => {
         // Match next station
-        query += `MATCH (s${index+1}:Station) `
-                    + `WHERE ID(s${index+1} = ${segment.srcStationID}) `
+        query += `MATCH (s${index+1}:Station) ` +
+            `WHERE ID(s${index+1}) = ${segment.srcStationID} `
 
         // Create segment between last station and current one
         query += `CREATE (s${index}) - [
@@ -101,13 +137,14 @@ var createLine = function(segments) {
             }
         ] -> (s${index+1}) `
     })
-
     console.log(query)
+    return query
 }
 
 module.exports = {
     getAllStations,
     getDirection,
     getStation,
-    createLine
+    createLine,
+    updateStation
 };
