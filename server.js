@@ -32,7 +32,7 @@ server.listen(process.env.PORT, () => {
 });
 
 /* Routes */
-var Routes = require("./api/routes.js");
+var Routes = require("./controllers/index.js");
 
 app.use("/api", Routes);
 
