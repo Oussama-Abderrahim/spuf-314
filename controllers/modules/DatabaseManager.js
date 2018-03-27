@@ -1,6 +1,7 @@
 const neo4j = require('neo4j-driver').v1;
 
 const Station = require('../../models/Station')
+const GraphNode = require('../../models/GraphNode')
 const GraphSegment = require('../../models/GraphSegment')
 const TransportType = require('../../models/TransportType')
 
@@ -84,10 +85,7 @@ var updateStation = function (station,
         success = () => console.log("created"),
         error = () => console.log("error")) {
 
-    query = `MATCH (s:Station) WHERE ID(s) = ${station.ID}
-            SET s.name = "${station.name}", s.address = "${station.address}",
-                s.coordLat = "${station.coordLat}", s.coordLon = "${station.coordLon}" 
-            return s`
+    var query = GraphNode.getNeo4JUpdateQuery(station)
 
     session
         .run(query)
@@ -103,43 +101,16 @@ var updateStation = function (station,
 
 var createLine = function (segments, success = (s) =>console.log(s), error = err=>console.log(err)) {
 
-    var query = _createLineQuery(segments)
+    let query = GraphSegment.getNeo4JLineQuery(segments)
 
     session
         .run(query)
         .then((result) => {
             success(result.records)
-        }).catch(err => console.log(err))
+        })
+        .catch(err => console.log(err))
 }
 
-/**
- * Builds query to CREATE a line from an array of GraphSegment
- * @param {GraphSegment} segments 
- */
-var _createLineQuery = function (segments) {
-
-    var query = ""
-
-    // Match initial Station
-    query += `MATCH (s${0}:Station) WHERE ID(s${0}) = ${segments[0].srcStationID} `
-
-    segments.forEach((segment, index) => {
-        // Match next station
-        query += `MATCH (s${index+1}:Station) ` +
-            `WHERE ID(s${index+1}) = ${segment.srcStationID} `
-
-        // Create segment between last station and current one
-        query += `CREATE (s${index}) - [
-            :${segment.type.db_label}
-            {
-                distance: ${segment.distance},
-                avgTime: ${segment.avgTime},
-            }
-        ] -> (s${index+1}) `
-    })
-    console.log(query)
-    return query
-}
 
 module.exports = {
     getAllStations,
