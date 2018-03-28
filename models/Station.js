@@ -1,4 +1,20 @@
-
+/**
+ * @swagger
+ * definitions:
+ *   Station:
+ *     type: object
+ *     properties:
+ *       id:
+ *         type: integer
+ *       name:
+ *         type: string
+ *       address:
+ *         type: string
+ *       coordLat:
+ *         type: number
+ *       coordLon:
+ *         type: number
+ */
 class Station {
 
   /**
