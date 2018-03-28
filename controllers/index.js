@@ -10,6 +10,7 @@ router.route('/').get((req, res) => {
 });
 
 router.use('/station', require('./stations'))
+router.use('/docs', require('./swagger'))
 
 router.route('/direction').get((req, res)=>{
     //TODO : check params 

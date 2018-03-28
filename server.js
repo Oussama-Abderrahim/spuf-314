@@ -10,8 +10,6 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const request = require('request-promise');
 const cors = require('cors');
-const swaggerUi = require('swagger-ui-express');
-const swaggerJSDoc = require('swagger-jsdoc');
 
 
 const app = express();
@@ -37,42 +35,14 @@ server.listen(process.env.PORT, () => {
 });
 
 /* Routes */
-var router = require("./controllers/index.js");
+const router = require("./controllers/index.js");
 
 app.use("/api", router);
-
-var swaggerDefinition = {
-    info: {
-        title: 'Oran Bus API (Node/Express)',
-        version: '1.0.0',
-        description: '',
-    },
-    host: 'localhost:3000',
-    basePath: '/',
-};
-
-// options for the swagger docs
-var options = {
-    // import swaggerDefinitions
-    swaggerDefinition: swaggerDefinition,
-    // path to the API docs
-    apis: ['./controllers/*.js'],
-    // Hide header 
-    customCss: ''
-};
-
-// initialize swagger-jsdoc
-var swaggerSpec = swaggerJSDoc(options);
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
 
 
 app.get("/", (request, response) => {
     response.render("index"); // render views/index
 });
-
-
 
 /* USER VIEWS */
 
