@@ -1,7 +1,7 @@
 <template>
   <v-container id="add">
 
-    <v-form v-model="valid" ref="form">
+    <v-form ref="form">
 
       <v-layout row >
         <v-flex xs12 md6 mx-auto>
@@ -26,8 +26,8 @@
               <!-- Data Columns  -->
               <td>{{ props.item.name }}</td>
               <td class="text-xs-left">{{ props.item.address }}</td>
-              <td class="text-xs-left">{{ props.item.coordinates }}</td>
-              <td class="text-xs-left">{{ props.item.dest }}</td>
+              <td class="text-xs-left">{{ props.item.coords }}</td>
+              <td class="text-xs-left">{{ props.item.dist }}</td>
               <td class="text-xs-left">{{ props.item.time }}</td>
 
               <!-- Edit & Delete item column -->
@@ -50,14 +50,13 @@
 
       <!-- Add new Station Dialog  -->
       <v-dialog v-model="addStationDialog" scrollable max-width="300px" class="dialog-addstation">
-        <v-btn color="primary" dark slot="activator">Ajouter un nouvel arrêt</v-btn>
+        <v-btn color="primary" dark slot="activator" @click="loadStations">Ajouter un nouvel arrêt</v-btn>
         <v-card>
           <v-card-title>Selectionnez une station</v-card-title>
           <v-divider></v-divider>
           <v-card-text style="height: 300px;">
             <v-radio-group v-model="selectedNewStation" column>
-              <v-radio label="Les castords" value="lescastords"></v-radio>
-              <v-radio label="Palais de justice" value="Palaisdejustice"></v-radio>
+              <v-radio v-for="(station, i) in tableStations.stationList" :key=i :label='station.name' :value='station.id'></v-radio>
             </v-radio-group>
           </v-card-text>
           <v-divider></v-divider>
@@ -90,10 +89,10 @@
                 <v-text-field label="L'adresse" v-model="tableStations.editedItem.address" disabled></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md4>
-                <v-text-field label="Les coordonnées" v-model="tableStations.editedItem.coordinates" disabled></v-text-field>
+                <v-text-field label="Les coordonnées" v-model="tableStations.editedItem.coords" disabled></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md4>
-                <v-text-field label="La longueur" v-model="tableStations.editedItem.dest"></v-text-field>
+                <v-text-field label="La longueur" v-model="tableStations.editedItem.dist"></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md4>
                 <v-text-field label="Durée (mn)" v-model="tableStations.editedItem.time"></v-text-field>
@@ -102,8 +101,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click.native="save">Enregistrer</v-btn>
-            <v-btn color="blue darken-1" flat @click.native="close">Annuler</v-btn>
+            <v-btn color="blue darken-1" flat @click.prevent="save">Enregistrer</v-btn>
+            <v-btn color="blue darken-1" flat @click.prevent="close">Annuler</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -167,13 +166,14 @@
               value: 'name'
             }
           ],
+          stationList: [],
           items: [],
           editedIndex: -1,
           editedItem: {
             name: 'arrêt',
             address: 'adresse',
-            coordinates: 0,
-            dest: 0,
+            coords: 0,
+            dist: 0,
             time: 0
           },
           defaultItem: {
@@ -202,13 +202,22 @@
     methods: {
       initialize () {
         // TODO : Fetch stations here
-        this.tableStations.items = [{
-          name: 'USTO',
-          address: 'USTO',
-          coordinates: 0,
-          dest: 50,
-          time: 2
-        }]
+        this.tableStations.items = []
+      },
+      loadStations () {
+        this.tableStations.stationList = []
+        this.$http
+          .get('https://project314.herokuapp.com/api/station')
+          .then(response => {
+          // success callback
+            console.log(response.body)
+            response.body.forEach((station, i) => {
+              this.tableStations.stationList.push({
+                id: station.id,
+                name: station.name
+              })
+            })
+          }, error => console.log(error))
       },
       editItem (item) {
         this.tableStations.editedIndex = this.tableStations.items.indexOf(item)
@@ -227,21 +236,32 @@
         }, 300)
       },
       save () {
-        if (this.tableStations.editedIndex > -1) {
-          Object.assign(this.tableStations.items[this.tableStations.editedIndex], this.tableStations.editedItem)
-        } else {
-          this.tableStations.items.push(this.tableStations.editedItem)
-        }
+        this.$http
+          .get(`https://project314.herokuapp.com/api/station/${this.selectedNewStation}`)
+          .then(response => {
+            var station = response.body
+            this.tableStations.items.push({
+              id: station.id,
+              name: station.name,
+              coords: '(' + station.coord.lat + ';' + station.coord.lon + ')',
+              address: station.address,
+              time: 0,
+              dist: 0
+            })
+          }, error => {
+            console.log(error)
+            alert('Error')
+          })
         this.close()
+      },
+      submit () {
+        console.log(this.tableStations)
       }
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  #add {
-    // overflow-y: scroll;
-  }
   .form-bus .v-text-field {
     font-size: 1em
   }
