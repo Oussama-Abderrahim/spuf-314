@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid id="admin" fill-height>
+  <v-container id="admin" fluid fill-height>
     <v-container grid-list-xs align-center justify-center>
 
       <v-layout row>
@@ -75,11 +75,8 @@
   $blurred-img: url("../../assets/img/blur_bg.jpg");
 
   #admin {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    margin: 0;
+    padding: 0;
     width: 100%;
     max-width: 100%;
     color: black;

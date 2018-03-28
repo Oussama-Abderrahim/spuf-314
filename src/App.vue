@@ -3,7 +3,7 @@
     <sidebar></sidebar>
 
     <v-content>
-      <v-container fluid fill-height>
+      <v-container class="main-content" fluid fill-height>
         <transition :name="slideDirection">
           <router-view></router-view>
         </transition>
@@ -98,6 +98,12 @@
     border: 0;
     height: 100%;
     width: 100%;
+  }
+
+  .main-content {
+    height: 100%;
+    max-height: 100%;
+    padding: 0;
   }
 
   .timeline-nav {
