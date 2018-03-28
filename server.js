@@ -12,7 +12,6 @@ const request = require('request-promise');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
-const swaggerDocument = require('./docs/swagger.json');
 
 
 const app = express();
