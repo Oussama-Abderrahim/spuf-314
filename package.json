@@ -21,7 +21,9 @@
     "mongoose": "^5.0.2",
     "neo4j-driver": "^1.5.3",
     "request": "^2.83.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.2",
+    "swagger-jsdoc": "^1.9.7",
+    "swagger-ui-express": "^3.0.6"
   },
   "devDependencies": {
     "nodemon": "^1.14.7"
