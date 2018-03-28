@@ -11,7 +11,7 @@ var routes = express.Router();
 
 /**
  * @swagger
- * /station:
+ * /api/station:
  *   get:
  *     tags:
  *     - Station
@@ -35,7 +35,7 @@ routes.route('/').get((req, res) => {
 
 /**
  * @swagger
- * /station/{id}:
+ * /api/station/{id}:
  *   get:
  *     tags:
  *     - Station
@@ -65,6 +65,51 @@ routes.route('/:id').get((req, res) => {
 
 /* POST */
 // TODO : make it PUT
+/**
+ * @swagger
+ * /api/station/{id}:
+ *   post:
+ *     tags:
+ *     - Station
+ *     description: Set a station's properties
+ *     summary: Update station
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: id
+ *         description: id of station to update
+ *         in: path
+ *         required: true
+ *         type: integer
+ *       - name: name
+ *         description: name of station to update
+ *         in: path
+ *         type: string
+ *       - name: address
+ *         description: address of station to update
+ *         in: path
+ *         type: string
+ *       - name: coordLat
+ *         description: Latitude coordinates of station to update
+ *         in: path
+ *         type: integer
+ *       - name: coordLong
+ *         description: lontitude coordinates of station to update
+ *         in: path
+ *         type: number
+ *       - name: Authorization
+ *         in: header
+ *         type: string
+ *         required: true
+ *         description: Token (token goes here)
+ *     responses:
+ *       200:
+ *         description: updated station {id}
+ *       400:
+ *         description: Error message(s)
+ *       401:
+ *         description: invalid / missing authentication
+ */
 routes.route('/').post((req, res) => {
     LinesManager.updateStation(new Station(
         req.body.station_id,

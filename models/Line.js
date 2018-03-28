@@ -1,3 +1,18 @@
+/**
+ * @swagger
+ * definitions:
+ *   Line:
+ *     type: object
+ *     properties:
+ *       id:
+ *         type: integer
+ *       name:
+ *         type: string
+ *       bus:
+ *         type: Bus
+ *       stations:
+ *         type: Station[]
+ */
 const Station = require("./Station")
 const Bus  = require("./Bus")
 

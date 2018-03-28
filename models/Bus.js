@@ -1,6 +1,20 @@
-/** 
- * 
-*/
+/**
+ * @swagger
+ * definitions:
+ *   Bus:
+ *     type: object
+ *     properties:
+ *       id:
+ *         type: integer
+ *       name:
+ *         type: string
+ *       price:
+ *         type: number
+ *       frequence:
+ *         type: number
+ *       avgWaitTime:
+ *         type: number
+ */
 class Bus {
 
     /**
