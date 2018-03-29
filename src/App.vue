@@ -39,7 +39,7 @@
     data() {
       return {
         prev: 0,
-        pages: ['adminpage', 'request', 'response', 'info', 'about'],
+        pages: ['/', 'request', 'response', 'info', 'about'],
         slideDirection: 'slide-down', // The slide transition name we'll use ( up/down )
       }
     },
