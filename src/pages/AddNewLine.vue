@@ -42,28 +42,13 @@
 
             <template slot="no-data" class="align-center justify-center">
               <!-- What to show when empty -->
+              Aucune station ajoutée
             </template>
           </v-data-table>
         </v-flex>
 
       <!-- Add new Station Dialog  -->
-      <v-dialog v-model="addStationDialog" scrollable max-width="300px" class="dialog-addstation">
-        <v-btn color="primary" dark slot="activator" @click="loadStations">Ajouter un nouvel arrêt</v-btn>
-        <v-card>
-          <v-card-title>Selectionnez une station</v-card-title>
-          <v-divider></v-divider>
-          <v-card-text style="height: 300px;">
-            <v-radio-group v-model="selectedNewStation" column>
-              <v-radio v-for="(station, i) in tableStations.stationList" :key=i :label='station.name' :value='station.id'></v-radio>
-            </v-radio-group>
-          </v-card-text>
-          <v-divider></v-divider>
-          <v-card-actions>
-            <v-btn color="blue darken-1" flat @click.native="save">Ajouter</v-btn>
-            <v-btn color="blue darken-1" flat @click.native="addStationDialog = false">Fermer</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+      <insert-station-dialog @insert='insertItem'></insert-station-dialog>
 
       <v-container class="form-btns">
         <v-btn color="primary" flat @click="submit">Submit</v-btn>
@@ -76,45 +61,46 @@
       <v-dialog v-model="editStationDialog" max-width="500px" class="dialog-editstation">
         <v-card>
           <v-card-title>
-            <span class="headline">{{ formTitle }}</span>
+            <span class="headline">Edit Item</span>
           </v-card-title>
           <v-card-text>
             <v-layout wrap>
               <v-flex xs12 sm6 md4>
-                <v-text-field label="Nom de l'arrêt" v-model="tableStations.editedItem.name" disabled></v-text-field>
+                <v-text-field label="Nom de l'arrêt" v-model="tableStations.editedItem.item.name" disabled></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md8>
-                <v-text-field label="L'adresse" v-model="tableStations.editedItem.address" disabled></v-text-field>
+                <v-text-field label="L'adresse" v-model="tableStations.editedItem.item.address" disabled></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md4>
-                <v-text-field label="La longueur" v-model="tableStations.editedItem.dist"></v-text-field>
+                <v-text-field label="La longueur" v-model="tableStations.editedItem.item.dist"></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md4>
-                <v-text-field label="Durée (mn)" v-model="tableStations.editedItem.time"></v-text-field>
+                <v-text-field label="Durée (mn)" v-model="tableStations.editedItem.item.time"></v-text-field>
               </v-flex>
             </v-layout>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click.prevent="save">Enregistrer</v-btn>
-            <v-btn color="blue darken-1" flat @click.prevent="close">Annuler</v-btn>
+            <v-btn color="blue darken-1" flat @click.prevent="insertItem">Enregistrer</v-btn>
+            <v-btn color="blue darken-1" flat @click.prevent="closeEditDialog">Annuler</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
-
-      
-
   </v-container>
 </template>
 
 
 <script>
+
+import InsertStationDialog from "../components/InsertStationDialog";
+
   export default {
+    components: {
+      'insert-station-dialog' : InsertStationDialog
+    },
     data () {
       return {
         editStationDialog: false,
-        selectedNewStation: '',
-        addStationDialog: false,
         bus: {
           name: '',
           frequence: 0,
@@ -155,32 +141,30 @@
               value: 'name'
             }
           ],
-          stationList: [],
           items: [],
-          editedIndex: -1,
           editedItem: {
-            name: 'arrêt',
-            address: 'adresse',
-            dist: 0,
-            time: 0
-          },
-          defaultItem: {
-            name: 'arrêt',
-            address: 'adresse',
-            dest: 0,
-            time: 0
+            index: -1,
+            item : {
+              name: 'arrêt',
+              address: 'adresse',
+              dist: 0,
+              time: 0
+            },
+            default: {
+              name: 'arrêt',
+              address: 'adresse',
+              dest: 0,
+              time: 0
+            }
           }
         }
       }
     },
     computed: {
-      formTitle () {
-        return this.tableStations.editedIndex === -1 ? 'New Item' : 'Edit Item'
-      }
     },
     watch: {
       editStationDialog (val) {
-        val || this.close()
+        val || this.closeEditDialog()
       }
     },
     created () {
@@ -188,57 +172,31 @@
     },
     methods: {
       initialize () {
-        // TODO : Fetch stations here
         this.tableStations.items = []
       },
-      loadStations () {
-        this.tableStations.stationList = []
-        this.$http
-          .get('https://project314.herokuapp.com/api/station')
-          .then(response => {
-          // success callback
-            console.log(response.body)
-            response.body.forEach((station, i) => {
-              this.tableStations.stationList.push({
-                id: station.id,
-                name: station.name
-              })
-            })
-          }, error => console.log(error))
-      },
       editItem (item) {
-        this.tableStations.editedIndex = this.tableStations.items.indexOf(item)
-        this.tableStations.editedItem = Object.assign({}, item)
+        this.tableStations.editedItem.index = this.tableStations.items.indexOf(item)
+        this.tableStations.editedItem.item = Object.assign({}, item)
         this.editStationDialog = true
       },
       deleteItem (item) {
         const index = this.tableStations.items.indexOf(item)
-        confirm('Are you sure you want to delete this item?') && this.tableStations.items.splice(index, 1)
+        confirm('Etes vous sûr de vouloir supprimer cette station ?') && this.tableStations.items.splice(index, 1)
       },
-      close () {
+      closeEditDialog () {
         this.editStationDialog = false
         setTimeout(() => {
-          this.tableStations.editedItem = Object.assign({}, this.tableStations.defaultItem)
-          this.tableStations.editedIndex = -1
+          this.tableStations.editedItem.item = Object.assign({}, this.tableStations.editedItem.default)
+          this.tableStations.editedItem.index = -1
         }, 300)
       },
-      save () {
-        this.$http
-          .get(`https://project314.herokuapp.com/api/station/${this.selectedNewStation}`)
-          .then(response => {
-            var station = response.body
-            this.tableStations.items.push({
-              id: station.id,
-              name: station.name,
-              address: station.address,
-              time: 0,
-              dist: 0
-            })
-          }, error => {
-            console.log(error)
-            alert('Error')
-          })
-        this.close()
+      insertItem (item) {
+        if(this.tableStations.editedItem.index < 0) {
+          this.tableStations.items.push(item)
+        } else {
+          Object.assign(this.tableStations.items[this.tableStations.editedItem.index], this.tableStations.editedItem.item)
+          this.closeEditDialog()
+        }
       },
       submit () {
         console.log(this.tableStations)
