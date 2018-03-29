@@ -26,7 +26,6 @@
               <!-- Data Columns  -->
               <td>{{ props.item.name }}</td>
               <td class="text-xs-left">{{ props.item.address }}</td>
-              <td class="text-xs-left">{{ props.item.coords }}</td>
               <td class="text-xs-left">{{ props.item.dist }}</td>
               <td class="text-xs-left">{{ props.item.time }}</td>
 
@@ -84,11 +83,8 @@
               <v-flex xs12 sm6 md4>
                 <v-text-field label="Nom de l'arrêt" v-model="tableStations.editedItem.name" disabled></v-text-field>
               </v-flex>
-              <v-flex xs12 sm6 md4>
+              <v-flex xs12 sm6 md8>
                 <v-text-field label="L'adresse" v-model="tableStations.editedItem.address" disabled></v-text-field>
-              </v-flex>
-              <v-flex xs12 sm6 md4>
-                <v-text-field label="Les coordonnées" v-model="tableStations.editedItem.coords" disabled></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md4>
                 <v-text-field label="La longueur" v-model="tableStations.editedItem.dist"></v-text-field>
@@ -141,12 +137,6 @@
               value: 'adresse'
             },
             {
-              text: 'Les coordonnées',
-              align: 'left',
-              sortable: false,
-              value: 'coordonnées'
-            },
-            {
               text: 'La longueur (m)',
               align: 'left',
               sortable: false,
@@ -171,14 +161,12 @@
           editedItem: {
             name: 'arrêt',
             address: 'adresse',
-            coords: 0,
             dist: 0,
             time: 0
           },
           defaultItem: {
             name: 'arrêt',
             address: 'adresse',
-            coordinates: 0,
             dest: 0,
             time: 0
           }
@@ -242,7 +230,6 @@
             this.tableStations.items.push({
               id: station.id,
               name: station.name,
-              coords: '(' + station.coord.lat + ';' + station.coord.lon + ')',
               address: station.address,
               time: 0,
               dist: 0

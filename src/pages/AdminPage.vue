@@ -10,9 +10,11 @@
               <h1 class="ui header">BUS</h1>
             </v-card-text>
             <v-container mr-5>
-              <v-btn fab dark large color="grey darken-4">
-                <v-icon dark large>add</v-icon>
-              </v-btn>Ajouter une ligne
+              <router-link tag='span' to="/addNewLine">
+                <v-btn fab dark large color="grey darken-4">
+                  <v-icon dark large>add</v-icon>
+                </v-btn>Ajouter une ligne
+              </router-link>
               <br>
               <v-btn fab dark large color="grey darken-4">
                 <v-icon dark large>edit</v-icon>
