@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "vue": "^2.5.3",
+    "vue-resource": "^1.5.0",
+    "vue-router": "^3.0.1",
     "vuetify": "^1.0.0"
   },
   "devDependencies": {
@@ -20,8 +22,8 @@
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
     "file-loader": "^1.1.4",
-    "node-sass": "^4.5.3",
-    "sass-loader": "^6.0.6",
+    "node-sass": "^4.8.3",
+    "sass-loader": "^6.0.7",
     "style-loader": "^0.13.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
