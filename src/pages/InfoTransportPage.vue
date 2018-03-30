@@ -1,15 +1,13 @@
 <template>
-  <div id="info">
-  <div class="blur"></div>
-    
+  <div id="info"> 
 
   </div>
 </template>
 
-
-
 <script>
-  
+export default {
+  name: 'info'
+}
 </script>
 
 <style lang="scss" scoped>
@@ -30,20 +28,4 @@
     color: black;
   }
 
-  .blur {
-    background: url('../assets/img/bg3.jpg') no-repeat center center fixed;
-    background-size: cover;
-    overflow: hidden;
-    filter: blur(10px);
-    position: absolute;
-    
-   height: 750px;
-   width: 70%;
-   margin: auto;
-   top: 10%;
-   bottom: 0;
-   left: 0;
-   right: 0;
-  }
-  
 </style>
