@@ -40,14 +40,13 @@ var getAllStations = function (callback) {
         .run('MATCH (n) RETURN n')
         .then((result) => {
             result.records.forEach(function (record) {
-                stations.push({
-                    id: record._fields[0].identity.low,
-                    name: record._fields[0].properties.name,
-                    coord: {
-                        lat: record._fields[0].properties.coord[0],
-                        lon: record._fields[0].properties.coord[1]
-                    }
-                });
+                stations.push(new Station(
+                    record._fields[0].identity.low, /// TODO : Get proper ID
+                    record._fields[0].properties.name,
+                    record._fields[0].properties.address,
+                    record._fields[0].properties.coord[0],
+                    record._fields[0].properties.coord[1]
+                ))
             });
             session.close();
             callback(stations)
@@ -60,14 +59,14 @@ var getStation = function (id, callback) {
     session
         .run(`MATCH (s:Station) WHERE ID(s)=${id} RETURN s`)
         .then((result) => {
-            station = {
-                id: result.records[0]._fields[0].identity.low,
-                name: result.records[0]._fields[0].properties.name,
-                coord: {
-                    lat: result.records[0]._fields[0].properties.coord[0],
-                    lon: result.records[0]._fields[0].properties.coord[1]
-                }
-            }
+            
+            station = new Station(
+                result.record._fields[0].identity.low, /// TODO : Get proper ID
+                result.record._fields[0].properties.name,
+                result.record._fields[0].properties.address,
+                result.record._fields[0].properties.coord[0],
+                result.record._fields[0].properties.coord[1]
+            )
             session.close()
             callback(station)
         })
