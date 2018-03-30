@@ -16,7 +16,11 @@ const swaggerDefinition = {
     tags: [
         {
             name: 'Station',
-            description: "Stations API"
+            description: 'Stations API'
+        },
+        {
+            name: 'Line',
+            description: 'Bus Lines API'
         }
     ],
     schemes: ['http'],

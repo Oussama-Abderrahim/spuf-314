@@ -9,9 +9,25 @@
  *       name:
  *         type: string
  *       bus:
- *         type: Bus
+ *         $ref: '#/definitions/Bus'
  *       line:
- *         type: Array
+ *         type: array
+ *         items:
+ *           $ref: '#/definitions/LineStations'
+ * 
+ *   LineStations:
+ *      type: object
+ *      properties:
+ *          stationID:
+ *              type: integer
+ *              default: 1
+ *          distFromPrev:
+ *              type: number
+ *              default: 1
+ *          timeFromPrev:
+ *              type: number
+ *              format: 'minutes'
+ *              default: 1
  */
 const Station = require("./Station")
 const Bus  = require("./Bus")
@@ -75,7 +91,7 @@ class Line {
         this.bus = bus
     }
 
-    
+
 }
 
 module.exports = Line

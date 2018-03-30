@@ -78,24 +78,24 @@ routes.route('/:id').get((req, res) => {
  *     parameters:
  *       - name: id
  *         description: id of station to update
- *         in: path
+ *         in: body
  *         required: true
  *         type: integer
  *       - name: name
  *         description: name of station to update
- *         in: path
+ *         in: body
  *         type: string
  *       - name: address
  *         description: address of station to update
- *         in: path
+ *         in: body
  *         type: string
  *       - name: coordLat
  *         description: Latitude coordinates of station to update
- *         in: path
+ *         in: body
  *         type: integer
  *       - name: coordLong
  *         description: lontitude coordinates of station to update
- *         in: path
+ *         in: body
  *         type: number
  *       - name: Authorization
  *         in: header

@@ -5,9 +5,10 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npm run build && nodemon server.js",
+    "dev": "npm run open && npm run build && nodemon server.js",
     "start": "npm run build && node server.js",
-    "build": "echo \"building\""
+    "build": "echo \"pretending to building\"",
+    "open": "start http://localhost:3000"
   },
   "author": "",
   "license": "ISC",
