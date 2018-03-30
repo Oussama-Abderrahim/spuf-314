@@ -6,6 +6,7 @@ const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+const OpenBrowserPlugin = require('open-browser-webpack-plugin')
 const portfinder = require('portfinder')
 
 const HOST = process.env.HOST
@@ -47,6 +48,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       'window.jQuery': 'jquery',
       'semantic-ui': 'semantic-ui'
     }),
+    new OpenBrowserPlugin({ url: `http://${(HOST || config.dev.host)}:${(PORT || config.dev.port)}` }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
     new webpack.NoEmitOnErrorsPlugin(),
