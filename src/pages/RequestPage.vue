@@ -90,7 +90,7 @@
   import MapSection from "../components/MapSection"
 
   export default {
-    name: 'about',
+    name: 'request',
     components: {
       "google-map": MapSection
       // put custom components here
@@ -115,6 +115,7 @@
       },
       getPath(event) {
         console.log("Push")
+        this.$router.push("/response")
         // this.router.push("response")
       }
     }

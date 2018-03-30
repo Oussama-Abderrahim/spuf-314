@@ -56,7 +56,7 @@
   import ScrollBar from "../components/scrollbar"
 
   export default {
-    name: 'about',
+    name: 'response',
     components: {
       "google-map": MapSection,
       "scrollbar": ScrollBar
