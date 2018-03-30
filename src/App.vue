@@ -1,6 +1,5 @@
 <template>
   <v-app id="app">
-
     <sidebar></sidebar>
 
     <v-content align-center justify-center>
@@ -60,7 +59,7 @@
         sectionsColor: ['#000', '#000', '#41b883'],
         },
         prev: 0,
-        pages: ['adminpage', 'request', 'response', 'info', 'about'],
+        pages: ['/', 'request', 'response', 'info', 'about'],
         slideDirection: 'slide-down', // The slide transition name we'll use ( up/down )
       }
     },
@@ -119,6 +118,12 @@
     border: 0;
     height: 100%;
     width: 100%;
+  }
+
+  .main-content {
+    height: 100%;
+    max-height: 100%;
+    padding: 0;
   }
 
   .timeline-nav {

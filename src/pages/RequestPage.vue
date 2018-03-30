@@ -5,54 +5,49 @@
       <form class="request-form blurred-bg tinted" @submit.prevent="getPath" action='#' method="GET">
         <!-- <div class="blur"></div> -->
         <!-- Left Form -->
-        <v-layout row>
-          <v-flex xs6>
-            <v-form class="request-form-left ui massive form push_up">
+        <v-layout row wrap>
+          <v-flex xs12 md6>
+            <section class="request-form-left ui massive form push_up">
               <v-layout row wrap>
                 <!-- CHAMP DEPART -->
                 <v-flex xs11 class="field">
-                    <v-text-field
-                      box
-                      name="depart"
-                      label="Départ"
-                      placeholder="Adresse de départ"
-                      v-model="query.depart"
-                    ></v-text-field>
-                  <!-- CHAMP ARRIVEE -->
-                    <v-text-field
-                      box
-                      name="arrivee"
-                      label="Arrivée"
-                      placeholder="Adresse d'arrivée"
-                      v-model="query.arrivee"
-                    ></v-text-field>
+                  <v-form>
+                    <v-text-field box name="depart" label="Départ" placeholder="Adresse de départ" v-model="query.depart"></v-text-field>
+                    <!-- CHAMP ARRIVEE -->
+                    <v-text-field box name="arrivee" label="Arrivée" placeholder="Adresse d'arrivée" v-model="query.arrivee"></v-text-field>
+                    <!-- CHAMP OPTIONS -->
+                    <v-layout row wrap class="options">
+                      <v-flex xs6 class="options-moyens">
+                        <v-container>
+                        
+                          <v-btn fab class="moyens-btn-active">
+                            <v-icon large>directions_bus</v-icon>
+                          </v-btn>
+                          <br>
+                          <v-btn fab class="moyens-btn-active">
+                            <v-icon large>directions_railway</v-icon>
+                          </v-btn>
+                          <br>
+                          <v-btn fab class="moyens-btn-active">
+                            <v-icon large>directions_walk</v-icon>
+                          </v-btn>
+                        </v-container>
+                      </v-flex>
+
+                      <v-flex xs6 class="options-facteurs">
+
+                      </v-flex>
+
+                    </v-layout>
+                  </v-form>
                 </v-flex>
 
-                <!-- CHAMP OPTIONS -->
-                <!-- <div class="request-form-options">
-                  <label> Options:</label>
-                  <br>
-                  <div class="ui icon buttons">
-                    <div class="ui toggle big active button">
-                      <i class="big bus icon"></i>
-                    </div>
-                    <div class="ui toggle big active button">
-                      <i class="big subway icon"></i>
-                    </div>
-                    <div class="ui toggle big active button">
-                      <i class="big male icon"></i>
-                    </div>
-                    <div class="ui toggle big button">
-                      <i class="big child icon"></i>
-                    </div>
-                    <div class="ui toggle big button">
-                      <i class="big handicap icon"></i>
-                    </div>
-                  </div>
-                </div> -->
+              </v-layout>
 
-                <!-- CHAMP FACTEURS  -->
-                <!-- <div class="request-form-factors grouped fields">
+
+
+              <!-- CHAMP FACTEURS  -->
+              <!-- <div class="request-form-factors grouped fields">
                   <label class="push_down push_up">Facteurs:</label>
                   <br>
                   <select name="factors" class="ui fluid dropdown">
@@ -62,8 +57,7 @@
                     <option value="min_marche">Minimum de marche</option>
                   </select>
                 </div> -->
-              </v-layout>
-            </v-form>
+            </section>
           </v-flex>
 
           <!-- RIGHT FORM -->
@@ -77,7 +71,7 @@
                 <google-map name="request" class="google-map"></google-map>
               </div>
               <container class="center-button">
-                <v-btn type="submit" color="brown" dark large>Avoir le Chemin</v-btn>
+                <v-btn type="submit" color="brown darken-1" dark large>Avoir le Chemin</v-btn>
               </container>
             </section>
           </v-flex>
@@ -104,6 +98,7 @@
     data() {
       return {
         // put variables here
+        toggle_multiple: [0, 1], //options
         query: {
           depart: "",
           arrivee: "",
