@@ -9,9 +9,19 @@ const swaggerDefinition = {
         title: 'Oran Bus API (Node/Express)',
         version: '0.3.1',
         description: 'A web service guide for public transit in Oran, Algeria',
+        contact: {
+            email: 'SakasakyRay@Gmail.com'
+        }
     },
+    tags: [
+        {
+            name: 'Station',
+            description: "Stations API"
+        }
+    ],
+    schemes: ['http'],
     host: 'localhost:3000',
-    basePath: '/',
+    basePath: '/'
 };
 
 // options for the swagger docs
@@ -23,8 +33,8 @@ const options = {
         './controllers/*.js',
         './models/*.js'
     ],
-    // Hide header 
-    customCss: ''
+    // customCss: `.topbar {display:none;}`,
+    explorer : false
 };
 
 // initialize swagger-jsdoc
@@ -36,6 +46,6 @@ router.get('/json', function (req, res) {
 })
 
 
-router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec, options))
 
 module.exports = router

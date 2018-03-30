@@ -10,29 +10,46 @@
  *         type: string
  *       bus:
  *         type: Bus
- *       stations:
- *         type: Station[]
+ *       line:
+ *         type: Array
  */
 const Station = require("./Station")
 const Bus  = require("./Bus")
 
+/**
+* @class Line
+* @classdesc A Line object that represents a Bus line with relative information.
+* @property {String} this.name Name of the line (usualy same name as Bus).
+* @property {Bus} this.bus The Bus serving this line (one bus per line).
+* @property {Array} this.line The list of stations in this line, with time and distance between each station.
+* @this Line
+*/
 class Line {
     /**
-     * @param {String} name Name of the line (usualy same name as Bus)
-     * @param {ID} busID line's Bus's ID
-     * @param {Station[]} stations an array of Station, sorted from source to destination
+     * @param {String} name Name of the line (usualy same name as Bus).
+     * @param {Bus} bus The Bus serving this line (one bus per line).
+     * @param {Station[]} stations an array of Station, sorted from source to destination.
    */
-    constructor(name, busID, stations = []) {
+    constructor(name, bus, stations = []) {
         this.name = name
+        this.bus = bus
+
+        this.initLine()
+    }
+
+    /**
+     * @param {Station[]} stations 
+     */
+    initLine(stations) {
         this.line = []
-        stations.forEach((stationID) => {
+
+        stations.forEach((station) => {
             this.line.push({
-                stationID, 
+                stationID: station.ID,
                 distFromPrev: 0,
                 timeFromPrev: 0
             })
         })
-        this.busID = busID
     }
 
     /**
@@ -54,9 +71,11 @@ class Line {
      * Set Bus
      * @param {Bus} bus
      */
-    setBus(busID) {
-        this.busID = busID
+    setBus(bus) {
+        this.bus = bus
     }
+
+    
 }
 
 module.exports = Line
