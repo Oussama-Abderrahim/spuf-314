@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "beautify": "0.0.8",
+    "fullpage.js": "^2.9.6",
     "jquery": "^3.3.1",
     "semantic-ui": "^2.2.13",
     "vue": "^2.5.2",
@@ -60,6 +61,7 @@
     "shelljs": "^0.7.6",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
+    "vue-fullpage.js": "0.0.1",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",

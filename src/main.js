@@ -10,6 +10,9 @@ import router from './router'
 // import './semantic/dist/semantic.css'
 // import './semantic/dist/semantic.js'
 import 'vuetify/dist/vuetify.min.css'
+import './fullpage/jquery.fullPage.css'
+// eslint-disable-next-line
+import './fullpage/jquery.fullPage.js'
 
 Vue.use(Vuetify)
 Vue.use(VueResource)

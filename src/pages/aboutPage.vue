@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 #about {
   background: url("../assets/img/bg2.jpg");
   background-size: cover;
