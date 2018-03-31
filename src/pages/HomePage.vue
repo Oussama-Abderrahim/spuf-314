@@ -48,7 +48,15 @@
     },
     methods: {
     },
+    beforeMount () {
+      // eslint-disable-next-line
+      if ($('html').hasClass('fp-enabled')) {
+        // eslint-disable-next-line
+        $.fn.fullpage.destroy('all')
+      }
+    },
     mounted () {
+      console.log('home page mounted')
     }
   }
 </script>
