@@ -15,6 +15,10 @@
  *       coordLon:
  *         type: number
  */
+
+const DatabaseManager = require('../controllers/modules/DatabaseManager')
+const GraphNode = require('./GraphNode')
+
 class Station {
 
   /**
@@ -26,13 +30,60 @@ class Station {
    * @param {Number} coordLon 
    */
   constructor(ID, name, address, coordLat, coordLon) {
-    this.ID = ID,
-    this.name = name,
-    this.address = address,
+    this.ID = ID
+    this.name = name
+    this.address = address
     this.coord = {
       lat: coordLat,
       lon: coordLon
     }
+  }
+
+  /**
+   * Fetch all stations from Neo4J database
+   * @returns {Promise} An array of Station objects
+   */
+  static getAll() {
+    /// TODO: get Nodes and change them to Station objects
+    return new Promise((resolve, reject) => {
+      let stations = []
+      DatabaseManager
+        .getAllStations()
+        .then(stationNodes => {
+          stationNodes.forEach(node => {
+            stations.push(new Station(
+              node.ID,
+              node.name,
+              node.address,
+              node.coordLat,
+              node.coordLon
+            ))
+          });
+          resolve(stations)
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
+  }
+
+  static getByID(id) {
+    return new Promise((resolve, reject) => {
+      DatabaseManager
+        .getStation(id)
+        .then((stationNode) => {
+          resolve(new Station(
+            stationNode.ID,
+            stationNode.name,
+            stationNode.address,
+            stationNode.coordLat,
+            stationNode.coordLon
+          ))
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
   }
 }
 

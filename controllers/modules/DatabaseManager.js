@@ -1,6 +1,5 @@
 const neo4j = require('neo4j-driver').v1;
 
-const Station = require('../../models/Station')
 const GraphNode = require('../../models/GraphNode')
 const GraphSegment = require('../../models/GraphSegment')
 const TransportType = require('../../models/TransportType')
@@ -34,45 +33,48 @@ var getDirection = function (params, callback) {
         }).catch(err => console.log(err))
 }
 
-var getAllStations = function (callback) {
-    var stations = [];
-    session
-        .run('MATCH (n) RETURN n')
-        .then((result) => {
-            result.records.forEach(function (record) {
-                stations.push(new Station(
-                    record._fields[0].identity.low, /// TODO : Get proper ID
-                    record._fields[0].properties.name,
-                    record._fields[0].properties.address,
-                    record._fields[0].properties.coord[0],
-                    record._fields[0].properties.coord[1]
-                ))
-            });
-            session.close();
-            callback(stations)
-        })
-        .catch(err => console.log(err));
+var getAllStations = function () {
+    return new Promise((resolve, reject) => {
+        var stations = [];
+        session
+            .run('MATCH (n) RETURN n')
+            .then((result) => {
+                result.records.forEach(function (record) {
+                    stations.push(new GraphNode(
+                        record._fields[0].properties.name,
+                        record._fields[0].properties.address,
+                        record._fields[0].properties.coord[0],
+                        record._fields[0].properties.coord[1],
+                        record._fields[0].identity.low /// TODO : Get proper ID
+                    ))
+                });
+                session.close();
+                resolve(stations)
+            })
+            .catch(err => reject(err));
+    })
 }
 
-var getStation = function (id, callback) {
-    var station = {}
-    session
-        .run(`MATCH (s:Station) WHERE ID(s)=${id} RETURN s`)
-        .then((result) => {
-            station = new Station(
-                result.records[0]._fields[0].identity.low, /// TODO : Get proper ID
-                result.records[0]._fields[0].properties.name,
-                result.records[0]._fields[0].properties.address,
-                result.records[0]._fields[0].properties.coord[0],
-                result.records[0]._fields[0].properties.coord[1]
-            )
-            session.close()
-            callback(station)
-        })
-        .catch(err => {
-            console.log(err)
-            callback(station)
-        })
+var getStation = function (id) {
+    return new Promise((resolve, reject) => {
+        var station = {}
+        session
+            .run(`MATCH (s:Station) WHERE ID(s)=${id} RETURN s`)
+            .then((result) => {
+                station = new GraphNode(
+                    result.records[0]._fields[0].properties.name,
+                    result.records[0]._fields[0].properties.address,
+                    result.records[0]._fields[0].properties.coord[0],
+                    result.records[0]._fields[0].properties.coord[1],
+                    result.records[0]._fields[0].identity.low /// TODO : Get proper ID
+                )
+                session.close()
+                resolve(station)
+            })
+            .catch(err => {
+                reject(err)
+            })
+    })
 }
 
 /**

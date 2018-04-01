@@ -1,7 +1,6 @@
 bodyParser = require("body-parser");
 const express = require("express");
 
-var DatabaseManager = require("./modules/DatabaseManager");
 var PathFinder = require("./modules/PathFinder")
 var LinesManager = require("./modules/LinesManager")
 
@@ -28,9 +27,15 @@ var routes = express.Router();
  *             $ref: '#/definitions/Station'
  */
 routes.route('/').get((req, res) => {
-    DatabaseManager.getAllStations((stations)=>{
+    Station.getAll()
+        .then(stations => {
             res.json(stations)
-    });
+        })
+        .catch(err => {
+            console.log(err)
+            res.sendStatus(404)
+            res.end()
+        })
 });
 
 /**
@@ -58,9 +63,16 @@ routes.route('/').get((req, res) => {
  *         description: station not found
  */
 routes.route('/:id').get((req, res) => {
-    DatabaseManager.getStation(req.params.id, (station)=>{
+    Station
+        .getByID(req.params.id)
+        .then(station => {
             res.json(station)
-    });
+        })
+        .catch(err => {
+            console.log(err)
+            res.sendStatus(404)
+            res.end()
+        })
 });
 
 /* POST */
