@@ -19,7 +19,7 @@
         <select class="ui search dropdown" id="stationSelect">
             <option value="">Station</option>
             <% stations.forEach(station => { %>
-                <option value="<%=station.id%>">
+                <option value="<%=station.ID%>">
                     <%=station.name%>
                 </option>
                 <% }) %>
@@ -53,7 +53,7 @@
             
             // $("#submit-btn").disabled(true)
             $.getJSON(`https://project314.herokuapp.com/api/station/${id}`, (result)=>{
-                $("#station_id").val(result.id)
+                $("#station_id").val(result.ID)
                 $("#station_name").val(result.name)
                 $("#station_address").val(result.address)
                 $("#station_coord_lat").val(result.coord.lat)

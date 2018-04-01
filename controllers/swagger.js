@@ -24,7 +24,7 @@ const swaggerDefinition = {
         }
     ],
     schemes: ['http'],
-    host: 'localhost:3000',
+    host: process.env.HOST_NAME,
     basePath: '/'
 };
 
