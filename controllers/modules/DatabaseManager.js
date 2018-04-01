@@ -59,13 +59,12 @@ var getStation = function (id, callback) {
     session
         .run(`MATCH (s:Station) WHERE ID(s)=${id} RETURN s`)
         .then((result) => {
-            
             station = new Station(
-                result.record._fields[0].identity.low, /// TODO : Get proper ID
-                result.record._fields[0].properties.name,
-                result.record._fields[0].properties.address,
-                result.record._fields[0].properties.coord[0],
-                result.record._fields[0].properties.coord[1]
+                result.records[0]._fields[0].identity.low, /// TODO : Get proper ID
+                result.records[0]._fields[0].properties.name,
+                result.records[0]._fields[0].properties.address,
+                result.records[0]._fields[0].properties.coord[0],
+                result.records[0]._fields[0].properties.coord[1]
             )
             session.close()
             callback(station)
