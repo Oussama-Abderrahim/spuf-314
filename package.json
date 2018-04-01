@@ -4,10 +4,10 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --recursive --exit",
     "dev": "npm run open && npm run build && nodemon server.js",
     "start": "npm run build && node server.js",
-    "build": "echo \"pretending to building\"",
+    "build": "echo \"pretending to build\"",
     "open": "start http://localhost:3000"
   },
   "author": "",
@@ -27,6 +27,7 @@
     "swagger-ui-express": "^3.0.6"
   },
   "devDependencies": {
+    "mocha": "^5.0.5",
     "nodemon": "^1.14.7"
   }
 }

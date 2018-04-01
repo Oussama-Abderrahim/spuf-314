@@ -11,7 +11,6 @@ const bodyParser = require('body-parser');
 const request = require('request-promise');
 const cors = require('cors');
 
-
 const app = express();
 const server = require('http').Server(app);
 
@@ -32,7 +31,10 @@ app.use(helmet());
 /* Start Server */
 server.listen(process.env.PORT, () => {
     console.log("listening at port " + process.env.PORT);
+    app.emit("app_started")
 });
+
+module.exports = server
 
 /* Routes */
 const router = require("./controllers/index.js");
@@ -43,6 +45,7 @@ app.use("/api", router);
 app.get("/", (request, response) => {
     response.render("index"); // render views/index
 });
+
 
 /* USER VIEWS */
 
