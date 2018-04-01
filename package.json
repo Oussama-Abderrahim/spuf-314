@@ -19,7 +19,7 @@
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "helmet": "^3.9.0",
-    "mongoose": "^5.0.2",
+    "mongoose": "^5.0.12",
     "neo4j-driver": "^1.5.3",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",

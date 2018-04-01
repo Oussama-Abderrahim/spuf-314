@@ -4,8 +4,6 @@
  *   Bus:
  *     type: object
  *     properties:
- *       id:
- *         type: integer
  *       name:
  *         type: string
  *       price:
@@ -15,24 +13,27 @@
  *       avgWaitTime:
  *         type: number
  */
+
+const mongoose = require('mongoose');
+
+/**
+ * @property {String} name 
+ * @property {Number} price (in DA)
+ * @property {Number} frequence Number of buses serving line at any given time 
+ * @property {Number} avgWaitTime Average waiting time in each station, in minutes
+ * @constructor Bus
+ */
+const BusSchema = new mongoose.Schema({
+    name: String,
+    price: Number,
+    frequence: Number,
+    avgWaitTime: Number
+});
+
 class Bus {
-
-    /**
-     * @param {ID} ID
-     * @param {String} name 
-     * @param {Number} price (in DA)
-     * @param {Number} frequence Number of buses disptached at any given time ( to compute avg Wait time)
-     * @param {Number} avgWaitTime 
-     */
-    constructor(ID, name, price, frequence = 1, avgWaitTime = 1.0) {
-        this.ID = ID
-        this.name = name
-        this.price = price
-        this.frequence = frequence
-        this.avgWaitTime = avgWaitTime
-
-    }
 
 }
 
-module.exports = Bus
+BusSchema.loadClass(Bus)
+
+module.exports = mongoose.model('Bus', BusSchema);
