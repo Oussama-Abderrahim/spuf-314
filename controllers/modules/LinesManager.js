@@ -6,28 +6,6 @@ const Line = require("../../models/Line")
 const Bus = require("../../models/Bus")
 const Station = require("../../models/Station")
 
-
-var testCreateLine = function () {
-
-    var line = new Line(
-        "K3",
-        3       
-    )
-
-    line.addStation(
-        9,
-        1,
-        2
-    )
-    line.addStation(
-        10,
-        3,
-        5
-    )
-
-    createLine(line)
-}
-
 /**
  * Updates a station 
  * @param {Station} station 
@@ -72,6 +50,5 @@ var createLine = function (line) {
 
 module.exports = {
     createLine,
-    testCreateLine,
     updateStation
 }
