@@ -2,7 +2,6 @@ bodyParser = require("body-parser");
 const express = require("express");
 
 var PathFinder = require("./modules/PathFinder")
-var LinesManager = require("./modules/LinesManager")
 
 var Station = require("../models/Station")
 
@@ -123,16 +122,22 @@ routes.route('/:id').get((req, res) => {
  *         description: invalid / missing authentication
  */
 routes.route('/').post((req, res) => {
-    LinesManager.updateStation(new Station(
-        req.body.station_id,
-        req.body.station_name,
-        req.body.station_address,
-        req.body.station_coord_lat,
-        req.body.station_coord_lon
-    ))
-    console.log("Station "+ req.body.station_id + " Changed")
+
+    Station
+        .getByID(req.body.station_id)
+        .then(station => {
+            station.name = req.body.station_name || station.name
+            station.address = req.body.station_address || station.address
+            station.coord.lat = req.body.station_coord_lat || station.coord.lat
+            station.coord.lon = req.body.station_coord_lon || station.coord.lon
+
+            station.save()
+
+            console.log("Station "+ req.body.station_id + " Changed")
+
+            res.redirect("/admin/editStation")
+        })
     
-    res.redirect("/admin/editStation")
 })
 
 module.exports = routes;

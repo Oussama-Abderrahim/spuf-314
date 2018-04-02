@@ -17,6 +17,8 @@
  */
 
 const DatabaseManager = require('../controllers/modules/DatabaseManager')
+const LinesManager = require("../controllers/modules/LinesManager")
+
 const GraphNode = require('./GraphNode')
 
 class Station {
@@ -41,10 +43,9 @@ class Station {
 
   /**
    * Fetch all stations from Neo4J database
-   * @returns {Promise} An array of Station objects
+   * @returns {Promise.<Array.<Station>, Error>} An array of Station objects
    */
   static getAll() {
-    /// TODO: get Nodes and change them to Station objects
     return new Promise((resolve, reject) => {
       let stations = []
       DatabaseManager
@@ -67,6 +68,11 @@ class Station {
     })
   }
 
+  /**
+   * 
+   * @param {Number} id If of the station to get
+   * @returns {Promise.<Station, Error>} A promise for a Station object
+   */
   static getByID(id) {
     return new Promise((resolve, reject) => {
       DatabaseManager
@@ -84,6 +90,10 @@ class Station {
           reject(err)
         })
     })
+  }
+
+  save() {
+    LinesManager.updateStation(this)
   }
 }
 

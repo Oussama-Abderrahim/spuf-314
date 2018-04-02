@@ -27,16 +27,6 @@ class GraphNode {
     
         return query
     }
-
-    static getNeo4JUpdateQuery(station) {
-
-        var query = `MATCH (s:Station) WHERE ID(s) = ${station.ID}
-                SET s.name = "${station.name}", s.address = "${station.address}",
-                    s.coordLat = "${station.coordLat}", s.coordLon = "${station.coordLon}" 
-                return s`
-    
-        return query
-    }
     
 }
 

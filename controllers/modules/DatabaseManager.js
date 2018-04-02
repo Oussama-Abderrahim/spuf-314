@@ -64,9 +64,9 @@ var getStation = function (id) {
                 station = new GraphNode(
                     result.records[0]._fields[0].properties.name,
                     result.records[0]._fields[0].properties.address,
-                    result.records[0]._fields[0].properties.coord[0],
-                    result.records[0]._fields[0].properties.coord[1],
-                    result.records[0]._fields[0].identity.low /// TODO : Get proper ID
+                    result.records[0]._fields[0].properties.coordLat,
+                    result.records[0]._fields[0].properties.coordLon,
+                    result.records[0]._fields[0].identity.low /// TODO: Get proper ID
                 )
                 session.close()
                 resolve(station)

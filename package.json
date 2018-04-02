@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --recursive --exit",
+    "test": "mocha --recursive -t 5000 --exit",
     "dev": "npm run open && npm run build && nodemon server.js",
     "start": "npm run build && node server.js",
     "build": "echo \"pretending to build\"",
