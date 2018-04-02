@@ -29,7 +29,6 @@
  *              format: 'minutes'
  *              default: 1
  */
-const Station = require("./Station")
 const Bus = require("./Bus")
 
 const mongoose = require('mongoose');

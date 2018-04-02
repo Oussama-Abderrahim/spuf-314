@@ -1,5 +1,7 @@
+require('dotenv').config();
+
 const assert = require("assert");
-const server = require("../../server");
+// const server = require("../../server");
 const Line = require("../../models/Line");
 
 const DB = require("../../db");
@@ -12,7 +14,6 @@ describe("Model Line Tests", function() {
   });
 
   after(done => {
-    server.close();
     done();
   });
 
