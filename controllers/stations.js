@@ -128,18 +128,23 @@ routes.route("/:id").get((req, res) => {
  *         description: invalid / missing authentication
  */
 routes.route("/").post((req, res) => {
-  Station.getByID(req.body.station_id).then(station => {
-    station.name = req.body.station_name || station.name;
-    station.address = req.body.station_address || station.address;
-    station.coord.lat = req.body.station_coord_lat || station.coord.lat;
-    station.coord.lon = req.body.station_coord_lon || station.coord.lon;
+  Station
+    .getByID(req.body.station_id)
+    .then(station => {
+      station.name = req.body.station_name || station.name;
+      station.address = req.body.station_address || station.address;
+      station.coord.lat = req.body.station_coord_lat || station.coord.lat;
+      station.coord.lon = req.body.station_coord_lon || station.coord.lon;
 
-    station.save();
+      station.save();
 
-    console.log("Station " + req.body.station_id + " Changed");
+      console.log("Station " + req.body.station_id + " Changed");
 
-    res.redirect("/admin/editStation");
-  });
+      res.redirect("/admin/editStation");
+  })
+  .catch(err => {
+    console.log("error POST station")
+  })
 });
 
 module.exports = routes;

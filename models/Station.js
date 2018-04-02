@@ -19,7 +19,7 @@
 const DatabaseManager = require('../controllers/modules/GraphDatabaseManager')
 const LinesManager = require("../controllers/modules/LinesManager")
 
-const GraphNode = require('./GraphNode')
+const GraphNode = require('./graphModels/GraphNode')
 
 class Station {
 
@@ -93,7 +93,16 @@ class Station {
   }
 
   save() {
-    LinesManager.updateStation(this)
+    let station = this
+    DatabaseManager.updateStation(new GraphNode(
+        station.name,
+        station.address,
+        station.coord.lat,
+        station.coord.lon,
+        station.ID
+    ))
+    .then((updatedStations) => {console.log(updatedStations._fields)})
+    .catch(err => console.log(err))
   }
 }
 

@@ -17,7 +17,13 @@ describe("Stations controller Tests", function() {
       useCleanCache: true
     });
 
-    mockery.registerMock("../controllers/modules/GraphDatabaseManager", {});
+    const GraphNode = require("../../models/graphModels/GraphNode");
+
+    mockery.registerMock("../controllers/modules/GraphDatabaseManager", {
+      updateStation: (node => {
+
+      })
+    });
 
     const Station = require("../../models/Station");
 
@@ -129,4 +135,6 @@ describe("Stations controller Tests", function() {
 
     controllers.handle(request, response);
   });
+
+
 });

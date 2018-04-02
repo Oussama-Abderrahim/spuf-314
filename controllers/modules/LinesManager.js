@@ -1,29 +1,7 @@
 const DatabaseManager = require("./GraphDatabaseManager")
-const GraphSegment = require("../../models/GraphSegment")
-const GraphNode = require("../../models/GraphNode")
+const GraphSegment = require("../../models/graphModels/GraphSegment")
 const TransportType = require("../../models/TransportType")
 const Line = require("../../models/Line")
-const Bus = require("../../models/Bus")
-const Station = require("../../models/Station")
-
-/**
- * Updates a station 
- * @param {Station} station 
- */
-var updateStation = function(station) {
-    console.log("Updating station : \n", station)
-    DatabaseManager.updateStation(new GraphNode(
-        station.name,
-        station.address,
-        station.coord.lat,
-        station.coord.lon,
-        station.ID
-    ), (updatedStations) => {
-        console.log(updatedStations._fields)
-    }, err => {
-        console.log(err)
-    })
-} 
 
 /**
  * Creates a list of GraphSegments, and pass it to DatabaseManager
@@ -49,6 +27,5 @@ var createLine = function (line) {
 }
 
 module.exports = {
-    createLine,
-    updateStation
+    createLine
 }
