@@ -1,4 +1,4 @@
-var DatabaseManager = require("./DatabaseManager");
+var DatabaseManager = require("./GraphDatabaseManager");
 const Path = require("../../models/Path")
 const Step = require("../../models/Step")
 const Station = require("../../models/Station")

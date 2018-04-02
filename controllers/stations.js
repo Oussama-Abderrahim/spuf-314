@@ -58,6 +58,8 @@ routes.route("/").get((req, res) => {
  *         description: A station
  *         schema:
  *           $ref: '#/definitions/Station'
+ *       400:
+ *         description: Arguments invalid or missing
  *       404:
  *         description: station not found
  */

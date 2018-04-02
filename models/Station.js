@@ -16,7 +16,7 @@
  *         type: number
  */
 
-const DatabaseManager = require('../controllers/modules/DatabaseManager')
+const DatabaseManager = require('../controllers/modules/GraphDatabaseManager')
 const LinesManager = require("../controllers/modules/LinesManager")
 
 const GraphNode = require('./GraphNode')

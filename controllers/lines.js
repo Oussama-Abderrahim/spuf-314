@@ -3,7 +3,6 @@ const express = require("express");
 
 let routes = express.Router();
 
-const DatabaseManager = require("./modules/DatabaseManager");
 const PathFinder = require("./modules/PathFinder")
 const LinesManager = require("./modules/LinesManager")
 

@@ -1,4 +1,4 @@
-const DatabaseManager = require("./DatabaseManager")
+const DatabaseManager = require("./GraphDatabaseManager")
 const GraphSegment = require("../../models/GraphSegment")
 const GraphNode = require("../../models/GraphNode")
 const TransportType = require("../../models/TransportType")

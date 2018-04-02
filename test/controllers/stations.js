@@ -17,7 +17,7 @@ describe("Stations controller Tests", function() {
       useCleanCache: true
     });
 
-    mockery.registerMock("../controllers/modules/DatabaseManager", {});
+    mockery.registerMock("../controllers/modules/GraphDatabaseManager", {});
 
     const Station = require("../../models/Station");
 
