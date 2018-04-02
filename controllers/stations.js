@@ -1,9 +1,9 @@
 bodyParser = require("body-parser");
 const express = require("express");
 
-var PathFinder = require("./modules/PathFinder")
+var PathFinder = require("./modules/PathFinder");
 
-var Station = require("../models/Station")
+var Station = require("../models/Station");
 
 var routes = express.Router();
 
@@ -25,16 +25,16 @@ var routes = express.Router();
  *           items:
  *             $ref: '#/definitions/Station'
  */
-routes.route('/').get((req, res) => {
-    Station.getAll()
-        .then(stations => {
-            res.json(stations)
-        })
-        .catch(err => {
-            console.log(err)
-            res.sendStatus(404)
-            res.end()
-        })
+routes.route("/").get((req, res) => {
+  Station.getAll()
+    .then(stations => {
+      res.json(stations);
+    })
+    .catch(err => {
+      console.log(err);
+      res.sendStatus(404);
+      res.end();
+    });
 });
 
 /**
@@ -61,17 +61,21 @@ routes.route('/').get((req, res) => {
  *       404:
  *         description: station not found
  */
-routes.route('/:id').get((req, res) => {
-    Station
-        .getByID(req.params.id)
-        .then(station => {
-            res.json(station)
-        })
-        .catch(err => {
-            console.log(err)
-            res.sendStatus(404)
-            res.end()
-        })
+routes.route("/:id").get((req, res) => {
+    
+  if (isNaN(Number.parseInt(req.params.id))) {
+    res.sendStatus(400);
+    return res.end();
+  }
+
+  Station.getByID(req.params.id)
+    .then(station => {
+      res.json(station);
+    })
+    .catch(err => {
+      res.sendStatus(404);
+      res.end();
+    });
 });
 
 /* POST */
@@ -121,23 +125,19 @@ routes.route('/:id').get((req, res) => {
  *       401:
  *         description: invalid / missing authentication
  */
-routes.route('/').post((req, res) => {
+routes.route("/").post((req, res) => {
+  Station.getByID(req.body.station_id).then(station => {
+    station.name = req.body.station_name || station.name;
+    station.address = req.body.station_address || station.address;
+    station.coord.lat = req.body.station_coord_lat || station.coord.lat;
+    station.coord.lon = req.body.station_coord_lon || station.coord.lon;
 
-    Station
-        .getByID(req.body.station_id)
-        .then(station => {
-            station.name = req.body.station_name || station.name
-            station.address = req.body.station_address || station.address
-            station.coord.lat = req.body.station_coord_lat || station.coord.lat
-            station.coord.lon = req.body.station_coord_lon || station.coord.lon
+    station.save();
 
-            station.save()
+    console.log("Station " + req.body.station_id + " Changed");
 
-            console.log("Station "+ req.body.station_id + " Changed")
-
-            res.redirect("/admin/editStation")
-        })
-    
-})
+    res.redirect("/admin/editStation");
+  });
+});
 
 module.exports = routes;
