@@ -1,7 +1,7 @@
 <template>
   <v-app id="app">
-    <v-content align-center justify-center>
-        <full-page :options='fullPageOptions'>
+    <v-content align-center justify-center fill-heigh>
+        <full-page :options='fullPageOptions' fill-heigh>
           <div class="section">
             <welcome-page/>
           </div>

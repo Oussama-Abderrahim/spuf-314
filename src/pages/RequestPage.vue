@@ -18,23 +18,31 @@
                     <!-- CHAMP OPTIONS -->
                     <v-layout row wrap class="options">
                       <v-flex xs6 class="options-moyens">
-                        <v-container>
-                        
-                          <v-btn fab class="moyens-btn-active">
-                            <v-icon large>directions_bus</v-icon>
-                          </v-btn>
-                          <br>
-                          <v-btn fab class="moyens-btn-active">
-                            <v-icon large>directions_railway</v-icon>
-                          </v-btn>
-                          <br>
-                          <v-btn fab class="moyens-btn-active">
-                            <v-icon large>directions_walk</v-icon>
-                          </v-btn>
+                        <v-container class="options-moyens-container">
+                          <h3>Moyen de transport</h3>
+                          <v-container class="options-moyens-container-buttons">
+                            <v-btn fab class="moyens-btn-active">
+                              <v-icon large>directions_bus</v-icon>
+                            </v-btn>Bus
+                            <br>
+                            <v-btn fab class="moyens-btn-active">
+                              <v-icon large>directions_railway</v-icon>
+                            </v-btn>Tramway
+                            <br>
+                            <v-btn fab class="moyens-btn-active">
+                              <v-icon large>directions_walk</v-icon>
+                            </v-btn>Marche
+                          </v-container>
                         </v-container>
                       </v-flex>
 
                       <v-flex xs6 class="options-facteurs">
+                        <v-container>
+                          <h3>Facteur choisi</h3><br>
+                            <v-switch class="options-facteurs-switch" :label="`- de temps`" v-model="switch1" color="grey lighten-4"></v-switch>
+                            <v-switch class="options-facteurs-switch" :label="`- de dépense`" v-model="switch2" color="grey lighten-4"></v-switch>
+                            <v-switch class="options-facteurs-switch" :label="`- de correspondence`" v-model="switch3" color="grey lighten-4"></v-switch>
+                        </v-container>
 
                       </v-flex>
 
@@ -63,7 +71,7 @@
           <!-- RIGHT FORM -->
           <v-flex xs6>
             <section class="request-form-right">
-              <!-- TODO : add a dimmer while map is loading -->
+              <!-- TODO : add a dimmer while map is loading brown darken-1-->
               <!-- <div class="ui inverted dimmer">
               <div class="ui text loader">Loading</div>
             </div> -->
@@ -71,7 +79,7 @@
                 <google-map name="request" class="google-map"></google-map>
               </div>
               <container class="center-button">
-                <v-btn type="submit" color="brown darken-1" dark large>Avoir le Chemin</v-btn>
+                <v-btn type="submit" color="black" dark large>Avoir le Chemin</v-btn>
               </container>
             </section>
           </v-flex>
@@ -99,6 +107,9 @@
       return {
         // put variables here
         toggle_multiple: [0, 1], //options
+        switch1: false, //min temps
+        switch2: false, //dépense
+        switch3: false, //correspondence
         query: {
           depart: "",
           arrivee: "",
@@ -107,8 +118,7 @@
         }
       }
     },
-    mounted() {
-    },
+    mounted() {},
     methods: {
       testClick(e) {
         console.log("click")
@@ -124,7 +134,7 @@
 </script>
 
 <style lang="scss" scoped>
-  $background: url("../assets/img/bg4.jpg"); // $blurred-img: url("https://lh3.googleusercontent.com/-m8TxQMObg6c/U474EWu7Y9I/AAAAAAAAI2k/xkRGoIEC1iU/s1600/blur.jpg");
+  $background: url("../assets/img/La capitainerie.jpg"); // $blurred-img: url("https://lh3.googleusercontent.com/-m8TxQMObg6c/U474EWu7Y9I/AAAAAAAAI2k/xkRGoIEC1iU/s1600/blur.jpg");
   $blurred-img: url("../assets/img/blur_bg.jpg");
 
   #request {
@@ -190,6 +200,20 @@
       width: 100%;
       height: 100%;
     }
+  }
+
+  .options {
+    border: 3px solid rgba(255, 255, 255, .2);
+  }
+
+
+  .options-facteurs-switch {
+    margin-top: 15px;
+    margin-right: 10px;
+  } 
+
+  .options-moyens-container-buttons{
+    color: rgb(56, 56, 56);
   }
 
 </style>

@@ -114,7 +114,7 @@
 
 <style lang="scss" scoped>
 
-  $background: url("../assets/img/bg4.jpg");
+  $background: url("../assets/img/Rue Khemisti.jpg");
   // $blurred-img: url("https://lh3.googleusercontent.com/-m8TxQMObg6c/U474EWu7Y9I/AAAAAAAAI2k/xkRGoIEC1iU/s1600/blur.jpg");
   $blurred-img: url("../assets/img/blur_bg.jpg");
 
