@@ -16,6 +16,7 @@
     "jquery": "^3.3.1",
     "semantic-ui": "^2.2.13",
     "vue": "^2.5.2",
+    "vue-multiselect": "^2.1.0",
     "vue-resource": "^1.4.0",
     "vue-router": "^3.0.1",
     "vuetify": "^1.0.5"
