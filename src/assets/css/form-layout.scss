@@ -1,31 +1,26 @@
-$form-width: 65%;
-$form-height: 600px;
+@import "./variables";
+
 
 .request-form {
   display: block;
   padding: 10px;
-  width: 65%;
+  width: $form-width;
   height: $form-height;
   margin-left:auto;
   margin-right:auto;
   border: 5px solid rgba(255, 255, 255, .5);
   overflow: hidden;
+
   &-left {
+    margin-top: 30px;
+    margin-left: 30px;
     height: $form-height;
+
   }
   &-right {
     overflow: hidden;
     position: relative;
     height: $form-height;
     margin: auto;
-  }
-  &-factors {
-    margin-top: 30px;
-    width: 95%;
-  }
-  &-options {
-    .buttons {
-      // could add some 100% width or center .-.
-    }
   }
 }

@@ -2,15 +2,9 @@
   <v-app id="app">
     <v-content align-center justify-center fill-heigh>
         <full-page :options='fullPageOptions' fill-heigh>
-          <div class="section">
-            <welcome-page/>
-          </div>
-          <div class="section">
-            <request-page/>
-          </div>
-          <div class="section">
-            <info-page/>
-          </div>
+          <welcome-page  :class='"section"'/>
+          <request-page  :class='"section"'/>
+          <info-page :class='"section"'/>
         </full-page>
     </v-content>
 
@@ -22,56 +16,64 @@
 </template>
 
 <script>
-  import WelcomePage from './welcomePage'
-  import RequestPage from './RequestPage'
-  import InfoPage from './InfoTransportPage'
-  import FullPage from 'vue-fullpage.js/src/FullPage'
+/* eslint-disable */
+import WelcomePage from "./welcomePage";
+import RequestPage from "./RequestPage";
+import InfoPage from "./InfoTransportPage";
+import FullPage from "vue-fullpage.js/src/FullPage";
 
-  export default {
-    name: 'app',
-    components: {
-      'welcome-page': WelcomePage,
-      'request-page': RequestPage,
-      'info-page': InfoPage,
-      'full-page': FullPage
-    },
-    data () {
-      return {
-        fullPageOptions: {
-          // scrollBar: true,
-          navigation: true,
-          sectionsColor: ['#41b883', '#41b883', '#41b883']
-        }
+export default {
+  name: "app",
+  components: {
+    "welcome-page": WelcomePage,
+    "request-page": RequestPage,
+    "info-page": InfoPage,
+    "full-page": FullPage
+  },
+  data() {
+    return {
+      fullPageOptions: {
+        // scrollBar: true,
+        navigation: true,
+        sectionsColor: ["#41b883", "#41b883", "#41b883"]
       }
-    },
-    computed: {
-    },
-    methods: {
-    },
-    beforeMount () {
+    };
+  },
+  computed: {},
+  methods: {},
+  beforeMount() {
+    // eslint-disable-next-line
+    if ($("html").hasClass("fp-enabled")) {
       // eslint-disable-next-line
-      if ($('html').hasClass('fp-enabled')) {
-        // eslint-disable-next-line
-        $.fn.fullpage.destroy('all')
-      }
-    },
-    mounted () {
-      console.log('home page mounted')
+      $.fn.fullpage.destroy("all");
     }
+  },
+  mounted() {
+    console.log("home page mounted");
   }
+};
 </script>
 
 <style lang="scss">
-  #app {
-    margin: 0;
-    border: 0;
-    height: 100%;
-    width: 100%;
-  }
+$background: url("../assets/img/bg2.jpg");
+#app {
+  margin: 0;
+  border: 0;
+  height: 100%;
+  width: 100%;
+}
 
-  .main-content {
-    height: 100%;
-    max-height: 100%;
-    padding: 0;
-  }
+.section {
+  position: relative;
+  height: 100%;
+  max-height: 100%;
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  background: $background no-repeat;
+  background-size: cover;
+  background-repeat: no-repeat;
+  // background-attachment: fixed;
+}
+
 </style>
