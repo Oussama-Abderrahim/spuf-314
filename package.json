@@ -11,10 +11,8 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "beautify": "0.0.8",
     "fullpage.js": "^2.9.6",
     "jquery": "^3.3.1",
-    "semantic-ui": "^2.2.13",
     "vue": "^2.5.2",
     "vue-multiselect": "^2.1.0",
     "vue-resource": "^1.4.0",
