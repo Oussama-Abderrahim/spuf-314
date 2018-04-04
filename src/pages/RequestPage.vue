@@ -12,11 +12,9 @@
                 <v-flex xs11 class="field">
                   <v-form>
                     <!-- CHAMP DEPART -->
-                    <multi-select :label='"Arret départ"' :placeholder='"Adresse de départ"' v-model="query.depart"/>
-                    <!-- <v-text-field box name="depart" label="Départ" placeholder="Adresse de départ" v-model="query.depart"></v-text-field> -->
+                    <multi-select :label='"Arret départ"' :maxHeight='500' :placeholder='"Adresse de départ"' v-model="query.depart"/>
                     <!-- CHAMP ARRIVEE -->
-                    <!-- <v-text-field box name="arrivee" label="Arrivée" placeholder="Adresse d'arrivée" v-model="query.arrivee"></v-text-field> -->
-                    <multi-select :label='"Arret arrivée"' :placeholder="'Adresse d\'arrivée'" v-model="query.arrivee"/>
+                    <multi-select :label='"Arret arrivée"' :maxHeight='500' :placeholder="'Adresse d\'arrivée'" v-model="query.arrivee"/>
                     <!-- CHAMP OPTIONS -->
                     <v-layout row wrap class="options">
                       <v-flex xs6 class="options-moyens">
@@ -96,22 +94,29 @@ export default {
   data() {
     return {
       // put variables here
-      toggle_multiple: [0, 1], //options
+      toggle_multiple: [0, 1], //modes
       switch1: false, //min temps
       switch2: false, //dépense
       switch3: false, //correspondence
       query: {
         depart: '',
         arrivee: '',
-        options: {},
-        facteurs: {}
+        modes: {
+          bus: true,
+          tram: true,
+          marche: true
+        },
+        facteurs: 0
       }
     }
   },
   mounted() {},
   methods: {
     getPath(event) {
-      this.$router.push('/response')
+      this.$router.push({
+        name: 'response',
+        query: this.query
+      })
     }
   }
 }

@@ -1,12 +1,22 @@
 <template>
   <v-container>
-    <label class="typo__label">{{ label }}</label>
-    <multiselect v-model="value" :options="options" :placeholder='placeholder' label="name" track-by="name">
+    <label class="typo__label" for='ajax'>{{ label }}</label>
+
+    <multiselect v-model="selectedOption" 
+                 id='ajax'
+                 label ='name' 
+                 track-by="ID" 
+                 :searchable="true"
+                 @search-change="asyncFind"
+                 :options="options" 
+                 :placeholder='placeholder' 
+                 :loading="isLoading"
+                 :clear-on-select="false" 
+                 :options-limit='optionsLimit'
+                 :max-height='maxHeight'
+                 :show-no-results="false">
       <template slot="tag" slot-scope="props">
-        <span class="custom__tag">
-          <span>{{ props.option.language  }}</span>
-          <span class="custom__remove" @click="props.remove(props.option)">❌</span>
-        </span>
+        {{ props.option.name  }}
       </template>
     </multiselect>
   </v-container>
@@ -17,28 +27,52 @@ import Multiselect from 'vue-multiselect'
 
 export default {
   props: {
-    label: {type: String, default: 'Select with search'},
-    placeholder: {type: String, default: 'Select One'}
+    value: '',
+    optionsLimit: {type: Number, default: 20},
+    maxHeight: {type: Number, default: 600},
+    label: { type: String, default: 'Select with search' },
+    placeholder: { type: String, default: 'Select One' }
+  },
+  watch: {
+    selectedOption() {
+      this.$emit('input', this.selectedOption.ID)
+    }
   },
   components: {
     Multiselect
   },
   data() {
     return {
-      value: '',
-      options: [
-        {
-          name: 'Vue.js',
-          language: 'JavaScript'
-        }
-      ]
+      defaultObject: {
+        ID: '0',
+        name: 'ExampleStation',
+        address: 'Example Address'
+      },
+      selectedOption: this.defaultObject,
+      options: [],
+      isLoading: false
+    }
+  },
+  methods: {
+    asyncFind(query) {
+      this.isLoading = true
+      this.$http
+        .get(`https://project314.herokuapp.com/api/station/`)
+        .then(response => {
+          console.log('query', query)
+          this.options = response.body
+          this.isLoading = false
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 }
 </script>
 
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+<style src="vue-multiselect/dist/vue-multiselect.min.css">
+</style>
 
 <style lang="scss" scoped>
-
 </style>
