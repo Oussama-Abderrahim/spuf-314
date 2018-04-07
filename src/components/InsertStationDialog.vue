@@ -45,7 +45,7 @@ export default {
             this.disable = false
             response.body.forEach((station, i) => {
               this.stationList.push({
-                id: station.id,
+                id: station.ID,
                 name: station.name
               })
             })
@@ -62,7 +62,7 @@ export default {
         .then(response => {
             var station = response.body;
             let item = {
-                id: station.id,
+                id: station.ID,
                 name: station.name,
                 address: station.address,
                 time: 0,
