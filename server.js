@@ -36,11 +36,16 @@ server.listen(process.env.PORT, () => {
 
 module.exports = server
 
+const dbSession = require('./neo4j/dbUtils')(
+    process.env.NEO4J_URL,
+    process.env.NEO4J_USER,
+    process.env.NEO4J_PASSWORD
+).getSession(this)
+
 /* Routes */
-const router = require("./controllers/index.js");
+const router = require("./controllers/index.js")(dbSession).getRouter();
 
 app.use("/api", router);
-
 
 app.get("/", (request, response) => {
     response.render("index"); // render views/index

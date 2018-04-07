@@ -10,7 +10,10 @@ const LINE_NAME = "TestL" + Math.random();
 
 describe("Model Line Tests", function() {
   before(done => {
-    DB.connect(process.env.MONGODB_TEST_URL, done);
+    DB
+      .connect(process.env.MONGODB_TEST_URL)
+      .then(db => done())
+      .catch(err => done(err))
   });
 
   after(done => {

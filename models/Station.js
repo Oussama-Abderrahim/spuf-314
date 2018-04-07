@@ -15,95 +15,99 @@
  *       coordLon:
  *         type: number
  */
+module.exports = function (dbSession) {
 
-const DatabaseManager = require('../controllers/modules/GraphDatabaseManager')
-const LinesManager = require("../controllers/modules/LinesManager")
-
-const GraphNode = require('./graphModels/GraphNode')
-
-class Station {
+  let GraphNode = require('./graphModels/GraphNode')(dbSession)
 
   /**
-   * 
-   * @param {ID} ID 
-   * @param {String} name 
-   * @param {String} address 
-   * @param {Number} coordLat 
-   * @param {Number} coordLon 
+   * this is my Station Schema ( kinda like mongoose.Schema )
    */
-  constructor(ID, name, address, coordLat, coordLon) {
-    this.ID = ID
-    this.name = name
-    this.address = address
-    this.coord = {
-      lat: coordLat,
-      lon: coordLon
+  class Station {
+    /**
+     * @param {ID} ID
+     * @param {String} name
+     * @param {String} address
+     * @param {Number} coordLat
+     * @param {Number} coordLon
+     */
+    constructor(ID, name, address, coordLat, coordLon) {
+      this.ID = ID
+      this.name = name
+      this.address = address
+      this.coord = {
+        lat: coordLat,
+        lon: coordLon
+      }
+    }
+
+    save() {
+      let station = this
+      GraphNode.updateNode({
+          ID: station.ID,
+          name: station.name,
+          address: station.address,
+          coordLat: station.coord.lat,
+          coordLon: station.coord.lon
+        })
+        .then(updatedStations => {
+          console.log(updatedStations._fields)
+        })
+        .catch(err => console.log(err))
+    }
+
+    /**
+     * Fetch all stations from Graph database
+     * @returns {Promise.<Array.<Station>, Error>} An array of Station objects
+     */
+    static getAll() {
+      return new Promise((resolve, reject) => {
+        let stations = []
+        GraphNode.getAllStations()
+          .then(stationNodes => {
+            stationNodes.forEach(node => {
+              stations.push(
+                new Station(
+                  node.ID,
+                  node.name,
+                  node.address,
+                  node.coordLat,
+                  node.coordLon
+                )
+              )
+            })
+            resolve(stations)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    }
+
+    /**
+     *
+     * @param {Number} id Graph database' ID of station to get
+     * @returns {Promise.<Station, Error>} A promise for a Station object
+     */
+    static getByID(id) {
+      return new Promise((resolve, reject) => {
+        GraphNode.getStation(id)
+          .then(stationNode => {
+            resolve(
+              new Station(
+                stationNode.ID,
+                stationNode.name,
+                stationNode.address,
+                stationNode.coordLat,
+                stationNode.coordLon
+              )
+            )
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
     }
   }
 
-  /**
-   * Fetch all stations from Neo4J database
-   * @returns {Promise.<Array.<Station>, Error>} An array of Station objects
-   */
-  static getAll() {
-    return new Promise((resolve, reject) => {
-      let stations = []
-      DatabaseManager
-        .getAllStations()
-        .then(stationNodes => {
-          stationNodes.forEach(node => {
-            stations.push(new Station(
-              node.ID,
-              node.name,
-              node.address,
-              node.coordLat,
-              node.coordLon
-            ))
-          });
-          resolve(stations)
-        })
-        .catch(err => {
-          reject(err)
-        })
-    })
-  }
-
-  /**
-   * 
-   * @param {Number} id If of the station to get
-   * @returns {Promise.<Station, Error>} A promise for a Station object
-   */
-  static getByID(id) {
-    return new Promise((resolve, reject) => {
-      DatabaseManager
-        .getStation(id)
-        .then((stationNode) => {
-          resolve(new Station(
-            stationNode.ID,
-            stationNode.name,
-            stationNode.address,
-            stationNode.coordLat,
-            stationNode.coordLon
-          ))
-        })
-        .catch(err => {
-          reject(err)
-        })
-    })
-  }
-
-  save() {
-    let station = this
-    DatabaseManager.updateStation(new GraphNode(
-        station.name,
-        station.address,
-        station.coord.lat,
-        station.coord.lon,
-        station.ID
-    ))
-    .then((updatedStations) => {console.log(updatedStations._fields)})
-    .catch(err => console.log(err))
-  }
+  return Station
 }
-
-module.exports = Station

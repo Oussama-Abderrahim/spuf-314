@@ -1,18 +1,17 @@
+require('dotenv').config()
+
 const mongoose = require('mongoose')
 
-
-class DBManager {
-
-    static connect(url, done = _ => {}) {
-        mongoose.connect(url)
-            .then((db) => {
-                console.log('connected to mongodb', db.connections[0].name)
-                return done()
-            })
-            .catch((err) => {
-                return done(err)
-            })
-    }
+const connect = function(url = process.env.MONGODB_URL) {
+  return new Promise((resolve, reject) => {
+    mongoose
+      .connect(url)
+      .then(db => {
+        console.log('connected to mongodb', db.connections[0].name)
+        resolve(db)
+      })
+      .catch(err => reject(err))
+  })
 }
 
-module.exports = DBManager
+module.exports = { connect }

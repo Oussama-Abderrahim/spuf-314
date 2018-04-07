@@ -63,7 +63,6 @@ routes.route('/:id').get((req, res) => {
     })
 });
 
-
 /**
  * @swagger
  * /api/line/:
@@ -96,6 +95,5 @@ routes.route('/:id').get((req, res) => {
 routes.route('/').post((req, res) => {
     res.json(req.body)
 })
-
 
 module.exports = routes
