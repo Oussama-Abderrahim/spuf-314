@@ -1,20 +1,18 @@
-const neo4j = require("neo4j-driver").v1;
-
-const GraphNode = require("../../models/graphModels/GraphNode");
-const GraphSegment = require("../../models/graphModels/GraphSegment");
-const TransportType = require("../../models/TransportType");
-
-const driver = neo4j.driver(
+const session = require('../../neo4j/dbUtils')(
   process.env.NEO4J_URL,
-  neo4j.auth.basic(process.env.NEO4J_USER, process.env.NEO4J_PASSWORD)
-);
-const session = driver.session();
+  process.env.NEO4J_USER,
+  process.env.NEO4J_PASSWORD
+).getSession(this)
 
+const GraphSegment = require('../../models/graphModels/GraphSegment')
+const TransportType = require('../../models/TransportType')
+
+/// TODO: Rename Stations to nodes
 const getDirection = function(params, callback) {
-  let transports = [];
-  if (params.transport.bus) transports.push(TransportType.Bus.db_label);
-  if (params.transport.tram) transports.push(TransportType.Tramway.db_label);
-  if (params.transport.walk) transports.push(TransportType.Walk.db_label);
+  let transports = []
+  if (params.transport.bus) transports.push(TransportType.Bus.db_label)
+  if (params.transport.tram) transports.push(TransportType.Tramway.db_label)
+  if (params.transport.walk) transports.push(TransportType.Walk.db_label)
 
   session
     .run(
@@ -34,97 +32,29 @@ const getDirection = function(params, callback) {
       }
     )
     .then(result => {
-      session.close();
-      callback(result.records);
+      session.close()
+      callback(result.records)
     })
-    .catch(err => console.log(err));
-};
+    .catch(err => console.log(err))
+}
 
-const getAllStations = function() {
-  return new Promise((resolve, reject) => {
-    let stations = [];
-    session
-      .run("MATCH (n) RETURN n")
-      .then(result => {
-        result.records.forEach(function(record) {
-          stations.push(
-            new GraphNode(
-              record._fields[0].properties.name,
-              record._fields[0].properties.address,
-              record._fields[0].properties.coordLat,
-              record._fields[0].properties.coordLon,
-              record._fields[0].identity.low /// TODO : Get proper ID
-            )
-          );
-        });
-        session.close();
-        resolve(stations);
-      })
-      .catch(err => reject(err));
-  });
-};
-
-const getStation = function(id) {
-  return new Promise((resolve, reject) => {
-    let station = {};
-    session
-      .run(`MATCH (s:Station) WHERE ID(s)=${id} RETURN s`)
-      .then(result => {
-        station = new GraphNode(
-          result.records[0]._fields[0].properties.name,
-          result.records[0]._fields[0].properties.address,
-          result.records[0]._fields[0].properties.coordLat,
-          result.records[0]._fields[0].properties.coordLon,
-          result.records[0]._fields[0].identity.low /// TODO: Get proper ID
-        );
-        session.close();
-        resolve(station);
-      })
-      .catch(err => {
-        reject(err);
-      });
-  });
-};
-
-/**
- *
- * @param {GraphNode} station
- */
-const updateStation = function(station) {
-  return new Promise((resolve, reject) => {
-    let query = GraphNode.getNeo4JUpdateQuery(station);
-    session
-      .run(query)
-      .then(result => {
-        session.close();
-        if (result.records) resolve(result.records[0]);
-        else resolve({});
-      })
-      .catch(err => {
-        reject(err);
-      });
-  });
-};
 
 var createLine = function(
   segments,
   success = s => console.log(s),
   error = err => console.log(err)
 ) {
-  let query = GraphSegment.getNeo4JLineQuery(segments);
+  let query = GraphSegment.getNeo4JLineQuery(segments)
 
   session
     .run(query)
     .then(result => {
-      success(result.records);
+      success(result.records)
     })
-    .catch(err => console.log(err));
-};
+    .catch(err => console.log(err))
+}
 
 module.exports = {
-  getAllStations,
   getDirection,
-  getStation,
   createLine,
-  updateStation
-};
+}
