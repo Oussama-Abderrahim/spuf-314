@@ -23,7 +23,7 @@ const swaggerDefinition = {
             description: 'Bus Lines API'
         }
     ],
-    schemes: ['http'],
+    schemes: ['https'],
     host: process.env.HOST_NAME,
     basePath: '/'
 };
