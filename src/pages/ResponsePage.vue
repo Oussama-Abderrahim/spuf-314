@@ -1,52 +1,88 @@
 <template>
-  <div id="response">
+  <v-content id="response">
+    <v-container grid-list-xs fluid fill-height align-center justify-center>
+      <form class="request-form blurred-bg tinted" @submit.prevent="getPath" action='#' method="GET">
+        <v-layout row wrap>
+          <!-- Left Form -->
 
-    <form class="request-form blurred-bg tinted" @submit.prevent="getPath" action='#' method="GET">
-      <div class="ui grid fluid container">
-        <!-- Left Form -->
-        <div class="eight wide column">
-          <h1 class="ui header">
-            <i class="massive arrow right icon"></i>
-            <div class="content">
+          <v-flex xs12 md6>
+            <v-container class="title">
               Itinéraire à suivre:
-              <div class="sub header">Veuillez suivre ces étpaes pour arriver à votre destination</div>
-            </div>
-          </h1>
+              <v-container class="subheading">
+                Veuillez suivre ces étpaes pour arriver à votre destination
+              </v-container>
+            </v-container>
 
-          <scrollbar>
-            <ul class="ui steps vertical force-overflow">
 
-              <li class="step" v-for='(step,i) in steps' :key='i'>
-                <div class="content step-content">
-                  <i class="big icon left floated" :class="step.type"></i>
-                  <div class="step-text">
-                    <div class="title">{{step.name}}</div>
-                    <div class="description">{{step.dist}}m , {{step.price}}Da, {{step.time}} minutes</div>
+            <scrollbar>
+              <ul class="ui steps vertical force-overflow">
+
+                <li class="step" v-for='(step,i) in steps' :key='i'>
+                  <div class="content step-content push-down">
+                    <i class="big icon left floated" :class="step.type"></i>
+                    <div class="step-text">
+                      <div class="title">{{step.name}}</div>
+                      <div class="description">{{step.dist}}m , {{step.price}}Da, {{step.time}} minutes</div>
+                      <br>
+                      <v-expansion-panel popout white>
+                        <v-expansion-panel-content class="push-up">
+                          <div class="subheading" slot="header">Plus d'informations</div>
+                          <v-card white>
+                            <v-card-text>yo
+                            </v-card-text>
+                          </v-card>
+                        </v-expansion-panel-content>
+                      </v-expansion-panel>
+                    </div>
                   </div>
+                  <br>
+                  <hr>
+                  <!-- <i class="icon right floated"></i> -->
+                </li>
+
+              </ul>
+            </scrollbar>
+          </v-flex>
+
+
+          <!-- RIGHT FORM -->
+          <v-flex xs12 md6>
+            <v-layout row wrap>
+              <v-flex x12 mx-4>
+                <div class="map">
+                  <google-map name="response" class="google-map"></google-map>
                 </div>
-                <!-- <i class="icon right floated"></i> -->
-              </li>
+              </v-flex>
+              <v-flex xs12>
+                <v-layout row wrap>
+                  <v-flex xs6>
+                    <v-card white>
+                      <v-card-text>
+                        OOOOOO
+                      </v-card-text>
+                    </v-card>
+                  </v-flex>
 
-            </ul>
+                  <v-flex xs6>
+                    <v-card white>
+                      <v-card-text>
+                        OOOOOO
+                      </v-card-text>
+                    </v-card>
+                  </v-flex>
+                </v-layout>
+              </v-flex>
+            </v-layout>
 
-          </scrollbar>
-        </div>
-
-        <!-- RIGHT FORM -->
-        <div class="eight wide column">
-          <div class="request-form-right">
-            <div class="map">
-              <google-map name="response" class="google-map"></google-map>
-            </div>
-           
-          </div>
-
-        </div>
-      </div>
-    </form>
-
-  </div>
+          </v-flex>
+        </v-layout>
+      </form>
+    </v-container>
+  </v-content>
 </template>
+
+
+
 
 
 
@@ -64,37 +100,36 @@
     },
     data() {
       return {
-        steps : [
-          {
-            name : "Prendre Bus 11 pour 3 arrets",
+        steps: [{
+            name: "Prendre Bus 11 pour 3 arrets",
             type: "bus",
             time: 5,
             price: 20,
             dist: 200
           },
           {
-            name : "Marcher jusqu'à arret12",
+            name: "Marcher jusqu'à arret12",
             type: "male",
             time: 5,
             price: 0,
             dist: 200
           },
           {
-            name : "Tramway pour 6 arrets",
+            name: "Tramway pour 6 arrets",
             type: "train",
             time: 15,
             price: 40,
             dist: 850
           },
           {
-            name : "Take a break",
+            name: "Take a break",
             type: "male",
             time: 5,
             price: 0,
             dist: 0
           },
           {
-            name : "Marcher jusqu'a votre destination",
+            name: "Marcher jusqu'a votre destination",
             type: "male",
             time: 5,
             price: 0,
@@ -113,14 +148,12 @@
 </script>
 
 <style lang="scss" scoped>
-
-  $background: url("../assets/img/Rue Khemisti.jpg");
-  // $blurred-img: url("https://lh3.googleusercontent.com/-m8TxQMObg6c/U474EWu7Y9I/AAAAAAAAI2k/xkRGoIEC1iU/s1600/blur.jpg");
+  $background: url("../assets/img/Chapelle de Santa Cruz.jpg"); // $blurred-img: url("https://lh3.googleusercontent.com/-m8TxQMObg6c/U474EWu7Y9I/AAAAAAAAI2k/xkRGoIEC1iU/s1600/blur.jpg");
   $blurred-img: url("../assets/img/blur_bg.jpg");
 
 
   #response {
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     right: 0;
@@ -143,16 +176,18 @@
     background-size: cover;
     background-attachment: fixed;
 
+    background-position-y: 100vh;
+
     &.tinted {
       // background-image: $blurred-img
-      background: $blurred-img, -webkit-linear-gradient(0deg, rgba(255, 255, 255, .2), rgba(255, 255, 255, .2));
+      background: $blurred-img, -webkit-linear-gradient(0deg, rgba(255, 255, 255, .2), rgba(255, 255, 255, .2)) fixed center;
       background-repeat: no-repeat;
       background-size: cover;
       background-attachment: fixed;
     }
   }
 
- 
+
   @import '../assets/css/form-layout.scss';
 
   .push_down {
@@ -179,7 +214,7 @@
     display: block;
     padding: 10px 0;
     height: 100%;
-  
+
     &:hover {
       background-color: #eee;
     }
@@ -216,4 +251,5 @@
       height: 100%;
     }
   }
+
 </style>
