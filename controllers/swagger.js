@@ -21,6 +21,10 @@ const swaggerDefinition = {
         {
             name: 'Line',
             description: 'Bus Lines API'
+        },
+        {
+            name: 'Direction',
+            description: 'Path finding API'
         }
     ],
     schemes: ['https'],

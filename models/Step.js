@@ -1,6 +1,21 @@
 /**
- * Class representing a single Step
- * Step represents the whole journey from Station A to Station C on the same transport 
+ * @swagger
+ * definitions:
+ *   Step:
+ *     type: object
+ *     properties:
+ *       sourceStation:
+ *         $ref: '#/definitions/Station'
+ *       destStation:
+ *         $ref: '#/definitions/Station' 
+ *       price:
+ *         type: number
+ *       time:
+ *         type: number
+ *       type:
+ *         type: string
+ *       name:
+ *         type: string
  */
 
 class Step {

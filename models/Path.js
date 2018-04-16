@@ -1,4 +1,20 @@
-
+/**
+ * @swagger
+ * definitions:
+ *   Path:
+ *     type: object
+ *     properties:
+ *       totalDist:
+ *         type: number
+ *       totalPrice:
+ *         type: number
+ *       totalTime:
+ *         type: number
+ *       steps:
+ *         type: array
+ *         items:
+ *           $ref: '#/definitions/Step'
+ */
 class Path {
 
     /**
