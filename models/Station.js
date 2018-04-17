@@ -15,9 +15,8 @@
  *       coordLon:
  *         type: number
  */
-module.exports = function (dbSession) {
-
-  let GraphNode = require('./graphModels/GraphNode')(dbSession)
+module.exports = function(dbSession) {
+  let GraphNode = require("./graphModels/GraphNode")(dbSession);
 
   /**
    * this is my Station Schema ( kinda like mongoose.Schema )
@@ -31,28 +30,38 @@ module.exports = function (dbSession) {
      * @param {Number} coordLon
      */
     constructor(ID, name, address, coordLat, coordLon) {
-      this.ID = ID
-      this.name = name
-      this.address = address
+      this.ID = ID;
+      this.name = name;
+      this.address = address;
       this.coord = {
         lat: coordLat,
         lon: coordLon
-      }
+      };
     }
 
     save() {
-      let station = this
+      let station = this;
       GraphNode.updateNode({
-          ID: station.ID,
-          name: station.name,
-          address: station.address,
-          coordLat: station.coord.lat,
-          coordLon: station.coord.lon
-        })
+        ID: station.ID,
+        name: station.name,
+        address: station.address,
+        coordLat: station.coord.lat,
+        coordLon: station.coord.lon
+      })
         .then(updatedStations => {
-          console.log(updatedStations._fields)
+          console.log(updatedStations._fields);
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
+    }
+
+    static createFromNode(graphNode) {
+      return new Station(
+        graphNode.ID,
+        graphNode.name,
+        graphNode.address,
+        graphNode.coordLat,
+        graphNode.coordLon
+      );
     }
 
     /**
@@ -61,26 +70,18 @@ module.exports = function (dbSession) {
      */
     static getAll() {
       return new Promise((resolve, reject) => {
-        let stations = []
+        let stations = [];
         GraphNode.getAllStations()
           .then(stationNodes => {
             stationNodes.forEach(node => {
-              stations.push(
-                new Station(
-                  node.ID,
-                  node.name,
-                  node.address,
-                  node.coordLat,
-                  node.coordLon
-                )
-              )
-            })
-            resolve(stations)
+              stations.push(Station.createFromNode(node));
+            });
+            resolve(stations);
           })
           .catch(err => {
-            reject(err)
-          })
-      })
+            reject(err);
+          });
+      });
     }
 
     /**
@@ -92,22 +93,14 @@ module.exports = function (dbSession) {
       return new Promise((resolve, reject) => {
         GraphNode.getStation(id)
           .then(stationNode => {
-            resolve(
-              new Station(
-                stationNode.ID,
-                stationNode.name,
-                stationNode.address,
-                stationNode.coordLat,
-                stationNode.coordLon
-              )
-            )
+            resolve(Station.createFromNode(stationNode));
           })
           .catch(err => {
-            reject(err)
-          })
-      })
+            reject(err);
+          });
+      });
     }
   }
 
-  return Station
-}
+  return Station;
+};

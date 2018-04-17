@@ -17,6 +17,7 @@
  *       name:
  *         type: string
  */
+const Station = require('./Station')()
 
 class Step {
     /**

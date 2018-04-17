@@ -9,11 +9,11 @@ module.exports = function(dbSession) {
      */
     constructor(record, fields = {}) {
       if (record) {
-        this.name = record.get(0).properties.name
-        this.address = record.get(0).properties.address
-        this.coordLat = record.get(0).properties.coordLat
-        this.coordLon = record.get(0).properties.coordLon
-        this.ID = record.get(0).identity.low /// TODO : Get proper ID
+        this.name = record.properties.name
+        this.address = record.properties.address
+        this.coordLat = record.properties.coordLat
+        this.coordLon = record.properties.coordLon
+        this.ID = record.identity.low /// TODO : Get proper ID
       } else {
         this.name = fields.name
         this.address = fields.address
@@ -33,7 +33,7 @@ module.exports = function(dbSession) {
         session
           .run(`MATCH (s:Station) WHERE ID(s)=${id} RETURN s`)
           .then(result => {
-            station = new GraphNode(result.records[0])
+            station = new GraphNode(result.records.get(0))
             session.close()
             resolve(station)
           })
@@ -53,7 +53,7 @@ module.exports = function(dbSession) {
           .run('MATCH (n) RETURN n')
           .then(result => {
             result.records.forEach(function(record) {
-              stations.push(new GraphNode(record))
+              stations.push(new GraphNode(record.get(0)))
             })
             session.close()
             resolve(stations)

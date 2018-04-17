@@ -3,39 +3,24 @@ const Step = require("../../models/Step");
 const TransportType = require("../../models/TransportType");
 
 module.exports = function(dbSession) {
+  const Station = require("../../models/Station")(dbSession);
+  const GraphNode = require("../../models/graphModels/GraphNode")(dbSession);
+
   /**
    * @param {*} db_result a record from the database results
    */
   const _makePath = function(db_result) {
-    let segments = db_result._fields[db_result._fieldLookup["segments"]];
-    let startNodes = db_result._fields[db_result._fieldLookup["startNodes"]];
-    let endNodes = db_result._fields[db_result._fieldLookup["endNodes"]];
+    let segments = db_result.get("segments");
+    let startNodes = db_result.get("startNodes");
+    let endNodes = db_result.get("endNodes");
 
-    let totalDist = 0; // TODO : get from Path
-    let totalPrice = 0; // TODO : get from Path
-    let totalTime = 0; // TODO : get from Path
-
-    let path = new Path(totalDist, totalPrice, totalTime);
+    let path = new Path();
 
     for (let i = 0; i < segments.length; i++) {
-      let sourceStation = {
-        name: startNodes[i].properties.name,
-        coords: {
-          lat: startNodes[i].properties.coord[0],
-          lon: startNodes[i].properties.coord[1]
-        },
-        address: startNodes[i].properties.address
-      };
-      let destStation = {
-        name: endNodes[i].properties.name,
-        coords: {
-          lat: endNodes[i].properties.coord[0],
-          lon: endNodes[i].properties.coord[1]
-        },
-        address: endNodes[i].properties.address
-      };
+      let sourceStation = Station.createFromNode(new GraphNode(startNodes[i]));
+      let destStation = Station.createFromNode(new GraphNode(endNodes[i]));
 
-      let price = 0;
+      let price = 0;// TODO: get from Segment
       let dist = 0;
       let time = 0;
 
@@ -97,11 +82,16 @@ module.exports = function(dbSession) {
 
   /**
    * Computes the path from point A to B given in params
-   * Queries from the DatabaseManager and performs call all evaluation functions
-   * @param {QueryParams} params // TODO : Add query model
-   * @param {function} callback callback using an array of Path objects
+   * Queries from GraphDatabase and performs call all evaluation functions
+   * @param {Object} params
+   * @param {String} params.start Name of start Station
+   * @param {String} params.end Name of end Station
+   * @param {Array.<Boolean>} params.transport list of transports to use
+   * @param {Boolean} params.transport.bus true if to include Bus in path
+   * @param {Boolean} params.transport.tram true if to include tramway in path
+   * @param {Boolean} params.transport.walk true if to include walking in path
    */
-  const getPath = function(params, callback) {
+  const getPath = function(params) {
     return new Promise((resolve, reject) => {
       computeDirection(params)
         .then(db_results => {
@@ -125,6 +115,16 @@ module.exports = function(dbSession) {
     });
   };
 
+  /**
+   * Compute direction from Graphdatabase
+   * @param {Object} params
+   * @param {String} params.start Name of start Station
+   * @param {String} params.end Name of end Station
+   * @param {Array.<Boolean>} params.transport list of transports to use
+   * @param {Boolean} params.transport.bus true if to include Bus in path
+   * @param {Boolean} params.transport.tram true if to include tramway in path
+   * @param {Boolean} params.transport.walk true if to include walking in path
+   */
   const computeDirection = function(params) {
     return new Promise((resolve, reject) => {
       let transports = [];

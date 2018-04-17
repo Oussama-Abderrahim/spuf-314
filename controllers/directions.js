@@ -11,11 +11,40 @@ module.exports = function(dbSession) {
        * /api/direction/:
        *   get:
        *     tags:
-       *     - direction
+       *     - Direction
        *     description: Get Path from start to end
        *     summary: Get path
        *     produces:
        *       - application/json
+       *     parameters:
+       *       - name: start
+       *         description: name of start station 
+       *         in: path
+       *         required: true
+       *         type: string
+       *       - name: end
+       *         description: name of end station 
+       *         in: path
+       *         required: true
+       *         type: string
+       *       - name: bus
+       *         description: set to true if to include bus in path  
+       *         in: path
+       *         required: false
+       *         default: true
+       *         type: boolean
+       *       - name: tram
+       *         description: set to true if to include tramway in path  
+       *         in: path
+       *         required: false
+       *         default: true
+       *         type: boolean
+       *       - name: walk
+       *         description: set to true if to include walking in path  
+       *         in: path
+       *         required: false
+       *         default: true
+       *         type: boolean
        *     responses:
        *       200:
        *         description: A Path object
