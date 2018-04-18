@@ -1,11 +1,11 @@
 # I still don't have a name for this project but it's nice !
 
-*project-314* is a Web Application for public transportation, providing a RESTful API to find Stations, Bus, Metro and Tramway's Lines and find the best multimodal route between two stations.
+*project-314* is a Web Application *prototype* for public transportation, providing a RESTful API to find Stations, Bus, Metro and Tramway's Lines and find the best multimodal route between two stations.
 
 
 Check swagger documentation at `http://localhost:3000/api/docs`
 
-## Installation
+## Install
 ```
 git clone https://github.com/Sakasaky/project-314.git
 cd project-314

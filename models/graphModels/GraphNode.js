@@ -33,7 +33,7 @@ module.exports = function(dbSession) {
         session
           .run(`MATCH (s:Station) WHERE ID(s)=${id} RETURN s`)
           .then(result => {
-            station = new GraphNode(result.records.get(0))
+            station = new GraphNode(result.records[0].get(0))
             session.close()
             resolve(station)
           })

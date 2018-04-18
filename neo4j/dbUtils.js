@@ -25,6 +25,10 @@ module.exports = function(DB_URL = process.env.NEO4J_URL,
     }
   };
 
+  const runQuery = function (session, query, params) {
+    return session.run(query, params)
+  }
+
   return {getSession}
 }
 
