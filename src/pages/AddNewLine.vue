@@ -1,26 +1,47 @@
 <template>
-  <v-container id="add">
+  <v-container id="add" align-center>
 
-    <v-form ref="form">
+    <v-container display-2 class="form-title">Ajout d'une nouvelle ligne</v-container>
+
+    <v-form ref="form" align-center>
       <v-layout row>
-        <v-flex xs12 md6 mx-auto>
-          <v-container class="form-bus">
-            <v-text-field label="Nom du bus" v-model="bus.name"></v-text-field>
-            <v-text-field label="Fréquence de bus" v-model="bus.frequence" mask="##" required></v-text-field>
-            <v-text-field label="Temps d'attente moyen dans chaque arrêt" v-model="bus.avgWaitTime" suffix="MN:SS" mask="time" required></v-text-field>
-            <v-text-field label="Temps d'attente moyen durant les heures de pointe" suffix="MN:SS" mask="time" required></v-text-field>
-            <v-text-field label="Temps d'attente maximal" v-model="bus.maxWaitTime" suffix="MN:SS" mask="time" required></v-text-field>
-            <v-text-field label="Prix du ticket" v-model="bus.price" suffix="DA" required></v-text-field>
-          </v-container>
+        <v-flex xs6 md5 mx-auto>
+          <v-card>
+            <v-toolbar color="primary" dark>
+              <v-container headline class="text-xs-center">Bus informations</v-container>
+            </v-toolbar>
+            <v-container class="form-bus">
+              <v-text-field label="Nom du bus" v-model="bus.name"></v-text-field>
+              <v-text-field label="Fréquence de bus" v-model="bus.frequence" mask="##" required></v-text-field>
+              <v-text-field label="Prix du ticket" v-model="bus.price" suffix="DA" required></v-text-field>
+            </v-container>
+          </v-card>
+        </v-flex>
+        <v-spacer></v-spacer>
+        <v-flex xs6 md5 mx-auto>
+          <v-card>
+            <v-toolbar color="primary" dark>
+              <v-container headline class="text-xs-center">Schedule informations</v-container>
+            </v-toolbar>
+            <v-container class="form-bus">
+              <v-text-field label="Temps d'attente moyen dans chaque arrêt" v-model="bus.avgWaitTime" suffix="MN:SS" mask="time" required></v-text-field>
+              <v-text-field label="Temps d'attente moyen durant les heures de pointe" suffix="MN:SS" mask="time" required></v-text-field>
+              <v-text-field label="Temps d'attente maximal" v-model="bus.maxWaitTime" suffix="MN:SS" mask="time" required></v-text-field>
+            </v-container>
+          </v-card>
+
         </v-flex>
       </v-layout>
 
 
       <!-- Line data table -->
-      <v-layout row wrap>
+      <v-layout row wrap class="form-line">
         <v-flex xs12>
-          <v-data-table :headers="tableStations.headers" :items="tableStations.items" hide-actions class="elevation-1">
-
+          <v-data-table :headers="tableStations.headers" :items="tableStations.items" hide-actions class="elevation-1" :class='"scroll-y"'
+            style="max-height: 400px">
+            <template slot="headerCell" slot-scope="props" color="primary">
+              {{ props.header.text }}
+            </template>
             <template slot="items" slot-scope="props">
               <!-- Data Columns  -->
               <td>{{ props.item.name }}</td>
@@ -89,128 +110,146 @@
 
 
 <script>
-  import InsertStationDialog from "../components/InsertStationDialog";
-  import MapSection from "../components/MapSection";
-  import ScrollBar from "../components/scrollBar";
+import InsertStationDialog from '../components/InsertStationDialog'
+import MapSection from '../components/MapSection'
+import ScrollBar from '../components/scrollBar'
 
-  export default {
-    components: {
-      'insert-station-dialog': InsertStationDialog,
-      "google-map": MapSection,
-      "scrollbar": ScrollBar
-    },
-    data() {
-      return {
-        e1: null,
-        editStationDialog: false,
-        bus: {
-          name: '',
-          frequence: 0,
-          avgWaitTime: '00:00',
-          maxWaitTime: '00:00',
-          price: 0
-        },
-        tableStations: {
-          headers: [{
-              text: 'Nom de l\'arrêt',
-              align: 'left',
-              sortable: false,
-              value: 'name'
-            },
-            {
-              text: 'L\'adresse',
-              align: 'left',
-              sortable: false,
-              value: 'adresse'
-            },
-            {
-              text: 'La longueur (m)',
-              align: 'left',
-              sortable: false,
-              value: 'longueur'
-            },
-            {
-              text: 'Durée moyenne (mn)',
-              align: 'left',
-              sortable: false,
-              value: 'durée'
-            },
-            {
-              text: 'Actions',
-              align: 'left',
-              sortable: false,
-              value: 'name'
-            }
-          ],
-          items: [],
-          editedItem: {
-            index: -1,
-            item: {
-              name: 'arrêt',
-              address: 'adresse',
-              dist: 0,
-              time: 0
-            },
-            default: {
-              name: 'arrêt',
-              address: 'adresse',
-              dest: 0,
-              time: 0
-            }
+export default {
+  components: {
+    'insert-station-dialog': InsertStationDialog,
+    'google-map': MapSection,
+    scrollbar: ScrollBar
+  },
+  data() {
+    return {
+      e1: null,
+      editStationDialog: false,
+      bus: {
+        name: '',
+        frequence: 0,
+        avgWaitTime: '00:00',
+        maxWaitTime: '00:00',
+        price: 0
+      },
+      tableStations: {
+        headers: [
+          {
+            text: "Nom de l'arrêt",
+            align: 'left',
+            sortable: false,
+            value: 'name'
+          },
+          {
+            text: "L'adresse",
+            align: 'left',
+            sortable: false,
+            value: 'adresse'
+          },
+          {
+            text: 'La longueur (m)',
+            align: 'left',
+            sortable: false,
+            value: 'longueur'
+          },
+          {
+            text: 'Durée moyenne (mn)',
+            align: 'left',
+            sortable: false,
+            value: 'durée'
+          },
+          {
+            text: 'Actions',
+            align: 'left',
+            sortable: false,
+            value: 'name'
+          }
+        ],
+        items: [],
+        editedItem: {
+          index: -1,
+          item: {
+            name: 'arrêt',
+            address: 'adresse',
+            dist: 0,
+            time: 0
+          },
+          default: {
+            name: 'arrêt',
+            address: 'adresse',
+            dest: 0,
+            time: 0
           }
         }
       }
+    }
+  },
+  computed: {},
+  watch: {
+    editStationDialog(val) {
+      val || this.closeEditDialog()
+    }
+  },
+  created() {
+    this.initialize()
+  },
+  methods: {
+    initialize() {
+      this.tableStations.items = []
     },
-    computed: {},
-    watch: {
-      editStationDialog(val) {
-        val || this.closeEditDialog()
+    editItem(item) {
+      this.tableStations.editedItem.index = this.tableStations.items.indexOf(
+        item
+      )
+      this.tableStations.editedItem.item = Object.assign({}, item)
+      this.editStationDialog = true
+    },
+    deleteItem(item) {
+      const index = this.tableStations.items.indexOf(item)
+      confirm('Etes vous sûr de vouloir supprimer cette station ?') &&
+        this.tableStations.items.splice(index, 1)
+    },
+    closeEditDialog() {
+      this.editStationDialog = false
+      setTimeout(() => {
+        this.tableStations.editedItem.item = Object.assign(
+          {},
+          this.tableStations.editedItem.default
+        )
+        this.tableStations.editedItem.index = -1
+      }, 300)
+    },
+    insertItem(item) {
+      if (this.tableStations.editedItem.index < 0) {
+        this.tableStations.items.push(item)
+      } else {
+        Object.assign(
+          this.tableStations.items[this.tableStations.editedItem.index],
+          this.tableStations.editedItem.item
+        )
+        this.closeEditDialog()
       }
     },
-    created() {
-      this.initialize()
-    },
-    methods: {
-      initialize() {
-        this.tableStations.items = []
-      },
-      editItem(item) {
-        this.tableStations.editedItem.index = this.tableStations.items.indexOf(item)
-        this.tableStations.editedItem.item = Object.assign({}, item)
-        this.editStationDialog = true
-      },
-      deleteItem(item) {
-        const index = this.tableStations.items.indexOf(item)
-        confirm('Etes vous sûr de vouloir supprimer cette station ?') && this.tableStations.items.splice(index, 1)
-      },
-      closeEditDialog() {
-        this.editStationDialog = false
-        setTimeout(() => {
-          this.tableStations.editedItem.item = Object.assign({}, this.tableStations.editedItem.default)
-          this.tableStations.editedItem.index = -1
-        }, 300)
-      },
-      insertItem(item) {
-        if (this.tableStations.editedItem.index < 0) {
-          this.tableStations.items.push(item)
-        } else {
-          Object.assign(this.tableStations.items[this.tableStations.editedItem.index], this.tableStations.editedItem.item)
-          this.closeEditDialog()
-        }
-      },
-      submit() {
-        console.log(this.tableStations)
-      }
+    submit() {
+      console.log(this.tableStations)
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>
-  .form-bus .v-text-field {
-    font-size: 1em
-  }
+.form-title {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.form-bus .v-text-field {
+  font-size: 1em;
+}
 
-  .form-btns {
-    text-align: center;
-  }
+.form-line {
+  margin-top: 50px;
+}
+
+.form-btns {
+  text-align: center;
+}
 </style>
