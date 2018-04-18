@@ -14,7 +14,7 @@
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
-        <v-btn color="blue darken-1" flat :disabled="disable">Ajouter</v-btn>
+        <v-btn color="blue darken-1" flat :disabled="disable" @click.native="insert">Ajouter</v-btn>
         <v-spacer></v-spacer>
         <v-btn color="blue darken-1" flat @click.native="addStationDialog = false">Fermer</v-btn>
       </v-card-actions>
@@ -62,6 +62,7 @@ import CreateStationDialog from './CreateStationDialog'
           }, error => console.log(error))
       },
       insert() {
+        console.log('inserting')
         if (!this.selectedNewStation) {
           this.closeDialog()
           return
