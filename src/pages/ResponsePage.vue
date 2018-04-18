@@ -28,7 +28,8 @@
                         <v-expansion-panel-content class="push-up">
                           <div class="subheading" slot="header">Plus d'informations</div>
                           <v-card white>
-                            <v-card-text>yo
+                            <v-card-text>Lost — Yesterday, somewhere between sunrise and sunset, two golden hours, each set with sixty diamond minutes.
+                               No reward is offered, for they are gone forever. 
                             </v-card-text>
                           </v-card>
                         </v-expansion-panel-content>
@@ -37,7 +38,6 @@
                   </div>
                   <br>
                   <hr>
-                  <!-- <i class="icon right floated"></i> -->
                 </li>
 
               </ul>
@@ -56,17 +56,19 @@
               <v-flex xs12>
                 <v-layout row wrap>
                   <v-flex xs6>
-                    <v-card white>
+                    <v-card white class="suggestions">
                       <v-card-text>
-                        OOOOOO
+                        <div class="title">2ème suggestion</div>
+                        Point de départ - Point d'arrivée<br> (marche/Nom bus/Tram) ->  (marche/Nom bus/Tram)<br>Prix: X DA, Temps: X mn                     
                       </v-card-text>
                     </v-card>
                   </v-flex>
 
                   <v-flex xs6>
-                    <v-card white>
+                    <v-card white class="suggestions">
                       <v-card-text>
-                        OOOOOO
+                        <div class="title">3ème suggestion</div>
+                        Point de départ - Point d'arrivée<br> (marche/Nom bus/Tram) ->  (marche/Nom bus/Tram)<br>Prix: X DA, Temps: X mn 
                       </v-card-text>
                     </v-card>
                   </v-flex>
@@ -252,4 +254,7 @@
     }
   }
 
+  .v-card .suggestions{
+    margin-top: 100px;
+  }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <v-container id="request">
 
-    <v-container grid-list-xs fluid  fill-height align-center justify-center>
+    <v-container grid-list-xs fluid fill-height align-center justify-center>
       <form class="request-form blurred-bg tinted" @submit.prevent="getPath" action='#' method="GET">
         <!-- <div class="blur"></div> -->
         <!-- Left Form -->
@@ -12,41 +12,34 @@
                 <v-flex xs11 class="field">
                   <v-form>
                     <!-- CHAMP DEPART -->
-                    <multi-select :label='"Arret départ"' :maxHeight='500' :placeholder='"Adresse de départ"' v-model="query.depart"/>
+                    <multi-select class="subheading" :label='"Arret départ"' :maxHeight='500' :placeholder='"Adresse de départ"' v-model="query.depart" />
                     <!-- CHAMP ARRIVEE -->
-                    <multi-select :label='"Arret arrivée"' :maxHeight='500' :placeholder="'Adresse d\'arrivée'" v-model="query.arrivee"/>
+                    <multi-select class="subheading" :label='"Arret arrivée"' :maxHeight='500' :placeholder="'Adresse d\'arrivée'" v-model="query.arrivee" />
                     <!-- CHAMP OPTIONS -->
-                    <v-layout row wrap class="options">
-                      <v-flex xs6 class="options-moyens">
-                        <v-container class="options-moyens-container">
-                          <h3>Moyen de transport</h3>
-                          <v-container class="options-moyens-container-buttons">
-                            <v-btn fab class="moyens-btn-active">
-                              <v-icon large>directions_bus</v-icon>
-                            </v-btn>
-                            <label for="">Bus</label>
-                            <br>
-                            <v-btn fab class="moyens-btn-active">
-                              <v-icon large>directions_railway</v-icon>
-                            </v-btn>Tramway
-                            <br>
-                            <v-btn fab class="moyens-btn-active">
-                              <v-icon large>directions_walk</v-icon>
-                            </v-btn>Marche
-                          </v-container>
-                        </v-container>
-                      </v-flex>
+                    <v-expansion-panel popout white value='0'>
+                      <v-expansion-panel-content class="push_up">
+                        <div class="subheading" slot="header" >Options</div>
+                        <v-card white>
+                          <v-card-text>
+                            <v-layout row wrap class="options-container">
+                              <!--<v-layout xs6 class="options-moyens">-->
+                              <v-container class="options-moyens" white>
+                                <v-select color="black" label="Moyens" :items="moyens" v-model="e6" multiple max-height="400" hint="Choisir vos moyens de transport"
+                                  persistent-hint></v-select>
+                              </v-container>
+                              <!--</v-layout>-->
+                              <br>
+                              <!--<v-layout xs6 class="options-facteurs">-->
+                              <v-container class="options-facteurs" white>
+                                <v-select color="black" label="Facteur" :items="facteurs" v-model="e1" hint="Choisir votre facteur" persistent-hint single-line></v-select>
+                              </v-container>
+                              <!--</v-layout>-->
+                            </v-layout>
+                          </v-card-text>
+                        </v-card>
+                      </v-expansion-panel-content>
+                    </v-expansion-panel>
 
-                      <v-flex xs6 class="options-facteurs">
-                        <v-container>
-                          <h3>Facteur choisi</h3><br>
-                            <v-switch class="options-facteurs-switch" :label="`- de temps`" v-model="switch1" color="grey lighten-4"></v-switch>
-                            <v-switch class="options-facteurs-switch" :label="`- de dépense`" v-model="switch2" color="grey lighten-4"></v-switch>
-                            <v-switch class="options-facteurs-switch" :label="`- de correspondence`" v-model="switch3" color="grey lighten-4"></v-switch>
-                        </v-container>
-                      </v-flex>
-
-                    </v-layout>
                   </v-form>
                 </v-flex>
 
@@ -80,120 +73,115 @@
 
 
 <script>
-/*  eslint-disable */
-import MapSection from '../components/MapSection'
-import MultiSelect from '../components/MultiSelect'
+  /*  eslint-disable */
+  import MapSection from "../components/MapSection";
+  import MultiSelect from "../components/MultiSelect";
 
-export default {
-  name: 'request',
-  components: {
-    'google-map': MapSection,
-    'multi-select': MultiSelect
-    // put custom components here
-  },
-  data() {
-    return {
-      // put variables here
-      toggle_multiple: [0, 1], //modes
-      switch1: false, //min temps
-      switch2: false, //dépense
-      switch3: false, //correspondence
-      query: {
-        depart: '',
-        arrivee: '',
-        modes: {
-          bus: true,
-          tram: true,
-          marche: true
-        },
-        facteurs: 0
+  export default {
+    name: "request",
+    components: {
+      "google-map": MapSection,
+      "multi-select": MultiSelect
+      // put custom components here
+    },
+    data() {
+      return {
+        // put variables here
+        show: false, //drop down options
+        e6: [0,1,2], // multiple select
+        e7: [], // one select
+        moyens: ["Bus", "Tramway", "Marche"],
+        facteurs: ["Min de temps", "Min de correspondance", "Min de marche"],
+        toggle_multiple: [0, 1], //modes
+        switch1: false, //min temps
+        switch2: false, //dépense
+        switch3: false, //correspondence
+        query: {
+          depart: "",
+          arrivee: "",
+          modes: {
+            bus: true,
+            tram: true,
+            marche: true
+          },
+          facteurs: 0
+        }
+      };
+    },
+    mounted() {},
+    methods: {
+      getPath(event) {
+        this.$router.push({
+          name: "response",
+          query: this.query
+        });
       }
     }
-  },
-  mounted() {},
-  methods: {
-    getPath(event) {
-      this.$router.push({
-        name: 'response',
-        query: this.query
-      })
-    }
-  }
-}
+  };
+
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/css/variables";
+  @import "../assets/css/variables";
 
-#request {
-  position: relative;
-  background-image: $request-page-bg-img;
-  width: 100%;
-  max-width: 100%;
-  display: flex;
-  color: black;
-}
-
-.blurred-bg {
-  background: $request-page-bg-blurred-img,
-    -webkit-linear-gradient(
-        0deg,
-        rgba(255, 255, 255, 0.2),
-        rgba(255, 255, 255, 0.2)
-      ) fixed center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  // NOTE: This is a hack to make the background fixed in SECOND section (FullPageJs)
-  background-position-y: 100vh;
-  background-attachment: fixed;
-}
-
-@import '../assets/css/form-layout.scss';
-
-.push_down {
-  margin-bottom: 30px;
-}
-
-.push_up {
-  margin-top: 30px;
-}
-
-.center-button {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.map {
-  overflow: hidden;
-  position: relative;
-  padding: 0;
-  margin: 20px;
-  width: auto;
-  height: 60%;
-  border: 1px solid black;
-
-  .google-map {
+  #request {
     position: relative;
+    background-image: $request-page-bg-img;
     width: 100%;
-    height: 100%;
-  }
-}
-
-.options {
-  margin-top: 30px;
-  border: 3px solid rgba(255, 255, 255, 0.2);
-
-  .options-facteurs-switch {
-    margin-top: 15px;
-    margin-right: 10px;
+    max-width: 100%;
+    display: flex;
+    color: black;
   }
 
-  .options-moyens-container-buttons {
-    color: rgb(56, 56, 56);
+  .blurred-bg {
+    background: $request-page-bg-blurred-img,
+    -webkit-linear-gradient( 0deg,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.2)) fixed center;
+    background-repeat: no-repeat;
+    background-size: cover; // NOTE: This is a hack to make the background fixed in SECOND section (FullPageJs)
+    background-position-y: 100vh;
+    background-attachment: fixed;
   }
-}
+
+  @import "../assets/css/form-layout.scss";
+
+  .push_down {
+    margin-bottom: 30px;
+  }
+
+  .push_up {
+    margin-top: 30px;
+  }
+
+  .center-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .map {
+    overflow: hidden;
+    position: relative;
+    padding: 0;
+    margin: 20px;
+    width: auto;
+    height: 60%;
+    border: 1px solid black;
+    margin-top: 60px;
+
+    .google-map {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .options-container {
+    margin-top: 30px;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+  }
 
 
 </style>
