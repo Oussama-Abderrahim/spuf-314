@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import AdminPage from '../pages/AdminPage'
 import AddNewLine from '../pages/AddNewLine'
 import EditLine from '../pages/EditLine'
+import CreateStationDialog from '../components/CreateStationDialog'
 
 Vue.use(Router)
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/editLine',
     name: 'editline',
     component: EditLine
+  },
+  {
+    path: '/createStation',
+    name: 'createstation',
+    component: CreateStationDialog
   },
   {
     path: '*',
