@@ -19,29 +19,29 @@ module.exports = function(dbSession) {
        *     parameters:
        *       - name: start
        *         description: name of start station 
-       *         in: path
+       *         in: query
        *         required: true
        *         type: string
        *       - name: end
        *         description: name of end station 
-       *         in: path
+       *         in: query
        *         required: true
        *         type: string
        *       - name: bus
        *         description: set to true if to include bus in path  
-       *         in: path
+       *         in: query
        *         required: false
        *         default: true
        *         type: boolean
        *       - name: tram
        *         description: set to true if to include tramway in path  
-       *         in: path
+       *         in: query
        *         required: false
        *         default: true
        *         type: boolean
        *       - name: walk
        *         description: set to true if to include walking in path  
-       *         in: path
+       *         in: query
        *         required: false
        *         default: true
        *         type: boolean
