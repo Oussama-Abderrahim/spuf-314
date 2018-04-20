@@ -18,9 +18,6 @@
 module.exports = function(dbSession) {
   let GraphNode = require("./graphModels/GraphNode")(dbSession);
 
-  /**
-   * this is my Station Schema ( kinda like mongoose.Schema )
-   */
   class Station {
     /**
      * @param {ID} ID
@@ -54,7 +51,7 @@ module.exports = function(dbSession) {
         .catch(err => console.log(err));
     }
 
-    static createFromNode(graphNode) {
+    static convertNodeToStation(graphNode) {
       return new Station(
         graphNode.ID,
         graphNode.name,
@@ -74,7 +71,7 @@ module.exports = function(dbSession) {
         GraphNode.getAllStations()
           .then(stationNodes => {
             stationNodes.forEach(node => {
-              stations.push(Station.createFromNode(node));
+              stations.push(Station.convertNodeToStation(node));
             });
             resolve(stations);
           })
@@ -93,7 +90,7 @@ module.exports = function(dbSession) {
       return new Promise((resolve, reject) => {
         GraphNode.getStation(id)
           .then(stationNode => {
-            resolve(Station.createFromNode(stationNode));
+            resolve(Station.convertNodeToStation(stationNode));
           })
           .catch(err => {
             reject(err);

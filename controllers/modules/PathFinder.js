@@ -17,8 +17,8 @@ module.exports = function(dbSession) {
     let path = new Path();
 
     for (let i = 0; i < segments.length; i++) {
-      let sourceStation = Station.createFromNode(new GraphNode(startNodes[i]));
-      let destStation = Station.createFromNode(new GraphNode(endNodes[i]));
+      let sourceStation = Station.convertNodeToStation(new GraphNode(startNodes[i]));
+      let destStation = Station.convertNodeToStation(new GraphNode(endNodes[i]));
 
       let price = 0;// TODO: get from Segment
       let dist = 0;

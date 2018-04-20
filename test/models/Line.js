@@ -1,42 +1,63 @@
-require('dotenv').config();
+require('dotenv').config()
 
-const assert = require("assert");
-// const server = require("../../server");
-const Line = require("../../models/Line");
+const assert = require('assert')
 
-const DB = require("../../db");
+const session = require('../../neo4j/dbUtils')(
+  process.env.NEO4J_TEST_URL,
+  process.env.NEO4J_TEST_USER,
+  process.env.NEO4J_TEST_PASSWORD
+).getSession(this)
 
-const LINE_NAME = "TestL" + Math.random();
+const Line = require('../../models/Line')(session)
 
-describe("Model Line Tests", function() {
+const DB = require('../../db')
+
+const LINE_NAME = 'TestL' + Math.random()
+
+describe('Model Line Tests', function() {
   before(done => {
-    DB
-      .connect(process.env.MONGODB_TEST_URL)
+    DB.connect(process.env.MONGODB_TEST_URL)
       .then(db => done())
       .catch(err => done(err))
-  });
+  })
 
   after(done => {
-    done();
-  });
+    done()
+  })
 
-  it("create", function(done) {
+  it('create', function(done) {
     Line.createLine({
       name: LINE_NAME,
       bus: {
-        name: "TestBus",
+        name: 'TestBus',
         price: 20,
         frequence: 2,
         avgWaitTime: 5
       },
-      stations: []
+      stations: [
+        {
+          stationID: 9,
+          distFromPrev: 2,
+          timeFromPrev: 3
+        },
+        {
+          stationID: 10,
+          distFromPrev: 2,
+          timeFromPrev: 3
+        },
+        {
+          stationID: 11,
+          distFromPrev: 2,
+          timeFromPrev: 3
+        }
+      ]
     }).then(doc => {
-      assert.equal(doc.name, LINE_NAME);
-      done();
-    });
-  });
+      assert.equal(doc.name, LINE_NAME)
+      done()
+    })
+  })
 
-  it("remove", function(done) {
+  it('remove', function(done) {
     Line.remove(
       {
         name: LINE_NAME
@@ -45,10 +66,10 @@ describe("Model Line Tests", function() {
         Line.findOne({
           name: LINE_NAME
         }).then(doc => {
-          assert.equal(doc, null);
-          done();
-        });
+          assert.equal(doc, null)
+          done()
+        })
       }
-    );
-  });
-});
+    )
+  })
+})

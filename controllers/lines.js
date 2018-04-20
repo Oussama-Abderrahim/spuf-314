@@ -4,7 +4,6 @@ const express = require("express");
 let routes = express.Router();
 
 const PathFinder = require("./modules/PathFinder")
-const LinesManager = require("./modules/LinesManager")
 
 const Station = require("../models/Station")
 const Line = require("../models/Line")

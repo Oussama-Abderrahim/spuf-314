@@ -132,6 +132,9 @@ module.exports = function(dbSession) {
           res.end()
         })
     },
+    createStation: (req, res) => {
+      
+    },
     updateStation: (req, res) => {
       Station.getByID(req.body.station_id)
         .then(station => {

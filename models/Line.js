@@ -14,7 +14,7 @@
  *         type: array
  *         items:
  *           $ref: '#/definitions/LineStations'
- * 
+ *
  *   LineStations:
  *      type: object
  *      properties:
@@ -29,64 +29,97 @@
  *              format: 'minutes'
  *              default: 1
  */
-const Bus = require("./Bus")
 
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+module.exports = function(dbSession) {
 
-/**
- * @class Line
- * @classdesc A Line object that represents a Bus line with relative information.
- * @property {String} this.name Name of the line (usualy same name as Bus).
- * @property {Bus} this.bus The Bus serving this line (one bus per line).
- * @property {Array.<LineStation>} this.line The list of stations in this line, with time and distance between each station.
- * @this Line
- */
-/**
- * @typedef LineStation
- * @type {Object}
- * @property {Number} stationID ObjectID of the station in this line
- * @property {Number} distFromPrev distance from previous station (in meters)
- * @property {Number} timeFromPrev avg time to get to this one from previous (in minutes)
- */
+  const Bus = require('./Bus')
+  const TransportType = require('./TransportType')
+  const GraphSegment = require('./graphModels/GraphSegment')(dbSession)
+  const mongoose = require('mongoose')
+  const Schema = mongoose.Schema
 
- const LineSchema = new Schema({
+  /**
+   * @class Line
+   * @classdesc A Line object that represents a Bus line with relative information.
+   * @property {String} this.name Name of the line (usualy same name as Bus).
+   * @property {Bus} this.bus The Bus serving this line (one bus per line).
+   * @property {Array.<LineStation>} this.lineStations The list of stations in this line, with time and distance between each station.
+   * @this Line
+   */
+  /**
+   * @typedef LineStation
+   * @type {Object}
+   * @property {Number} stationID ObjectID of the station in this line
+   * @property {Number} distFromPrev distance from previous station (in meters)
+   * @property {Number} timeFromPrev avg time to get to this one from previous (in minutes)
+   */
+
+  const LineSchema = new Schema({
     name: String,
     bus: Bus.schema,
-    LineStations: [{
+    lineStations: [
+      {
         stationID: Number,
         distFromPrev: Number,
         timeFromPrev: Number
-    }]
-})
+      }
+    ]
+  })
 
-class Line {
-    
+  class Line {
     /**
-     * @param {Object} lineData
-     * @param {String} lineData.name Name of the line (usualy same name as Bus).
-     * @param {Bus} lineData.bus The Bus serving this line (one bus per line).
-     * @param {Array.<LineStation>} lineData.stations an array of Station, sorted from source to destination.
+     * @param {Object} lineParams
+     * @param {String} lineParams.name Name of the line (usualy same name as Bus).
+     * @param {Bus} lineParams.bus The Bus serving this line (one bus per line).
+     * @param {Array.<LineStation>} lineParams.stations an array of Station, sorted from source to destination.
      */
-    static createLine(lineData, cb) {
-        return LineModel.create(lineData)
-        .then((line) => {
-            line.LineStations = []
-    
-            lineData.stations.forEach((station) => {
-                line.LineStations.push({
-                    stationID: station.stationID,
-                    distFromPrev: station.distFromPrev,
-                    timeFromPrev: station.timeFromPrev
-                })
+    static createLine(lineParams) {
+      return new Promise((resolve, reject) => {
+        // Create Line from Schema
+        LineModel.create(lineParams).then(line => {
+          line.lineStations = []
+          lineParams.stations.forEach(station => {
+            line.lineStations.push({
+              stationID: station.stationID,
+              distFromPrev: station.distFromPrev,
+              timeFromPrev: station.timeFromPrev
             })
+          })
+          // Save to Mongo then to graph
+          line.save(err => {
+            if (err) reject(err)
+            Line.saveToGraph(line)
+              .then(records => console.log(records))
+              .catch(err => reject(err))
+          })
 
-            line.save(err => {
-                if(err) console.log(err)
-                /// TODO
-            })
-            return line
+          // return line
+          resolve(line)
         })
+      })
+    }
+
+    /**
+     * @param {Line} line
+     */
+    static saveToGraph(line) {
+      let graphSegments = []
+
+      let lineStations = line.lineStations
+
+      for (let i = 0; i < lineStations.length - 1; i++) {
+        graphSegments.push(
+          new GraphSegment(
+            lineStations[i].stationID,
+            lineStations[i + 1].stationID,
+            TransportType.Bus,
+            lineStations[i].distFromPrev,
+            lineStations[i].timeFromPrev
+          )
+        )
+      }
+
+      return GraphSegment.createLineGraph(graphSegments)
     }
 
     /**
@@ -95,16 +128,17 @@ class Line {
      * @param {Number} index position of station in line (default : last)
      */
     addStation(lineStation, index = this.line.length) {
-        this.line.push({
-            stationID,
-            distFromPrev,
-            timeFromPrev
-        })
+      this.line.push({
+        stationID,
+        distFromPrev,
+        timeFromPrev
+      })
     }
+  }
+
+  LineSchema.loadClass(Line)
+
+  const LineModel = mongoose.model('Line', LineSchema)
+
+  return LineModel
 }
-
-LineSchema.loadClass(Line)
-
-const LineModel = mongoose.model('Line', LineSchema);
-
-module.exports = LineModel
