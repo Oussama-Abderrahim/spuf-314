@@ -28,6 +28,7 @@
     "swagger-ui-express": "^3.0.6"
   },
   "devDependencies": {
+    "babel-preset-env": "^1.6.1",
     "mocha": "^5.0.5",
     "mockery": "^2.1.0",
     "node-mocks-http": "^1.5.8",
