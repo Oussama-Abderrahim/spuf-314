@@ -5,42 +5,42 @@
         <v-layout row wrap>
           <!-- Left Form -->
 
-          <v-flex xs12 md6>
-            <v-container class="title">
-              Itinéraire à suivre:
-              <v-container class="subheading">
-                Veuillez suivre ces étpaes pour arriver à votre destination
+          <v-flex xs12 md6 class="push-down">
+            <v-container display-2 class="text-steps">
+              <v-icon x-large>keyboard_arrow_right</v-icon>Itinéraire à suivre:
+              <v-container subheading class="text-steps-subheading">
+                Veuillez suivre ces étapes pour arriver à votre destination
               </v-container>
             </v-container>
 
 
             <scrollbar>
-              <ul class="ui steps vertical force-overflow">
-
-                <li class="step" v-for='(step,i) in steps' :key='i'>
-                  <div class="content step-content push-down">
-                    <i class="big icon left floated" :class="step.type"></i>
-                    <div class="step-text">
-                      <div class="title">{{step.name}}</div>
-                      <div class="description">{{step.dist}}m , {{step.price}}Da, {{step.time}} minutes</div>
-                      <br>
-                      <v-expansion-panel popout white>
-                        <v-expansion-panel-content class="push-up">
-                          <div class="subheading" slot="header">Plus d'informations</div>
-                          <v-card white>
-                            <v-card-text>Lost — Yesterday, somewhere between sunrise and sunset, two golden hours, each set with sixty diamond minutes.
-                               No reward is offered, for they are gone forever. 
-                            </v-card-text>
-                          </v-card>
-                        </v-expansion-panel-content>
-                      </v-expansion-panel>
+              <v-expansion-panel>
+                <v-expansion-panel-content class="step" v-for='(step,i) in steps' :key='i' expand-icon="mdi-menu-down">
+                  <!-- STEP -->
+                  <div slot="header">
+                    <div class="content step-content push-down">
+                      <v-icon large>{{step.type}}</v-icon>
+                      <div class="step-text">
+                        <div class="title">{{step.name}}</div>
+                        <div class="description">{{step.dist}}m , {{step.price}}Da, {{step.time}} minutes
+                          <v-btn icon>
+                            <v-icon>keyboard_arrow_down</v-icon>
+                          </v-btn>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <br>
-                  <hr>
-                </li>
 
-              </ul>
+                  <!-- INFO ABOUT STEP -->
+                  <v-card>
+                    <v-card-text>Lost — Yesterday, somewhere between sunrise and sunset, two golden hours, each set with sixty diamond
+                      minutes. No reward is offered, for they are gone forever.
+                    </v-card-text>
+                  </v-card>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+
             </scrollbar>
           </v-flex>
 
@@ -53,22 +53,51 @@
                   <google-map name="response" class="google-map"></google-map>
                 </div>
               </v-flex>
-              <v-flex xs12>
+
+              <v-flex xs12 class="suggestions">
                 <v-layout row wrap>
                   <v-flex xs6>
-                    <v-card white class="suggestions">
+                    <v-card white>
                       <v-card-text>
-                        <div class="title">2ème suggestion</div>
-                        Point de départ - Point d'arrivée<br> (marche/Nom bus/Tram) ->  (marche/Nom bus/Tram)<br>Prix: X DA, Temps: X mn                     
+                        <div class="title">2ème suggestion
+                          <br>
+                          <br>
+                        </div>
+                        Grand terre
+                        <v-icon>arrow_forward</v-icon> USTO université
+                        <br>
+                        <v-icon>directions_walk</v-icon>(8mns)
+                        <v-icon>arrow_forward</v-icon>
+                        <v-icon>directions_bus</v-icon>4G
+                        <br>
+                        <v-icon>attach_money</v-icon>20 DA
+                        <br>
+                        <v-icon>av_timer</v-icon>23 mn
+                        <br>
+                        <v-icon>space_bar</v-icon> 5010 m
                       </v-card-text>
                     </v-card>
                   </v-flex>
 
                   <v-flex xs6>
-                    <v-card white class="suggestions">
+                    <v-card white>
                       <v-card-text>
-                        <div class="title">3ème suggestion</div>
-                        Point de départ - Point d'arrivée<br> (marche/Nom bus/Tram) ->  (marche/Nom bus/Tram)<br>Prix: X DA, Temps: X mn 
+                        <div class="title">3ème suggestion
+                          <br>
+                          <br>
+                        </div>
+                        Grand terre
+                        <v-icon>arrow_forward</v-icon> USTO université
+                        <br>
+                        <v-icon>directions_walk</v-icon>(8mns)
+                        <v-icon>arrow_forward</v-icon>
+                        <v-icon>directions_subway</v-icon>Tram
+                        <br>
+                        <v-icon>attach_money</v-icon>40 DA
+                        <br>
+                        <v-icon>av_timer</v-icon>18 mn
+                        <br>
+                        <v-icon>space_bar</v-icon> 5000 m
                       </v-card-text>
                     </v-card>
                   </v-flex>
@@ -102,37 +131,38 @@
     },
     data() {
       return {
+        show: false,
         steps: [{
             name: "Prendre Bus 11 pour 3 arrets",
-            type: "bus",
+            type: "directions_bus",
             time: 5,
             price: 20,
-            dist: 200
+            dist: 500
           },
           {
             name: "Marcher jusqu'à arret12",
-            type: "male",
+            type: "directions_walk",
             time: 5,
             price: 0,
             dist: 200
           },
           {
             name: "Tramway pour 6 arrets",
-            type: "train",
+            type: "directions_subway",
             time: 15,
             price: 40,
             dist: 850
           },
           {
-            name: "Take a break",
-            type: "male",
+            name: "Prendre Bus B pour 2 arrets",
+            type: "directions_bus",
             time: 5,
-            price: 0,
-            dist: 0
+            price: 20,
+            dist: 200
           },
           {
             name: "Marcher jusqu'a votre destination",
-            type: "male",
+            type: "directions_walk",
             time: 5,
             price: 0,
             dist: 200
@@ -207,6 +237,15 @@
     justify-content: center;
   }
 
+  .text-steps {
+    padding-top: 15px;
+  }
+
+  .text-steps-subheading {
+    padding-top: 0px;
+    padding-bottom: 20px;
+  }
+
   .steps {
     width: 100%;
     padding: 0;
@@ -214,7 +253,7 @@
 
   .step {
     display: block;
-    padding: 10px 0;
+    padding: 10px 10px 0px 10px;
     height: 100%;
 
     &:hover {
@@ -238,13 +277,14 @@
     }
   }
 
+
   .map {
     overflow: hidden;
     position: relative;
     padding: 0;
     margin: 20px;
-    width: 100%;
-    height: 60%;
+    width: 400px;
+    height: 300px;
     border: 1px solid black;
 
     .google-map {
@@ -254,7 +294,9 @@
     }
   }
 
-  .v-card .suggestions{
-    margin-top: 100px;
+  .suggestions {
+    margin-right: 30px;
+    margin-bottom: 10px;
   }
+
 </style>

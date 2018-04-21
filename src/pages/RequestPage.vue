@@ -16,7 +16,7 @@
                     <!-- CHAMP ARRIVEE -->
                     <multi-select class="subheading" :label='"Arret arrivée"' :maxHeight='500' :placeholder="'Adresse d\'arrivée'" v-model="query.arrivee" />
                     <!-- CHAMP OPTIONS -->
-                    <v-expansion-panel popout white value='0'>
+                    <v-expansion-panel inset white value='1'>
                       <v-expansion-panel-content class="push_up">
                         <div class="subheading" slot="header" >Options</div>
                         <v-card white>
@@ -24,14 +24,14 @@
                             <v-layout row wrap class="options-container">
                               <!--<v-layout xs6 class="options-moyens">-->
                               <v-container class="options-moyens" white>
-                                <v-select color="black" label="Moyens" :items="moyens" v-model="e6" multiple max-height="400" hint="Choisir vos moyens de transport"
+                                <v-select color="black" label="Moyens" :items="moyens_items" v-model="moyens_model" multiple max-height="400" hint="Choisir vos moyens de transport"
                                   persistent-hint></v-select>
                               </v-container>
                               <!--</v-layout>-->
                               <br>
                               <!--<v-layout xs6 class="options-facteurs">-->
                               <v-container class="options-facteurs" white>
-                                <v-select color="black" label="Facteur" :items="facteurs" v-model="e1" hint="Choisir votre facteur" persistent-hint single-line></v-select>
+                                <v-select color="black" label="Facteur" :items="facteurs_items" v-model="facteurs_model" hint="Choisir votre facteur" persistent-hint single-line></v-select>
                               </v-container>
                               <!--</v-layout>-->
                             </v-layout>
@@ -87,11 +87,11 @@
     data() {
       return {
         // put variables here
-        show: false, //drop down options
-        e6: [0,1,2], // multiple select
-        e7: [], // one select
-        moyens: ["Bus", "Tramway", "Marche"],
-        facteurs: ["Min de temps", "Min de correspondance", "Min de marche"],
+        show: true, //drop down options
+        moyens_model: [0,1,2], // multiple select
+        facteurs_model: [], // one select
+        moyens_items: ["Bus", "Tramway", "Marche"],
+        facteurs_items: ["Min de temps", "Min de correspondance", "Min de marche"],
         toggle_multiple: [0, 1], //modes
         switch1: false, //min temps
         switch2: false, //dépense
