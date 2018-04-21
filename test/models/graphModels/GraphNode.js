@@ -5,7 +5,7 @@ const assert = require("assert");
 let GraphNode
 
 
-describe("Model Line Tests", function() {
+describe("Graph Node Tests", function() {
   before(done => {
     done()
   });

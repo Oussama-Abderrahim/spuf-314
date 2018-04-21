@@ -129,6 +129,10 @@ app.get("/admin", (req, res) => {
     res.render("admin/admin")
 })
 
+app.get("/admin/createStation", (req, res) => {
+    res.render("admin/createStation")
+})
+
 app.get('/admin/editstation', (req, response) => {
 
     var options = {

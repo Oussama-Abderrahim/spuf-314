@@ -12,20 +12,10 @@
 
 <body>
     <h1>Public Transit App SPUF</h1>
-    <h1>Edit station</h1>
+    <h1>Create station</h1>
 
-    <form action="/api/station/" method="PUT" class="ui form">
-        <label for="station">Station : </label>
-        <select class="ui search dropdown" id="stationSelect">
-            <option value="">Station</option>
-            <% stations.forEach(station => { %>
-                <option value="<%=station.ID%>">
-                    <%=station.name%>
-                </option>
-                <% }) %>
-        </select>
+    <form action="/api/station/" method="POST" class="ui form">
 
-        <input type="hidden" name="station_id" id="station_id">
         <div class="field">
             <label>Station Name</label>
             <input type="text" name="station_name" id="station_name" placeholder="Station name">
@@ -47,21 +37,7 @@
     </form>
 </body>
 <script>
-    $('#stationSelect').dropdown({
-        onChange: function () {
-            var id = $('#stationSelect').dropdown('get value');
-            
-            // $("#submit-btn").disabled(true)
-            $.getJSON(`https://project314.herokuapp.com/api/station/${id}`, (result)=>{
-                $("#station_id").val(result.ID)
-                $("#station_name").val(result.name)
-                $("#station_address").val(result.address)
-                $("#station_coord_lat").val(result.coord.lat)
-                $("#station_coord_lon").val(result.coord.lon)
-                // $("#submit-btn").disabled(false)
-            })
-        }
-    });
+
 </script>
 
 </html>
