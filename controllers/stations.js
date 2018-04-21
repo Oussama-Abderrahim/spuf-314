@@ -1,14 +1,11 @@
 bodyParser = require('body-parser')
 
-
 module.exports = function(dbSession) {
-
   let Station = require('../models/Station')(dbSession)
   let router = require('express').Router()
 
   return {
     getRouter: function() {
-
       /**
        * @swagger
        * /api/station:
@@ -59,8 +56,54 @@ module.exports = function(dbSession) {
 
       /**
        * @swagger
-       * /api/station/{id}:
+       * /api/station/:
        *   post:
+       *     tags:
+       *     - Station
+       *     description: creates a new station
+       *     summary: Create station
+       *     produces:
+       *       - application/json
+       *     parameters:
+       *       - name: name
+       *         description: name of station to update
+       *         in: body
+       *         type: string
+       *         required: true
+       *       - name: address
+       *         description: address of station to update
+       *         in: body
+       *         type: string
+       *         required: true
+       *       - name: coordLat
+       *         description: Latitude coordinates of station to update
+       *         in: body
+       *         type: integer
+       *         required: true
+       *       - name: coordLong
+       *         description: lontitude coordinates of station to update
+       *         in: body
+       *         type: number
+       *         required: true
+       *       - name: Authorization
+       *         in: header
+       *         type: string
+       *         required: true
+       *         description: Token (token goes here)
+       *     responses:
+       *       200:
+       *         description: create station {id}
+       *       400:
+       *         description: Error message(s)
+       *       401:
+       *         description: invalid / missing authentication
+       */
+      router.route('/').post(this.createStation)
+
+      /**
+       * @swagger
+       * /api/station/{id}:
+       *   put:
        *     tags:
        *     - Station
        *     description: Set a station's properties
@@ -102,7 +145,7 @@ module.exports = function(dbSession) {
        *       401:
        *         description: invalid / missing authentication
        */
-      router.route('/').post(this.updateStation) // TODO : change POST to PUT
+      router.route('/').put(this.updateStation)
 
       return router
     },
@@ -133,7 +176,21 @@ module.exports = function(dbSession) {
         })
     },
     createStation: (req, res) => {
-      
+      Station.create(
+        new Station(
+          null,
+          req.body.station_name,
+          req.body.station_address,
+          req.body.station_coord_lat,
+          req.body.station_coord_lon
+        )
+      ).then(createdStation => {
+        console.log(createdStation)
+        res.sendStatus(200)
+      }).catch(err => {
+        console.log(err)
+        res.send(500)
+      })
     },
     updateStation: (req, res) => {
       Station.getByID(req.body.station_id)
