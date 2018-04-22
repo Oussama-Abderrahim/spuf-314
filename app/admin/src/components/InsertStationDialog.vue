@@ -73,7 +73,7 @@ import CreateStationDialog from './CreateStationDialog'
           .then(response => {
               var station = response.body;
               let item = {
-                id: station.ID,
+                ID: station.ID,
                 name: station.name,
                 address: station.address,
                 time: 0,

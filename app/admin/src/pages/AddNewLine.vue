@@ -168,12 +168,14 @@ export default {
         editedItem: {
           index: -1,
           item: {
+            ID: -1,
             name: 'arrêt',
             address: 'adresse',
             dist: 0,
             time: 0
           },
           default: {
+            ID: -1,
             name: 'arrêt',
             address: 'adresse',
             dest: 0,
@@ -230,7 +232,34 @@ export default {
       }
     },
     submit() {
-      console.log(this.tableStations)
+      let line = {
+        name: '',
+        bus: {
+          name: '',
+          price: '',
+          frequence: '',
+          avgWaitTime: ''
+        },
+        lineStations: []
+      }
+      this.tableStations.items.forEach(station => {
+        line.lineStations.push({
+          stationID: station.ID,
+          distFromPrev: station.dist,
+          timeFromPrev: station.time
+        })
+      })
+
+      this.$http.post('https://project314.herokuapp.com/api/line', line).then(
+        response => {
+          console.log(response)
+          alert("Wow '-'");
+        },
+        responseError => {
+          console.log(responseError)
+          alert('error')
+        }
+      )
     }
   }
 }

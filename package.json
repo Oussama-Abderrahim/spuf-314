@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --recursive -t 5000 --exit",
-    "dev": "npm run open && npm run build && nodemon server.js",
+    "dev-admin" : "npm run dev --prefix app/admin",
+    "dev": "npm run build && nodemon server.js && npm run open",
     "start": "npm run build && node server.js",
     "build": "echo \"pretending to build\"",
     "open": "start http://localhost:3000"
