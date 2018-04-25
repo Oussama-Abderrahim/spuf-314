@@ -1,13 +1,13 @@
 <template>
-  <v-content id="response">
+  <v-content id="response" fill-height>
     <v-container grid-list-xs fluid fill-height align-center justify-center>
-      <form class="request-form blurred-bg tinted" @submit.prevent="getPath" action='#' method="GET">
+      <form class="request-form blurred-bg tinted">
         <v-layout row wrap>
           <!-- Left Form -->
 
           <v-flex xs12 md6 class="push-down">
             <v-container display-2 class="text-steps">
-              <v-icon x-large>keyboard_arrow_right</v-icon>Itinéraire à suivre:
+              <v-icon x-large>forward</v-icon>Itinéraire à suivre:
               <v-container subheading class="text-steps-subheading">
                 Veuillez suivre ces étapes pour arriver à votre destination
               </v-container>
@@ -16,7 +16,7 @@
 
             <scrollbar>
               <v-expansion-panel>
-                <v-expansion-panel-content class="step" v-for='(step,i) in steps' :key='i' expand-icon="mdi-menu-down">
+                <v-expansion-panel-content class="step" v-for='(step,i) in paths[0].steps' :key='i' expand-icon="mdi-menu-down">
                   <!-- STEP -->
                   <div slot="header">
                     <div class="content step-content push-down">
@@ -24,9 +24,6 @@
                       <div class="step-text">
                         <div class="title">{{step.name}}</div>
                         <div class="description">{{step.dist}}m , {{step.price}}Da, {{step.time}} minutes
-                          <v-btn icon>
-                            <v-icon>keyboard_arrow_down</v-icon>
-                          </v-btn>
                         </div>
                       </div>
                     </div>
@@ -48,10 +45,8 @@
           <!-- RIGHT FORM -->
           <v-flex xs12 md6>
             <v-layout row wrap>
-              <v-flex x12 mx-4>
-                <div class="map">
+              <v-flex x12 class="map">
                   <google-map name="response" class="google-map"></google-map>
-                </div>
               </v-flex>
 
               <v-flex xs12 class="suggestions">
@@ -59,10 +54,7 @@
                   <v-flex xs6>
                     <v-card white>
                       <v-card-text>
-                        <div class="title">2ème suggestion
-                          <br>
-                          <br>
-                        </div>
+                        <div class="title">2ème suggestion</div>
                         Grand terre
                         <v-icon>arrow_forward</v-icon> USTO université
                         <br>
@@ -82,10 +74,7 @@
                   <v-flex xs6>
                     <v-card white>
                       <v-card-text>
-                        <div class="title">3ème suggestion
-                          <br>
-                          <br>
-                        </div>
+                        <div class="title">3ème suggestion</div>
                         Grand terre
                         <v-icon>arrow_forward</v-icon> USTO université
                         <br>
@@ -112,191 +101,287 @@
   </v-content>
 </template>
 
-
-
-
-
-
 <script>
-  /*  eslint-disable */
-  import MapSection from "../components/MapSection"
-  import ScrollBar from "../components/scrollbar"
+/*  eslint-disable */
+import MapSection from '../components/MapSection'
+import ScrollBar from '../components/scrollbar'
 
-  export default {
-    name: 'response',
-    components: {
-      "google-map": MapSection,
-      "scrollbar": ScrollBar
-      // put custom components here
-    },
-    data() {
-      return {
-        show: false,
-        steps: [{
-            name: "Prendre Bus 11 pour 3 arrets",
-            type: "directions_bus",
-            time: 5,
-            price: 20,
-            dist: 500
-          },
-          {
-            name: "Marcher jusqu'à arret12",
-            type: "directions_walk",
-            time: 5,
-            price: 0,
-            dist: 200
-          },
-          {
-            name: "Tramway pour 6 arrets",
-            type: "directions_subway",
-            time: 15,
-            price: 40,
-            dist: 850
-          },
-          {
-            name: "Prendre Bus B pour 2 arrets",
-            type: "directions_bus",
-            time: 5,
-            price: 20,
-            dist: 200
-          },
-          {
-            name: "Marcher jusqu'a votre destination",
-            type: "directions_walk",
-            time: 5,
-            price: 0,
-            dist: 200
-          }
-        ]
-      }
-    },
-    methods: {
-      beFancy() {
-        // whoosh
-      }
+export default {
+  name: 'response',
+  components: {
+    'google-map': MapSection,
+    scrollbar: ScrollBar
+    // put custom components here
+  },
+  data() {
+    return {
+      show: false,
+      paths: [
+        // First Path
+        {
+          totalDist: 10,
+          totalPrice: 50,
+          totalTime: 20,
+          steps: [
+            {
+              name: 'Prendre Bus 11 pour 3 arrets',
+              type: 'directions_bus',
+              time: 5,
+              price: 20,
+              dist: 500
+            },
+            {
+              name: "Marcher jusqu'à arret12",
+              type: 'directions_walk',
+              time: 5,
+              price: 0,
+              dist: 200
+            },
+            {
+              name: 'Tramway pour 6 arrets',
+              type: 'directions_subway',
+              time: 15,
+              price: 40,
+              dist: 850
+            },
+            {
+              name: 'Prendre Bus B pour 2 arrets',
+              type: 'directions_bus',
+              time: 5,
+              price: 20,
+              dist: 200
+            },
+            {
+              name: "Marcher jusqu'a votre destination",
+              type: 'directions_walk',
+              time: 5,
+              price: 0,
+              dist: 200
+            }
+          ]
+        },
+        // Second Path
+        {
+          totalDist: 0,
+          totalPrice: 0,
+          totalTime: 0,
+          steps: [
+            {
+              name: 'Prendre Bus 11 pour 3 arrets',
+              type: 'directions_bus',
+              time: 5,
+              price: 20,
+              dist: 500
+            },
+            {
+              name: "Marcher jusqu'à arret12",
+              type: 'directions_walk',
+              time: 5,
+              price: 0,
+              dist: 200
+            },
+            {
+              name: 'Tramway pour 6 arrets',
+              type: 'directions_subway',
+              time: 15,
+              price: 40,
+              dist: 850
+            },
+            {
+              name: 'Prendre Bus B pour 2 arrets',
+              type: 'directions_bus',
+              time: 5,
+              price: 20,
+              dist: 200
+            },
+            {
+              name: "Marcher jusqu'a votre destination",
+              type: 'directions_walk',
+              time: 5,
+              price: 0,
+              dist: 200
+            }
+          ]
+        },
+        // Third Path
+        {
+          totalDist: 50,
+          totalPrice: 30,
+          totalTime: 40,
+          steps: [
+            {
+              name: 'Prendre Bus 11 pour 3 arrets',
+              type: 'directions_bus',
+              time: 5,
+              price: 20,
+              dist: 500
+            },
+            {
+              name: "Marcher jusqu'à arret12",
+              type: 'directions_walk',
+              time: 5,
+              price: 0,
+              dist: 200
+            },
+            {
+              name: 'Tramway pour 6 arrets',
+              type: 'directions_subway',
+              time: 15,
+              price: 40,
+              dist: 850
+            },
+            {
+              name: 'Prendre Bus B pour 2 arrets',
+              type: 'directions_bus',
+              time: 5,
+              price: 20,
+              dist: 200
+            },
+            {
+              name: "Marcher jusqu'a votre destination",
+              type: 'directions_walk',
+              time: 5,
+              price: 0,
+              dist: 200
+            }
+          ]
+        },
+      ]
     }
+  },
+  methods: {
+    loadPaths() {
+      // whoosh
+    }
+  },
+  mounted() {
+    console.log(this.$route.query)
   }
-
+}
 </script>
 
 <style lang="scss" scoped>
-  $background: url("../assets/img/Chapelle de Santa Cruz.jpg"); // $blurred-img: url("https://lh3.googleusercontent.com/-m8TxQMObg6c/U474EWu7Y9I/AAAAAAAAI2k/xkRGoIEC1iU/s1600/blur.jpg");
-  $blurred-img: url("../assets/img/blur_bg.jpg");
+$background: url('../assets/img/Chapelle de Santa Cruz.jpg'); // $blurred-img: url("https://lh3.googleusercontent.com/-m8TxQMObg6c/U474EWu7Y9I/AAAAAAAAI2k/xkRGoIEC1iU/s1600/blur.jpg");
+$blurred-img: url('../assets/img/blur_bg.jpg');
 
+@import '../assets/css/form-layout.scss';
 
-  #response {
-    position: relative;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+#response {
+  overflow: hidden;
+  background: $background no-repeat;
+  background-size: cover;
 
-    background: $background no-repeat;
-    background-size: cover;
+  height: 100%;
+  width: 100%;
+  margin: auto;
 
-    height: 100%;
-    width: 100%;
-    margin: auto;
+  color: black;
+}
 
-    color: black;
-  }
+.blurred-bg {
+  background-image: $blurred-img;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 
+  background-position-y: 100vh;
 
-  .blurred-bg {
-    background-image: $blurred-img;
+  &.tinted {
+    // background-image: $blurred-img
+    background: $blurred-img,
+      -webkit-linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0.2),
+          rgba(255, 255, 255, 0.2)
+        ) fixed center;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
-
-    background-position-y: 100vh;
-
-    &.tinted {
-      // background-image: $blurred-img
-      background: $blurred-img, -webkit-linear-gradient(0deg, rgba(255, 255, 255, .2), rgba(255, 255, 255, .2)) fixed center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-attachment: fixed;
-    }
   }
+}
 
+.push_down {
+  margin-bottom: 30px;
+}
 
-  @import '../assets/css/form-layout.scss';
+.push_up {
+  margin-top: 30px;
+}
 
-  .push_down {
+.center-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-steps {
+  padding-top: 15px;
+}
+
+.text-steps-subheading {
+  padding-top: 0px;
+  padding-bottom: 20px;
+}
+
+.steps {
+  width: 100%;
+  padding: 0;
+}
+
+.step {
+  display: block;
+  padding: 10px 10px 0px 10px;
+  height: 100%;
+
+  &:hover {
+    background-color: #eee;
+  }
+}
+
+.suggestions {
+  margin-right: 30px;
+  margin-bottom: 10px;
+
+  .title {
     margin-bottom: 30px;
   }
 
-  .push_up {
-    margin-top: 30px;
+  .card:hover  {
+    background-color: #dedede;
   }
+}
 
-  .center-button {
-    width: 100%;
+.step-content {
+  display: flex;
+
+  .step-text {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    margin-left: 20px;
   }
 
-  .text-steps {
-    padding-top: 15px;
-  }
-
-  .text-steps-subheading {
-    padding-top: 0px;
-    padding-bottom: 20px;
-  }
-
-  .steps {
-    width: 100%;
-    padding: 0;
-  }
-
-  .step {
-    display: block;
-    padding: 10px 10px 0px 10px;
+  i.icon {
+    display: inline-block;
     height: 100%;
-
-    &:hover {
-      background-color: #eee;
-    }
+    vertical-align: middle;
   }
+}
 
-  .step-content {
-    display: flex;
+.map {
+  overflow: hidden;
+  position: relative;
+  padding: 0;
+  margin-top: 20px;
+  margin-right: 30px;
+  width: 100%;
+  height: 300px;
+  border: 1px solid black;
 
-    .step-text {
-      display: flex;
-      flex-direction: column;
-      margin-left: 20px;
-    }
-
-    i.icon {
-      display: inline-block;
-      height: 100%;
-      vertical-align: middle;
-    }
-  }
-
-
-  .map {
-    overflow: hidden;
+  .google-map {
     position: relative;
-    padding: 0;
-    margin: 20px;
-    width: 400px;
-    height: 300px;
-    border: 1px solid black;
-
-    .google-map {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
+    width: 100%;
+    height: 100%;
   }
-
-  .suggestions {
-    margin-right: 30px;
-    margin-bottom: 10px;
-  }
-
+}
 </style>
