@@ -42,14 +42,18 @@ export default {
   computed: {},
   methods: {},
   beforeMount() {
-    // eslint-disable-next-line
+    // Destory FullPage to instanciate it again
     if ($("html").hasClass("fp-enabled")) {
-      // eslint-disable-next-line
       $.fn.fullpage.destroy("all");
     }
   },
   mounted() {
     console.log("home page mounted");
+  },
+  beforeDestroy() {
+    if ($("html").hasClass("fp-enabled")) {
+      $.fn.fullpage.destroy("all");
+    }
   }
 };
 </script>

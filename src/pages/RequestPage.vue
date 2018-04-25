@@ -1,6 +1,5 @@
 <template>
   <v-container id="request">
-
     <v-container grid-list-xs fluid fill-height align-center justify-center>
       <form class="request-form blurred-bg tinted" @submit.prevent="getPath" action='#' method="GET">
         <!-- <div class="blur"></div> -->
@@ -49,18 +48,14 @@
 
           <!-- RIGHT FORM -->
           <v-flex xs6>
-            <section class="request-form-right">
-              <!-- TODO : add a dimmer while map is loading brown darken-1-->
-              <!-- <div class="ui inverted dimmer">
-              <div class="ui text loader">Loading</div>
-            </div> -->
-              <div class="map container">
-                <google-map name="request" class="google-map"></google-map>
-              </div>
-              <v-container class="center-button">
+            <v-layout row wrap>
+              <v-flex x12 class="map">
+                  <google-map name="request-map" class="google-map"></google-map>
+              </v-flex>
+              <v-flex x12 class="center-button">
                 <v-btn type="submit" color="black" dark large>Avoir le Chemin</v-btn>
-              </v-container>
-            </section>
+              </v-flex>
+            </v-layout>
           </v-flex>
 
         </v-layout>
@@ -73,115 +68,113 @@
 
 
 <script>
-  /*  eslint-disable */
-  import MapSection from "../components/MapSection";
-  import MultiSelect from "../components/MultiSelect";
+/*  eslint-disable */
+import MapSection from '../components/MapSection'
+import MultiSelect from '../components/MultiSelect'
 
-  export default {
-    name: "request",
-    components: {
-      "google-map": MapSection,
-      "multi-select": MultiSelect
-      // put custom components here
-    },
-    data() {
-      return {
-        // put variables here
-        show: true, //drop down options
-        moyens_model: [0,1,2], // multiple select
-        facteurs_model: [], // one select
-        moyens_items: ["Bus", "Tramway", "Marche"],
-        facteurs_items: ["Min de temps", "Min de correspondance", "Min de marche"],
-        toggle_multiple: [0, 1], //modes
-        switch1: false, //min temps
-        switch2: false, //dépense
-        switch3: false, //correspondence
-        query: {
-          depart: "",
-          arrivee: "",
-          modes: {
-            bus: true,
-            tram: true,
-            marche: true
-          },
-          facteurs: 0
-        }
-      };
-    },
-    mounted() {},
-    methods: {
-      getPath(event) {
-        this.$router.push({
-          name: "response",
-          query: this.query
-        });
+export default {
+  name: 'request',
+  components: {
+    'google-map': MapSection,
+    'multi-select': MultiSelect
+    // put custom components here
+  },
+  data() {
+    return {
+      // put variables here
+      show: true, //drop down options
+      moyens_model: [0, 1, 2], // multiple select
+      facteurs_model: [], // one select
+      moyens_items: ['Bus', 'Tramway', 'Marche'],
+      facteurs_items: [
+        'Min de temps',
+        'Min de correspondance',
+        'Min de marche'
+      ],
+      query: {
+        // Requete à envoyer à Response
+        depart: '',
+        arrivee: '',
+        bus: true,
+        tram: true,
+        marche: true,
+        facteurs: 0
       }
     }
-  };
-
+  },
+  mounted() {},
+  methods: {
+    getPath(event) {
+      this.$router.push({
+        name: 'response',
+        query: this.query
+      })
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
-  @import "../assets/css/variables";
+@import '../assets/css/variables';
 
-  #request {
+#request {
+  position: relative;
+  background-image: $request-page-bg-img;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  color: black;
+}
+
+.blurred-bg {
+  background: $request-page-bg-blurred-img,
+    -webkit-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.2),
+        rgba(255, 255, 255, 0.2)
+      ) fixed center;
+  background-repeat: no-repeat;
+  background-size: cover; // NOTE: This is a hack to make the background fixed in SECOND section (FullPageJs)
+  background-position-y: 100vh;
+  background-attachment: fixed;
+}
+
+@import '../assets/css/form-layout.scss';
+
+.push_down {
+  margin-bottom: 30px;
+}
+
+.push_up {
+  margin-top: 30px;
+}
+
+.center-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map {
+  overflow: hidden;
+  position: relative;
+  padding: 0;
+  margin-top: 20px;
+  margin-right: 30px;
+  width: 100%;
+  height: 300px;
+  border: 1px solid black;
+
+  .google-map {
     position: relative;
-    background-image: $request-page-bg-img;
     width: 100%;
-    max-width: 100%;
-    display: flex;
-    color: black;
+    height: 100%;
   }
+}
 
-  .blurred-bg {
-    background: $request-page-bg-blurred-img,
-    -webkit-linear-gradient( 0deg,
-    rgba(255, 255, 255, 0.2),
-    rgba(255, 255, 255, 0.2)) fixed center;
-    background-repeat: no-repeat;
-    background-size: cover; // NOTE: This is a hack to make the background fixed in SECOND section (FullPageJs)
-    background-position-y: 100vh;
-    background-attachment: fixed;
-  }
-
-  @import "../assets/css/form-layout.scss";
-
-  .push_down {
-    margin-bottom: 30px;
-  }
-
-  .push_up {
-    margin-top: 30px;
-  }
-
-  .center-button {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .map {
-    overflow: hidden;
-    position: relative;
-    padding: 0;
-    margin: 20px;
-    width: auto;
-    height: 60%;
-    border: 1px solid black;
-    margin-top: 60px;
-
-    .google-map {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  .options-container {
-    margin-top: 30px;
-    border: 3px solid rgba(255, 255, 255, 0.2);
-  }
-
-
+.options-container {
+  margin-top: 30px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+}
 </style>

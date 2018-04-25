@@ -21,3 +21,9 @@
     }
   }
 </script>
+
+<style lang="scss">
+  #app {
+      overflow: hidden;
+  }
+</style>
