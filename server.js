@@ -36,6 +36,7 @@ server.listen(process.env.PORT, () => {
 
 module.exports = server
 
+const mongodb = require('./db').connect(process.env.MONGODB_URL)
 const dbSession = require('./neo4j/dbUtils')(
     process.env.NEO4J_URL,
     process.env.NEO4J_USER,

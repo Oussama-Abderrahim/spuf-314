@@ -10,7 +10,7 @@
  *         type: string
  *       bus:
  *         $ref: '#/definitions/Bus'
- *       line:
+ *       lineStations:
  *         type: array
  *         items:
  *           $ref: '#/definitions/LineStations'
@@ -30,41 +30,41 @@
  *              default: 1
  */
 
-module.exports = function(dbSession) {
+/**
+ * @class Line
+ * @classdesc A Line object that represents a Bus line with relative information.
+ * @property {String} this.name Name of the line (usualy same name as Bus).
+ * @property {Bus} this.bus The Bus serving this line (one bus per line).
+ * @property {Array.<LineStation>} this.lineStations The list of stations in this line, with time and distance between each station.
+ * @this Line
+ *
+ *
+ * @typedef LineStation
+ * @type {Object}
+ * @property {Number} stationID ObjectID of the station in this line
+ * @property {Number} distFromPrev distance from previous station (in meters)
+ * @property {Number} timeFromPrev avg time to get to this one from previous (in minutes)
+ */
 
-  const Bus = require('./Bus')
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+const Bus = require('./Bus')
+
+const LineSchema = new Schema({
+  name: String,
+  bus: Bus.schema,
+  lineStations: [
+    {
+      stationID: Number,
+      distFromPrev: Number,
+      timeFromPrev: Number
+    }
+  ]
+})
+
+module.exports = function(dbSession) {
   const TransportType = require('./TransportType')
   const GraphSegment = require('./graphModels/GraphSegment')(dbSession)
-  const mongoose = require('mongoose')
-  const Schema = mongoose.Schema
-
-  /**
-   * @class Line
-   * @classdesc A Line object that represents a Bus line with relative information.
-   * @property {String} this.name Name of the line (usualy same name as Bus).
-   * @property {Bus} this.bus The Bus serving this line (one bus per line).
-   * @property {Array.<LineStation>} this.lineStations The list of stations in this line, with time and distance between each station.
-   * @this Line
-   */
-  /**
-   * @typedef LineStation
-   * @type {Object}
-   * @property {Number} stationID ObjectID of the station in this line
-   * @property {Number} distFromPrev distance from previous station (in meters)
-   * @property {Number} timeFromPrev avg time to get to this one from previous (in minutes)
-   */
-
-  const LineSchema = new Schema({
-    name: String,
-    bus: Bus.schema,
-    lineStations: [
-      {
-        stationID: Number,
-        distFromPrev: Number,
-        timeFromPrev: Number
-      }
-    ]
-  })
 
   class Line {
     /**
@@ -76,7 +76,9 @@ module.exports = function(dbSession) {
     static createLine(lineParams) {
       return new Promise((resolve, reject) => {
         // Create Line from Schema
-        LineModel.create(lineParams).then(line => {
+        let linePromise = LineModel.create(lineParams)
+        console.log(linePromise)
+        linePromise.then(line => {
           line.lineStations = []
           lineParams.stations.forEach(station => {
             line.lineStations.push({
@@ -138,7 +140,7 @@ module.exports = function(dbSession) {
 
   LineSchema.loadClass(Line)
 
-  const LineModel = mongoose.model('Line', LineSchema)
+  let LineModel = mongoose.model('Line', LineSchema)
 
   return LineModel
 }

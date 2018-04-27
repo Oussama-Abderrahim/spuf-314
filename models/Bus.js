@@ -16,13 +16,7 @@
 
 const mongoose = require('mongoose');
 
-/**
- * @property {String} name 
- * @property {Number} price (in DA)
- * @property {Number} frequence Number of buses serving line at any given time 
- * @property {Number} avgWaitTime Average waiting time in each station, in minutes
- * @constructor Bus
- */
+
 const BusSchema = new mongoose.Schema({
     name: String,
     price: Number,
@@ -30,6 +24,13 @@ const BusSchema = new mongoose.Schema({
     avgWaitTime: Number
 });
 
+/**
+ * @property {String} name 
+ * @property {Number} price (in DA)
+ * @property {Number} frequence Number of buses serving line at any given time 
+ * @property {Number} avgWaitTime Average waiting time in each station, in minutes
+ * @constructor Bus
+ */
 class Bus {
 
 }

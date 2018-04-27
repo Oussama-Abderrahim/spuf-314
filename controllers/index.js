@@ -15,7 +15,7 @@ module.exports = function(dbSession) {
       })
 
       router.use('/station', require('./stations')(dbSession).getRouter())
-      router.use('/line', require('./lines'))
+      router.use('/line', require('./lines')(dbSession).getRouter())
       router.use('/docs', require('./swagger'))
       router.use('/direction', require('./directions')(dbSession).getRouter())
 

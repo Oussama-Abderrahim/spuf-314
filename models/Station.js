@@ -50,7 +50,7 @@ module.exports = function(dbSession) {
           coordLon: station.coord.lon
         })
           .then(createdNode => {
-            resolve(convertNodeToStation(createdNode))
+            resolve(Station.convertNodeToStation(createdNode))
           })
           .catch(err => reject(err))
       })
