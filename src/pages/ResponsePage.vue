@@ -51,7 +51,7 @@
 
               <v-flex xs12 class="suggestions">
                 <v-layout row wrap>
-                  <v-flex xs6>
+                  <v-flex xs6 v-for='i in [1,2]' :key='i'>
                     <v-card white>
                       <v-card-text>
                         <div class="title">2ème suggestion</div>
@@ -70,26 +70,6 @@
                       </v-card-text>
                     </v-card>
                   </v-flex>
-
-                  <v-flex xs6>
-                    <v-card white>
-                      <v-card-text>
-                        <div class="title">3ème suggestion</div>
-                        Grand terre
-                        <v-icon>arrow_forward</v-icon> USTO université
-                        <br>
-                        <v-icon>directions_walk</v-icon>(8mns)
-                        <v-icon>arrow_forward</v-icon>
-                        <v-icon>directions_subway</v-icon>Tram
-                        <br>
-                        <v-icon>attach_money</v-icon>40 DA
-                        <br>
-                        <v-icon>av_timer</v-icon>18 mn
-                        <br>
-                        <v-icon>space_bar</v-icon> 5000 m
-                      </v-card-text>
-                    </v-card>
-                  </v-flex>
                 </v-layout>
               </v-flex>
             </v-layout>
@@ -103,168 +83,154 @@
 
 <script>
 /*  eslint-disable */
-import MapSection from '../components/MapSection'
-import ScrollBar from '../components/scrollbar'
+import MapSection from "../components/MapSection";
+import ScrollBar from "../components/scrollbar";
 
 export default {
-  name: 'response',
+  name: "response",
   components: {
-    'google-map': MapSection,
+    "google-map": MapSection,
     scrollbar: ScrollBar
     // put custom components here
   },
   data() {
     return {
+      typeIcons: {
+        bus: "directions_bus",
+        tramway: "directions_subway",
+        marche: "directions_walk"
+      },
       show: false,
+      defaultPathObject: {
+        totalDist: 10,
+        totalPrice: 50,
+        totalTime: 20,
+        steps: [
+          {
+            name: "Prendre Bus 11 pour 3 arrets",
+            type: "directions_bus",
+            time: 5,
+            price: 20,
+            dist: 500
+          },
+          {
+            name: "Marcher jusqu'à arret12",
+            type: "directions_walk",
+            time: 5,
+            price: 0,
+            dist: 200
+          },
+          {
+            name: "Tramway pour 6 arrets",
+            type: "directions_subway",
+            time: 15,
+            price: 40,
+            dist: 850
+          },
+          {
+            name: "Prendre Bus B pour 2 arrets",
+            type: "directions_bus",
+            time: 5,
+            price: 20,
+            dist: 200
+          },
+          {
+            name: "Marcher jusqu'a votre destination",
+            type: "directions_walk",
+            time: 5,
+            price: 0,
+            dist: 200
+          }
+        ]
+      },
       paths: [
-        // First Path
-        {
-          totalDist: 10,
-          totalPrice: 50,
-          totalTime: 20,
-          steps: [
-            {
-              name: 'Prendre Bus 11 pour 3 arrets',
-              type: 'directions_bus',
-              time: 5,
-              price: 20,
-              dist: 500
-            },
-            {
-              name: "Marcher jusqu'à arret12",
-              type: 'directions_walk',
-              time: 5,
-              price: 0,
-              dist: 200
-            },
-            {
-              name: 'Tramway pour 6 arrets',
-              type: 'directions_subway',
-              time: 15,
-              price: 40,
-              dist: 850
-            },
-            {
-              name: 'Prendre Bus B pour 2 arrets',
-              type: 'directions_bus',
-              time: 5,
-              price: 20,
-              dist: 200
-            },
-            {
-              name: "Marcher jusqu'a votre destination",
-              type: 'directions_walk',
-              time: 5,
-              price: 0,
-              dist: 200
-            }
-          ]
-        },
-        // Second Path
-        {
-          totalDist: 0,
-          totalPrice: 0,
-          totalTime: 0,
-          steps: [
-            {
-              name: 'Prendre Bus 11 pour 3 arrets',
-              type: 'directions_bus',
-              time: 5,
-              price: 20,
-              dist: 500
-            },
-            {
-              name: "Marcher jusqu'à arret12",
-              type: 'directions_walk',
-              time: 5,
-              price: 0,
-              dist: 200
-            },
-            {
-              name: 'Tramway pour 6 arrets',
-              type: 'directions_subway',
-              time: 15,
-              price: 40,
-              dist: 850
-            },
-            {
-              name: 'Prendre Bus B pour 2 arrets',
-              type: 'directions_bus',
-              time: 5,
-              price: 20,
-              dist: 200
-            },
-            {
-              name: "Marcher jusqu'a votre destination",
-              type: 'directions_walk',
-              time: 5,
-              price: 0,
-              dist: 200
-            }
-          ]
-        },
-        // Third Path
-        {
-          totalDist: 50,
-          totalPrice: 30,
-          totalTime: 40,
-          steps: [
-            {
-              name: 'Prendre Bus 11 pour 3 arrets',
-              type: 'directions_bus',
-              time: 5,
-              price: 20,
-              dist: 500
-            },
-            {
-              name: "Marcher jusqu'à arret12",
-              type: 'directions_walk',
-              time: 5,
-              price: 0,
-              dist: 200
-            },
-            {
-              name: 'Tramway pour 6 arrets',
-              type: 'directions_subway',
-              time: 15,
-              price: 40,
-              dist: 850
-            },
-            {
-              name: 'Prendre Bus B pour 2 arrets',
-              type: 'directions_bus',
-              time: 5,
-              price: 20,
-              dist: 200
-            },
-            {
-              name: "Marcher jusqu'a votre destination",
-              type: 'directions_walk',
-              time: 5,
-              price: 0,
-              dist: 200
-            }
-          ]
-        },
+        this.defaultPathObject,
+        this.defaultPathObject,
+        this.defaultPathObject
       ]
-    }
+    };
   },
   methods: {
-    loadPaths() {
-      // whoosh
+    showPath(index) {
+      console.log(index);
+      let tempPath = this.paths[0];
+      this.$set(this.paths, 0, this.paths[index]);
+      this.$set(this.paths, index, tempPath);
+    },
+    loadPaths(queryParams) {
+      this.$http
+        .get("https://project314.herokuapp.com/api/direction", {
+          params: queryParams
+        })
+        .then(
+          function(response) {
+            // HERE happens the magic
+            this.paths = [];
+            response.body.forEach(path => {
+              // create new path
+              let newPath = {
+                totalDist: path.totalDist,
+                totalTime: path.totalTime,
+                totalPrice: path.totalPrice,
+                steps: []
+              };
+              // fill steps
+              path.steps.forEach(step => {
+                let name = "";
+                switch (step.type.toLowerCase()) {
+                  case "bus":
+                    name = "Prendre Bus pour 3 arrets";
+                    break;
+                  case "tramway":
+                    name = "Tramway pour 6 arrets";
+                    break;
+                  case "walk":
+                    name = "Marcher jusqu'à arret12";
+                    break;
+                  default:
+                    break;
+                }
+
+                newPath.steps.push({
+                  name: name,
+                  type: this.typeIcons[step.type.toLowerCase()],
+                  price: step.price,
+                  time: step.time,
+                  dist: 0
+                });
+              });
+              // add to data
+              this.paths.push(newPath);
+            });
+
+            this.paths.push(this.defaultPathObject);
+            this.paths.push(this.defaultPathObject);
+            this.paths.push(this.defaultPathObject);
+            console.log("paths", this.paths);
+          },
+          errorResponse => {
+            console.log(errorResponse);
+          }
+        );
     }
   },
+  created() {
+    this.paths = [];
+    this.paths.push(this.defaultPathObject);
+    this.paths.push(this.defaultPathObject);
+    this.paths.push(this.defaultPathObject);
+  },
   mounted() {
-    console.log(this.$route.query)
+    this.loadPaths(this.$route.query);
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-$background: url('../assets/img/Chapelle de Santa Cruz.jpg'); // $blurred-img: url("https://lh3.googleusercontent.com/-m8TxQMObg6c/U474EWu7Y9I/AAAAAAAAI2k/xkRGoIEC1iU/s1600/blur.jpg");
-$blurred-img: url('../assets/img/blur_bg.jpg');
+$background: url("../assets/img/Chapelle de Santa Cruz.jpg"); // $blurred-img: url("https://lh3.googleusercontent.com/-m8TxQMObg6c/U474EWu7Y9I/AAAAAAAAI2k/xkRGoIEC1iU/s1600/blur.jpg");
+$blurred-img: url("../assets/img/blur_bg.jpg");
 
-@import '../assets/css/form-layout.scss';
+@import "../assets/css/form-layout.scss";
 
 #response {
   overflow: hidden;
@@ -347,7 +313,7 @@ $blurred-img: url('../assets/img/blur_bg.jpg');
     margin-bottom: 30px;
   }
 
-  .card:hover  {
+  .card:hover {
     background-color: #dedede;
   }
 }
