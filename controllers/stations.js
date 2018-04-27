@@ -80,7 +80,7 @@ module.exports = function(dbSession) {
        *         in: body
        *         type: integer
        *         required: true
-       *       - name: coordLong
+       *       - name: coordLon
        *         description: lontitude coordinates of station to update
        *         in: body
        *         type: number
@@ -179,10 +179,10 @@ module.exports = function(dbSession) {
       Station.create(
         new Station(
           null,
-          req.body.station_name,
-          req.body.station_address,
-          req.body.station_coord_lat,
-          req.body.station_coord_lon
+          req.body.name,
+          req.body.address,
+          req.body.coordLat,
+          req.body.coordLon
         )
       ).then(createdStation => {
         console.log(createdStation)
@@ -195,10 +195,10 @@ module.exports = function(dbSession) {
     updateStation: (req, res) => {
       Station.getByID(req.body.station_id)
         .then(station => {
-          station.name = req.body.station_name || station.name
-          station.address = req.body.station_address || station.address
-          station.coord.lat = req.body.station_coord_lat || station.coord.lat
-          station.coord.lon = req.body.station_coord_lon || station.coord.lon
+          station.name = req.body.name || station.name
+          station.address = req.body.address || station.address
+          station.coord.lat = req.body.coordLat || station.coord.lat
+          station.coord.lon = req.body.coordLon || station.coord.lon
 
           station.save()
 
