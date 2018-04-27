@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="multiselect-container">
     <label class="typo__label" for='ajax'>{{ label }}</label>
 
     <multiselect v-model="selectedOption" 
@@ -16,7 +16,7 @@
                  :max-height='maxHeight'
                  :show-no-results="false">
       <template slot="tag" slot-scope="props">
-        {{ props.option.name  }}
+        {{ props.option.name }}
       </template>
     </multiselect>
   </v-container>
@@ -35,7 +35,7 @@ export default {
   },
   watch: {
     selectedOption() {
-      this.$emit('input', this.selectedOption.ID)
+      this.$emit('input', this.selectedOption.name)
     }
   },
   components: {
@@ -74,5 +74,9 @@ export default {
 <style src="vue-multiselect/dist/vue-multiselect.min.css">
 </style>
 
-<style lang="scss" scoped>
+
+<style lang="scss">
+.multiselect-container .multiselect__tags {
+  border-radius: 1px;
+}
 </style>

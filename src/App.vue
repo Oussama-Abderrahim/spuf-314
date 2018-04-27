@@ -5,9 +5,9 @@
           <router-view></router-view>
     </v-content>
 
-    <v-footer app>
+    <!-- <v-footer app>
       <span>&copy; SPUF 2018</span>
-    </v-footer>
+    </v-footer> -->
 
   </v-app>
 </template>

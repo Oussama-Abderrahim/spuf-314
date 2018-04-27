@@ -2,7 +2,6 @@
   <v-container id="request">
     <v-container grid-list-xs fluid fill-height align-center justify-center>
       <form class="request-form blurred-bg tinted" @submit.prevent="getPath" action='#' method="GET">
-        <!-- <div class="blur"></div> -->
         <!-- Left Form -->
         <v-layout row wrap>
           <v-flex xs12 md6>
@@ -11,12 +10,12 @@
                 <v-flex xs11 class="field">
                   <v-form>
                     <!-- CHAMP DEPART -->
-                    <multi-select class="subheading" :label='"Arret départ"' :maxHeight='500' :placeholder='"Adresse de départ"' v-model="query.depart" />
+                    <multi-select class="subheading" :label='"Arret départ"' :maxHeight='500' :placeholder='"Adresse de départ"' v-model="query.start" />
                     <!-- CHAMP ARRIVEE -->
-                    <multi-select class="subheading" :label='"Arret arrivée"' :maxHeight='500' :placeholder="'Adresse d\'arrivée'" v-model="query.arrivee" />
+                    <multi-select class="subheading" :label='"Arret arrivée"' :maxHeight='500' :placeholder="'Adresse d\'arrivée'" v-model="query.end" />
                     <!-- CHAMP OPTIONS -->
-                    <v-expansion-panel inset white value='1'>
-                      <v-expansion-panel-content class="push_up">
+                    <v-expansion-panel white>
+                      <v-expansion-panel-content class="push_up" :value='true'>
                         <div class="subheading" slot="header" >Options</div>
                         <v-card white>
                           <v-card-text>
@@ -93,11 +92,11 @@ export default {
       ],
       query: {
         // Requete à envoyer à Response
-        depart: '',
-        arrivee: '',
+        start: '',
+        end: '',
         bus: true,
         tram: true,
-        marche: true,
+        walk: true,
         facteurs: 0
       }
     }
