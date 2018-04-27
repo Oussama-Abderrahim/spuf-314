@@ -250,7 +250,7 @@ export default {
         })
       })
 
-      this.$http.post('https://project314.herokuapp.com/api/line', line).then(
+      this.$http.post('line', line).then(
         response => {
           console.log(response)
           alert("Wow '-'");

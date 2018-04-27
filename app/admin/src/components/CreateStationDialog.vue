@@ -11,7 +11,7 @@
         </v-btn>
       </v-toolbar>
 
-      <v-container id="create-station" fill-height>
+      <v-container tag='form' @submit.prevent='submit' id="create-station" fill-height>
         <v-layout row wrap>
           <v-flex xs6>
             <v-layout row wrap align-center>
@@ -19,14 +19,14 @@
               <!-- CHAMP NOM STATION -->
               <v-flex xs8>
                 <v-container title>Informations générales:</v-container>
-                <v-text-field label="Nom de la station"></v-text-field>
-                <v-text-field label="Adresse de la station"></v-text-field>
+                <v-text-field label="Nom de la station" v-model="station.name"></v-text-field>
+                <v-text-field label="Adresse de la station" v-model="station.address"></v-text-field>
                 <v-text-field name="input-1-3" label="Informations sur la station" class="coordonnees-info"></v-text-field>
                 <br>
 
                 <v-container title prepend-icon="place">Les coordonnées:</v-container>
-                <v-text-field name="input-1-3" label="Longitude"></v-text-field>
-                <v-text-field name="input-1-3" label="Latitude"></v-text-field>
+                <v-text-field name="input-1-3" label="Longitude" v-model="station.coordLon"></v-text-field>
+                <v-text-field name="input-1-3" label="Latitude" v-model="station.coordLat"></v-text-field>
 
                 <v-btn small fab dark color="black">
                   <v-icon dark>add</v-icon>
@@ -49,8 +49,8 @@
               <!-- CHAMP BUTTONS -->
               <v-flex xs12 align-center>
                 <v-container class="buttons" align-center>
-                  <v-btn>Annuler</v-btn>
-                  <v-btn>Ajouter</v-btn>
+                  <v-btn type="submit">Ajouter</v-btn>
+                  <v-btn type="cancel">Annuler</v-btn>
                 </v-container>
               </v-flex>
             </v-layout>
@@ -76,15 +76,33 @@
     name: 'creatStation',
     components: {
       'google-map': MapSection
-      // put custom components here
     },
     data() {
       return {
-        dialogCreate: false
+        dialogCreate: false,
+        station: {
+          name : '',
+          address: '',
+          coordLat: 0,
+          coordLon: 0
+        }
       }
     },
-    mounted() {},
-    methods: {}
+    mounted() {
+      this.$station = this.$resource('station{/id}', {}, {}, {
+        before: () => {},
+        after: () => {}
+      })
+    },
+    methods: {
+      submit() {
+        this.$station.save({}, {...this.station}).then(response => {
+          console.log(response)
+        }, error => {
+          console.log(err)
+        })
+      }
+    }
   }
 </script>
 

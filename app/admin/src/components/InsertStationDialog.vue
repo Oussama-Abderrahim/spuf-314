@@ -7,14 +7,17 @@
         <create-station-dialog></create-station-dialog>
       </v-card-title>
       <v-divider></v-divider>
-      <v-card-text style="height: 300px;">
+      <v-card-text class='card-content' v-if="loading">
+        <v-progress-circular indeterminate color="primary"></v-progress-circular>
+      </v-card-text>
+      <v-card-text class='card-content' v-if='!loading'>
         <v-radio-group v-model="selectedNewStation" column>
           <v-radio v-for="(station, i) in stationList" :key=i :label='station.name' :value='station.id'></v-radio>
         </v-radio-group>
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
-        <v-btn color="blue darken-1" flat :disabled="disable" @click.native="insert">Ajouter</v-btn>
+        <v-btn color="blue darken-1" flat :disabled="loading" @click.native="insert">Ajouter</v-btn>
         <v-spacer></v-spacer>
         <v-btn color="blue darken-1" flat @click.native="addStationDialog = false">Fermer</v-btn>
       </v-card-actions>
@@ -34,10 +37,10 @@ import CreateStationDialog from './CreateStationDialog'
     props: {},
     data() {
       return {
+        loading: true,
         addStationDialog: false,
         selectedNewStation: '',
         stationList: [],
-        disable: true
       };
     },
     watch: {
@@ -45,14 +48,16 @@ import CreateStationDialog from './CreateStationDialog'
         val || this.closeDialog()
       },
     },
+    mounted() {
+      this.$station = this.$resource('station{/id}', {}, {}, {
+        before: () => this.loading = true,
+        after: () => this.loading = false
+      })
+    },
     methods: {
       loadStations() {
         this.stationList = []
-        this.disable = true
-        this.$http
-          .get('https://project314.herokuapp.com/api/station')
-          .then(response => {
-            this.disable = false
+        this.$station.query().then(response => {
             response.body.forEach((station, i) => {
               this.stationList.push({
                 id: station.ID,
@@ -62,16 +67,16 @@ import CreateStationDialog from './CreateStationDialog'
           }, error => console.log(error))
       },
       insert() {
-        console.log('inserting')
+        // If nothing selected, close and return 
         if (!this.selectedNewStation) {
           this.closeDialog()
           return
         }
 
-        this.$http
-          .get(`https://project314.herokuapp.com/api/station/${this.selectedNewStation}`)
+        // Fetch station's data
+        this.$station.query({id: this.selectedNewStation})
           .then(response => {
-              var station = response.body;
+              let station = response.body;
               let item = {
                 ID: station.ID,
                 name: station.name,
@@ -91,7 +96,16 @@ import CreateStationDialog from './CreateStationDialog'
       closeDialog() {
         this.addStationDialog = false
       }
-    },
-    mounted() {}
+    }
   };
 </script>
+
+<style lang="scss" scoped>
+
+  .card-content {
+    height: 300px;
+    width: 100%;
+    text-align: center;
+  }
+
+</style>
