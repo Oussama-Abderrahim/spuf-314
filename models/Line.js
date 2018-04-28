@@ -76,9 +76,7 @@ module.exports = function(dbSession) {
     static createLine(lineParams) {
       return new Promise((resolve, reject) => {
         // Create Line from Schema
-        let linePromise = LineModel.create(lineParams)
-        console.log(linePromise)
-        linePromise.then(line => {
+        LineModel.create(lineParams).then(line => {
           line.lineStations = []
           lineParams.stations.forEach(station => {
             line.lineStations.push({
@@ -114,8 +112,8 @@ module.exports = function(dbSession) {
             lineStations[i].stationID,
             lineStations[i + 1].stationID,
             TransportType.Bus,
-            lineStations[i+1].distFromPrev,
-            lineStations[i+1].timeFromPrev
+            lineStations[i + 1].distFromPrev,
+            lineStations[i + 1].timeFromPrev
           )
         )
       }
