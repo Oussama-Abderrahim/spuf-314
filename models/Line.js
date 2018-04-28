@@ -90,13 +90,12 @@ module.exports = function(dbSession) {
           // Save to Mongo then to graph
           line.save(err => {
             if (err) reject(err)
+            // return line
+            resolve(line)
             Line.saveToGraph(line)
               .then(records => console.log(records))
               .catch(err => reject(err))
           })
-
-          // return line
-          resolve(line)
         })
       })
     }
@@ -115,8 +114,8 @@ module.exports = function(dbSession) {
             lineStations[i].stationID,
             lineStations[i + 1].stationID,
             TransportType.Bus,
-            lineStations[i].distFromPrev,
-            lineStations[i].timeFromPrev
+            lineStations[i+1].distFromPrev,
+            lineStations[i+1].timeFromPrev
           )
         )
       }

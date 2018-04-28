@@ -17,7 +17,7 @@
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
-        <v-btn color="blue darken-1" flat :disabled="loading" @click.native="insert">Ajouter</v-btn>
+        <v-btn color="blue darken-1" flat :disabled="loading" @click.native.prevent="insert">Ajouter</v-btn>
         <v-spacer></v-spacer>
         <v-btn color="blue darken-1" flat @click.native="addStationDialog = false">Fermer</v-btn>
       </v-card-actions>
@@ -73,24 +73,8 @@ import CreateStationDialog from './CreateStationDialog'
           return
         }
 
-        // Fetch station's data
-        this.$station.query({id: this.selectedNewStation})
-          .then(response => {
-              let station = response.body;
-              let item = {
-                ID: station.ID,
-                name: station.name,
-                address: station.address,
-                time: 0,
-                dist: 0
-              }
-              this.$emit('insert', item)
-            },
-            error => {
-              console.log(error)
-              alert("Error")
-            }
-          )
+        // Fetch station's promise data
+        this.$emit('insertItem', this.$station.query({id: this.selectedNewStation}))
         this.closeDialog()
       },
       closeDialog() {

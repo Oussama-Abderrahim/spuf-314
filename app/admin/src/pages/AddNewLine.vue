@@ -25,8 +25,8 @@
             </v-toolbar>
             <v-container class="form-bus">
               <v-text-field label="Temps d'attente moyen dans chaque arrêt" v-model="bus.avgWaitTime" suffix="MN:SS" mask="time" required></v-text-field>
-              <v-text-field label="Temps d'attente moyen durant les heures de pointe" suffix="MN:SS" mask="time" required></v-text-field>
-              <v-text-field label="Temps d'attente maximal" v-model="bus.maxWaitTime" suffix="MN:SS" mask="time" required></v-text-field>
+              <v-text-field label="Temps d'attente moyen durant les heures de pointe" v-model="bus.avgStopTime" suffix="MN:SS" mask="time" required></v-text-field>
+              <v-text-field label="Temps d'attente maximal" v-model="bus.maxStopTime" suffix="MN:SS" mask="time" required></v-text-field>
             </v-container>
           </v-card>
 
@@ -67,10 +67,10 @@
         </v-flex>
 
         <!-- Add new Station Dialog  -->
-        <insert-station-dialog @insert='insertItem'></insert-station-dialog>
+        <insert-station-dialog @insertItem='insertItem'></insert-station-dialog>
 
         <v-container class="form-btns">
-          <v-btn color="primary" flat @click="submit">Submit</v-btn>
+          <v-btn color="primary" flat :loading='loading' @click="submit">Submit</v-btn>
           <v-btn flat>Cancel</v-btn>
         </v-container>
       </v-layout>
@@ -100,8 +100,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click.prevent="insertItem">Enregistrer</v-btn>
-          <v-btn color="blue darken-1" flat @click.prevent="closeEditDialog">Annuler</v-btn>
+          <v-btn color="blue darken-1" flat @click.stop="saveEditedItem">Enregistrer</v-btn>
+          <v-btn color="blue darken-1" flat @click.stop="closeEditDialog">Annuler</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -122,13 +122,14 @@ export default {
   },
   data() {
     return {
-      e1: null,
+      loading: false,
       editStationDialog: false,
       bus: {
         name: '',
         frequence: 0,
         avgWaitTime: '00:00',
-        maxWaitTime: '00:00',
+        avgStopTime: '00:00',
+        maxStopTime: '00:00',
         price: 0
       },
       tableStations: {
@@ -193,6 +194,15 @@ export default {
   },
   created() {
     this.initialize()
+    this.$line = this.$resource(
+      'line{/id}',
+      {},
+      {},
+      {
+        before: () => (this.loading = true),
+        after: () => (this.loading = false)
+      }
+    )
   },
   methods: {
     initialize() {
@@ -220,25 +230,42 @@ export default {
         this.tableStations.editedItem.index = -1
       }, 300)
     },
-    insertItem(item) {
-      if (this.tableStations.editedItem.index < 0) {
-        this.tableStations.items.push(item)
-      } else {
-        Object.assign(
-          this.tableStations.items[this.tableStations.editedItem.index],
-          this.tableStations.editedItem.item
-        )
-        this.closeEditDialog()
-      }
+    saveEditedItem() {
+      Object.assign(
+        this.tableStations.items[this.tableStations.editedItem.index],
+        this.tableStations.editedItem.item
+      )
+      this.closeEditDialog()
+    },
+    insertItem(itemPromise) {
+      this.loading = true
+      itemPromise.then(
+        response => {
+          let station = response.body
+          let item = {
+            ID: station.ID,
+            name: station.name,
+            address: station.address,
+            time: 0,
+            dist: 0
+          }
+          this.tableStations.items.push(item)
+          this.loading = false
+        },
+        error => {
+          console.log(error)
+          alert('Error')
+        }
+      )
     },
     submit() {
       let line = {
-        name: '',
+        name: this.bus.name,
         bus: {
-          name: '',
-          price: '',
-          frequence: '',
-          avgWaitTime: ''
+          name: this.bus.name,
+          price: this.bus.price,
+          frequence: this.bus.frequence,
+          avgWaitTime: this.bus.avgWaitTime
         },
         lineStations: []
       }
@@ -250,10 +277,11 @@ export default {
         })
       })
 
-      this.$http.post('line', line).then(
+      this.$line.save({}, line).then(
         response => {
           console.log(response)
-          alert("Wow '-'");
+          this.initialize()
+          alert('Line ', response.body.name, ' added')
         },
         responseError => {
           console.log(responseError)
