@@ -1,0 +1,21 @@
+.DS_Store
+node_modules/
+/dist/
+src/semantic/dist
+src/semantic/tasks
+src/semantic/src/definitions
+src/semantic/src/themes
+src/semantic/src/site
+config/dist
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+".." 
