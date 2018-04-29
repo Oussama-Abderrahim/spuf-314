@@ -41,17 +41,17 @@ class Path {
      * @return {Path} minimized Path
     */
     minimizePath() {
-        minPath = new Path()
+        // minPath = new Path()
         
-        for(var i = 0; i < steps.length-1; ++i) {
-            // TODO : 
-            // test if steps[i] and steps[i+1] can be merged
-                // merge
-            // else
-                // add step[i]
-        }
-
-        // add this.steps[steps.length-1] to minPath
+        // while(i < steps.length-1) {
+        //     if (step[i].canMerge(step[i+1])) {
+        //         steps[i] = steps[i].merge(step[i+1])
+        //     } else {
+        //         minPath.push(step[i])
+        //         i++
+        //     }
+        // }
+        // minPath.push(this.steps[steps.lenght-1])
     }
 }
 

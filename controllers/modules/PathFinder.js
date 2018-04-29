@@ -20,15 +20,14 @@ module.exports = function(dbSession) {
       let sourceStation = Station.convertNodeToStation(new GraphNode(startNodes[i]));
       let destStation = Station.convertNodeToStation(new GraphNode(endNodes[i]));
 
-      let price = 0;// TODO: get from Segment
-      let dist = 0;
-      let time = 0;
-
+      
       let type = TransportType.getTransportType(segments[i].type).label;
+      
+      let price = _getPrice(type);
+      let dist = segments[i].properties.distance.toNumber();
+      let time = segments[i].properties.avgTime.toNumber();
 
-      let name = segments[i].properties.buses
-        ? segments[i].properties.buses[0]
-        : "";
+      let name = segments[i].properties.bus ? segments[i].properties.bus : "X";
 
       let step = new Step(
         sourceStation,
@@ -42,23 +41,6 @@ module.exports = function(dbSession) {
 
       path.addStep(step);
     }
-    return path;
-  };
-
-  /**
-   * Evaluates path's total distance, time and price
-   * @param {Path} path
-   */
-  const _evaluatePath = function(path) {
-    path.totalDistance = 0;
-    path.totalPrice = 0;
-    path.totalTime = 0;
-    path.steps.forEach(step => {
-      path.totalDistance += step.dist;
-      path.totalPrice += step.price;
-      path.totalTime += step.time;
-    });
-
     return path;
   };
 
@@ -101,10 +83,8 @@ module.exports = function(dbSession) {
             let path = [];
             try {
               path = _makePath(db_result);
-              path = _evaluatePath(path);
             } catch (err) {
-              /// TODO : Add a logger
-              console.log(err);
+              console.log(err);   /// TODO : Add a logger
               path = [];
             }
             paths.push(path);

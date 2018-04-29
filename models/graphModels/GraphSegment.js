@@ -60,7 +60,11 @@ module.exports = function(dbSession) {
           `WHERE ID(s${index + 1}) = ${segment.destStationID}\n`
 
         // Create segment between last station and current one
-        createQueries += `CREATE (s${index}) - [:${segment.type.db_label}{distance: ${segment.distance},avgTime: ${segment.avgTime}}] -> (s${index + 1}) \n`
+        createQueries += `CREATE (s${index}) - [:${segment.type.db_label}{
+          distance: ${segment.distance},
+          avgTime: ${segment.avgTime},
+          bus: ${segment.bus}
+        }] -> (s${index + 1}) \n`
       })
 
       let query = matchQueries + '\n' + createQueries
