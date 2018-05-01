@@ -10,6 +10,12 @@
  *         type: number
  *       totalTime:
  *         type: number
+ *       totalWalkTime:
+ *         type: number
+ *       transportTypes:
+ *         type: array
+ *         items:
+ *           type: string
  *       steps:
  *         type: array
  *         items:
@@ -28,6 +34,9 @@ class Path {
     this.totalDistance = dist
     this.totalPrice = price
     this.totalTime = time
+    this.totalWalkTime = 0
+    this.transportTypes = []
+
     this.steps = new Array()
   }
 
@@ -36,15 +45,19 @@ class Path {
    * @param {Step} step step to add
    */
   addStep(step) {
-   
     let lastStep = this.steps[this.steps.length - 1]
 
-    if(lastStep && !lastStep.to.equals(step.from)){
-      throw new Error("Steps are not connected")
+    // Check if connected
+    if (lastStep && !lastStep.to.equals(step.from)) {
+      throw new Error('Steps are not connected')
     }
-    
+
     this.totalDistance += step.dist
     this.totalTime += step.time
+
+    if (!this.transportTypes.includes(step.type)) {
+      this.transportTypes.push(step.type)
+    }
 
     if (
       this.steps.length <= 0 ||
@@ -62,7 +75,7 @@ class Path {
    */
   minimize() {
     let minPath = new Path()
-  
+
     let step = this.steps[0]
     let i = 1
     while (i < this.steps.length) {
@@ -75,7 +88,7 @@ class Path {
       step = this.steps[i]
       i++
     }
-    if(i === this.steps.length) minPath.addStep(step)
+    if (i === this.steps.length) minPath.addStep(step)
     return minPath
   }
 }

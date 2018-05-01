@@ -94,4 +94,18 @@ describe('Path Model Tests', function() {
     done()
   })
 
+  it('Should keep track of transport types with no duplicates', done => {
+    let path = new Path()
+
+    path.addStep(new Step(new Station(1), new Station(2), 20, 10, 2, TransportType.Bus, "someBus"))
+    path.addStep(new Step(new Station(2), new Station(3), 20, 10, 2, TransportType.Bus, "someBus"))
+    path.addStep(new Step(new Station(3), new Station(4), 20, 10, 2, TransportType.Tramway, "someBus"))
+    path.addStep(new Step(new Station(4), new Station(5), 20, 10, 2, TransportType.Bus, "someBus"))
+
+    assert.equal(path.transportTypes.length, 2)
+    assert(path.transportTypes.includes(TransportType.Bus))
+    assert(path.transportTypes.includes(TransportType.Tramway))
+    done()
+  })
+
 })
