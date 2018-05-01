@@ -32,7 +32,7 @@ class Step {
      */
     constructor(sourceStation, destStation, price, dist, time, type, name = "") {
         this.from = sourceStation
-
+        this.intermediate = []
         this.to = destStation
 
         this.price = price
@@ -68,7 +68,11 @@ class Step {
             step1.time + step2.time,
             step1.type,
             step1.name
-        )
+        );
+        mergedStep.intermediate = mergedStep.intermediate.concat(step1.intermediate);
+        mergedStep.intermediate.push(step2.from);
+        mergedStep.intermediate = mergedStep.intermediate.concat(step2.intermediate);
+
         return mergedStep
     }
 }
