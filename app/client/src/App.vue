@@ -3,8 +3,6 @@
     
 
     <v-content>
-      <header name="header"></header>
-
       <router-view></router-view>
     </v-content>
 
@@ -17,17 +15,12 @@
 
 <script>
 /*  eslint-disable */
-  import header from './components/header'
 
   export default {
     data() {
       return {
 
       }
-    },
-    components: {
-      'header': header
-      // put custom components here
     }
   }
 
