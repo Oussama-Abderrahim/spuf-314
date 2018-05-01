@@ -1,5 +1,25 @@
 <template>
   <v-container id="welcome">
+
+  <v-container grid-list-xl>
+    <v-layout v-bind="binding" wrap>
+      <v-flex xs12 class="path-message">
+        <!-- here circle aesthetic-->
+      </v-flex>
+
+      <v-flex class="welcome-message">
+        <v-card color="grey lighten-4">
+          <v-card-title primary-title>
+            <v-container><h3>SPUF est un moyen très simple et éfficace pour se déplacer à Oran.
+              Habitant ou un visiteur, notre outil vous sera de grande aide.
+              Use our webapp please *loudcrying*</h3></v-container>
+          </v-card-title>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
+
+    <!--
     <v-layout class="main-content" fill-height align-end>
       <v-flex xs12 sm6 offset-sm3 class="welcome-message">
         <v-card color="grey lighten-4">
@@ -10,12 +30,13 @@
           </v-card-title>
         </v-card>
       </v-flex>
-      </v-layout>
+      </v-layout>-->
     </v-container>
 </template>
 
 
 <script>
+
 export default {
   name: 'home',
   data() {
@@ -43,6 +64,8 @@ export default {
 }
 
 .welcome-message {
-  margin-bottom: 5%;
+  margin-top: 40%;
 }
+
+
 </style>

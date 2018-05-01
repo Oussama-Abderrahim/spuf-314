@@ -1,8 +1,11 @@
 <template>
   <v-app id="app">
+    
 
     <v-content>
-          <router-view></router-view>
+      <header name="header"></header>
+
+      <router-view></router-view>
     </v-content>
 
     <!-- <v-footer app>
@@ -13,17 +16,26 @@
 </template>
 
 <script>
+/*  eslint-disable */
+  import header from './components/header'
+
   export default {
-    data () {
+    data() {
       return {
 
       }
+    },
+    components: {
+      'header': header
+      // put custom components here
     }
   }
+
 </script>
 
 <style lang="scss">
   #app {
-      overflow: hidden;
+    overflow: hidden;
   }
+
 </style>
