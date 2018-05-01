@@ -10,9 +10,9 @@
  *         type: string
  *       address:
  *         type: string
- *       coordLat:
+ *       coord.lat:
  *         type: number
- *       coordLon:
+ *       coord.lon:
  *         type: number
  */
 module.exports = function(dbSession) {

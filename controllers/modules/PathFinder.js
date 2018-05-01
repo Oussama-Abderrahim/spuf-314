@@ -83,6 +83,7 @@ module.exports = function(dbSession) {
             let path = [];
             try {
               path = _makePath(db_result);
+              path = path.minimize();
             } catch (err) {
               console.log(err);   /// TODO : Add a logger
               path = [];
