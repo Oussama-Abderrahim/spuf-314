@@ -32,7 +32,7 @@ class Step {
      */
     constructor(sourceStation, destStation, price, dist, time, type, name = "") {
         this.from = sourceStation
-
+        this.intermediate = []
         this.to = destStation
 
         this.price = price
@@ -42,21 +42,37 @@ class Step {
         this.name = name
     }
    
+
+    /**
+     * test if step can be merged with another
+     * @param {Step} step 
+     */
+    canMergeWith(step) {
+        return ( this.type === step.type
+            && this.name === step.name
+            && this.to.equals(step.from) )
+    }
+
     /**
      * Merge two steps ( does not make any check for similar bus/stations )
      * @param {Step} step1 
      * @param {Step} step2 
+     * @returns {Step} minimizedStep
      */
-    mergeSteps(step1, step2) {
+    static mergeSteps(step1, step2) {
         let mergedStep = new Step(
-            step1.sourceStation,
-            step2.destStation,
-            step1.price + step2.price,
+            step1.from,
+            step2.to,
+            Math.max(step1.price, step2.price),
             step1.dist + step2.dist,
             step1.time + step2.time,
             step1.type,
             step1.name
-        )
+        );
+        mergedStep.intermediate = mergedStep.intermediate.concat(step1.intermediate);
+        mergedStep.intermediate.push(step2.from);
+        mergedStep.intermediate = mergedStep.intermediate.concat(step2.intermediate);
+
         return mergedStep
     }
 }

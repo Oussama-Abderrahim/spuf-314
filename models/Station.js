@@ -10,9 +10,9 @@
  *         type: string
  *       address:
  *         type: string
- *       coordLat:
+ *       coord.lat:
  *         type: number
- *       coordLon:
+ *       coord.lon:
  *         type: number
  */
 module.exports = function(dbSession) {
@@ -34,6 +34,22 @@ module.exports = function(dbSession) {
         lat: coordLat,
         lon: coordLon
       }
+    }
+
+    /**
+     * Compares with another Station
+     * @param {Station} station 
+     * @returns true if stations are equal
+     */
+    equals(station) {
+      if (this.ID && station.ID) return this.ID == station.ID
+      else
+        return (
+          this.name === station.name &&
+          this.address === station.address &&
+          this.coordLat === station.coordLat &&
+          this.coordLon === station.coordLon
+        )
     }
 
     /**

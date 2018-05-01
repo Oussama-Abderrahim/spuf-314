@@ -10,49 +10,87 @@
  *         type: number
  *       totalTime:
  *         type: number
+ *       totalWalkTime:
+ *         type: number
+ *       transportTypes:
+ *         type: array
+ *         items:
+ *           type: string
  *       steps:
  *         type: array
  *         items:
  *           $ref: '#/definitions/Step'
  */
+
+const Step = require('./Step')
+
 class Path {
+  /**
+   * @param {Number} dist total Distance (in meters)
+   * @param {Number} price total Price (in DA)
+   * @param {Number} time totalTime (in minutes)
+   */
+  constructor(dist = 0, price = 0, time = 0) {
+    this.totalDistance = dist
+    this.totalPrice = price
+    this.totalTime = time
+    this.totalWalkTime = 0
+    this.transportTypes = []
 
-    /**
-     * @param {Number} dist total Distance (in meters)
-     * @param {Number} price total Price (in DA)
-     * @param {Number} time totalTime (in minutes)
-     */
-    constructor(dist = 0, price = 0, time = 0) {
-        this.totalDistance = dist
-        this.totalPrice = price
-        this.totalTime = time
-        this.steps = new Array()
+    this.steps = new Array()
+  }
+
+  /**
+   * Add step to Path, and updates total fields
+   * @param {Step} step step to add
+   */
+  addStep(step) {
+    let lastStep = this.steps[this.steps.length - 1]
+
+    // Check if connected
+    if (lastStep && !lastStep.to.equals(step.from)) {
+      throw new Error('Steps are not connected')
     }
 
-    addStep(step) {
-        this.steps.push(step)
-        this.totalDistance += step.dist
-        this.totalPrice += step.price
-        this.totalTime += step.time
+    this.totalDistance += step.dist
+    this.totalTime += step.time
+
+    if (!this.transportTypes.includes(step.type)) {
+      this.transportTypes.push(step.type)
     }
 
-    /** 
-     * Creates a new path from current with merged steps
-     * @return {Path} minimized Path
-    */
-    minimizePath() {
-        // minPath = new Path()
-        
-        // while(i < steps.length-1) {
-        //     if (step[i].canMerge(step[i+1])) {
-        //         steps[i] = steps[i].merge(step[i+1])
-        //     } else {
-        //         minPath.push(step[i])
-        //         i++
-        //     }
-        // }
-        // minPath.push(this.steps[steps.lenght-1])
+    if (
+      this.steps.length <= 0 ||
+      lastStep.type !== step.type ||
+      lastStep.name !== step.name
+    ) {
+      this.totalPrice += step.price
     }
+    this.steps.push(step)
+  }
+
+  /**
+   * Creates a new path from current with merged steps
+   * @return {Path} minimized Path
+   */
+  minimize() {
+    let minPath = new Path()
+
+    let step = this.steps[0]
+    let i = 1
+    while (i < this.steps.length) {
+      // merge with next steps
+      while (i < this.steps.length && step.canMergeWith(this.steps[i])) {
+        step = Step.mergeSteps(step, this.steps[i])
+        i++
+      }
+      minPath.addStep(step)
+      step = this.steps[i]
+      i++
+    }
+    if (i === this.steps.length) minPath.addStep(step)
+    return minPath
+  }
 }
 
 module.exports = Path

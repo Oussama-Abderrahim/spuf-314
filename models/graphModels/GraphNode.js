@@ -1,5 +1,5 @@
 module.exports = function(dbSession) {
-  let session = dbSession || require('../../neo4j/dbUtils')().getSession(this)
+  let session = dbSession //|| require('../../neo4j/dbUtils')().getSession(this)
 
   class GraphNode {
     /**
