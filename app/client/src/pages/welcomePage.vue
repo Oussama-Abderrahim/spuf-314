@@ -1,6 +1,5 @@
 <template>
   <v-container id="welcome">
-
   <v-container grid-list-xl>
     <v-layout v-bind="binding" wrap>
       <v-flex xs12 class="path-message">
@@ -36,7 +35,6 @@
 
 
 <script>
-
 export default {
   name: 'home',
   data() {
@@ -49,7 +47,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/css/variables";
+@import '../assets/css/variables';
 
 #welcome {
   background-image: $welcome-page-bg-img;
@@ -66,6 +64,4 @@ export default {
 .welcome-message {
   margin-top: 40%;
 }
-
-
 </style>

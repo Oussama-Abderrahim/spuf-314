@@ -181,7 +181,7 @@
                   switch (step.type.toLowerCase()) {
                     case "bus":
                       name = step.name + " pour " + step.intermediate.length + " arrets de " + 
-                      step.from.name + " vers " + step.from.to;
+                      step.from.name + " vers " + step.to.name;
                       break;
                     case "tramway":
                       name = "Prendre le tramway pour " + step.intermediate.length + " arrets";

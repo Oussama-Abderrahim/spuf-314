@@ -14,8 +14,8 @@
                     <!-- CHAMP ARRIVEE -->
                     <multi-select class="subheading" :label='"Arret arrivée"' :maxHeight='500' :placeholder="'Adresse d\'arrivée'" v-model="query.end" />
                     <!-- CHAMP OPTIONS -->
-                    <v-expansion-panel white>
-                      <v-expansion-panel-content class="push_up" :value='true'>
+                    <v-expansion-panel white class="push_up">
+                      <v-expansion-panel-content :value='true'>
                         <div class="subheading" slot="header" >Options</div>
                         <v-card white>
                           <v-card-text>
@@ -51,7 +51,7 @@
               <v-flex x12 class="map">
                   <google-map name="request-map" class="google-map"></google-map>
               </v-flex>
-              <v-flex x12 class="center-button">
+              <v-flex x12 fill-height class="center-button">
                 <v-btn type="submit" color="black" dark large>Avoir le Chemin</v-btn>
               </v-flex>
             </v-layout>
@@ -150,9 +150,10 @@ export default {
 
 .center-button {
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  button {
+    margin-top: 10%;
+  }
 }
 
 .map {
@@ -162,7 +163,7 @@ export default {
   margin-top: 20px;
   margin-right: 30px;
   width: 100%;
-  height: 300px;
+  height: 50%;
   border: 1px solid black;
 
   .google-map {
