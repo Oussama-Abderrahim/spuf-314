@@ -13,11 +13,19 @@
 
   &-left {
     margin-top: 10px;
-    margin-left: 30px;
+    margin-left: 10px;
   }
+  
   &-right {
     overflow: hidden;
     position: relative;
     margin: auto;
+  }
+}
+
+@media screen and (max-height: 800px) {
+  .request-form {
+    margin-top: 35px;
+    height: $form-height-min-screen;
   }
 }

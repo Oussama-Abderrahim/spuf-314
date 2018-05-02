@@ -1,11 +1,9 @@
 <template>
-  <v-toolbar absolute=true name="header" class="header" dark color="indigo darken-4" style='opacity: 0.5'>
-    <v-toolbar-title>Title</v-toolbar-title>
+  <v-toolbar class="header toolbar" tag="navbar" absolute=true name="header" height="50vh">
+    <v-toolbar-title><v-icon dark>directions_bus</v-icon> SPUF</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
-      <v-btn flat>Link One</v-btn>
-      <v-btn flat>Link Two</v-btn>
-      <v-btn flat>Link Three</v-btn>
+      <v-btn flat>Se connecter</v-btn>
     </v-toolbar-items>
   </v-toolbar>
 </template>
@@ -17,3 +15,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .toolbar {
+    color: white;
+    background-color: #1F4260;
+    * {
+      color: white;
+    }
+  }
+</style>

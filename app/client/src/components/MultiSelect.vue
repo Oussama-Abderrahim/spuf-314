@@ -11,7 +11,7 @@
                  :options="options" 
                  :placeholder='placeholder' 
                  :loading="isLoading"
-                 :clear-on-select="false" 
+                 :clear-on-select="true" 
                  :options-limit='optionsLimit'
                  :max-height='maxHeight'
                  :show-no-results="false">
@@ -76,6 +76,11 @@ export default {
 
 
 <style lang="scss">
+.typo__label {
+  font-weight: 800;
+  font-size: 1.4;
+}
+
 .multiselect-container .multiselect__tags {
   border-radius: 1px;
 }

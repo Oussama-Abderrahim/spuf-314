@@ -10,9 +10,9 @@
                 <v-flex xs11 class="field">
                   <v-form>
                     <!-- CHAMP DEPART -->
-                    <multi-select class="subheading" :label='"Arret départ"' :maxHeight='500' :placeholder='"Adresse de départ"' v-model="query.start" />
+                    <multi-select class="subheading" :label='"Départ"' :maxHeight='500' :placeholder='"Station, lieu ou adresse"' v-model="query.start" />
                     <!-- CHAMP ARRIVEE -->
-                    <multi-select class="subheading" :label='"Arret arrivée"' :maxHeight='500' :placeholder="'Adresse d\'arrivée'" v-model="query.end" />
+                    <multi-select class="subheading" :label='"Arrivée"' :maxHeight='500' :placeholder="'Station, lieu ou adresse'" v-model="query.end" />
                     <!-- CHAMP OPTIONS -->
                     <v-expansion-panel white class="push_up">
                       <v-expansion-panel-content :value='true'>
@@ -94,7 +94,7 @@ export default {
         // Requete à envoyer à Response
         start: '',
         end: '',
-        bus: true,
+        bus: this,
         tram: true,
         walk: true,
         facteurs: 0
@@ -138,7 +138,34 @@ export default {
   background-attachment: fixed;
 }
 
-@import '../assets/css/form-layout.scss';
+.request-form {
+  display: block;
+  padding: 10px;
+  width: $form-width;
+  height: $form-height;
+  margin-left:auto;
+  margin-right:auto;
+  border: 5px solid rgba(255, 255, 255, .5);
+  overflow: hidden;
+
+  &-left {
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+  
+  &-right {
+    overflow: hidden;
+    position: relative;
+    margin: auto;
+  }
+}
+
+@media screen and (max-height: 800px) {
+  .request-form {
+    margin-top: 35px;
+    height: $form-height-min-screen;
+  }
+}
 
 .push_down {
   margin-bottom: 30px;
@@ -163,7 +190,7 @@ export default {
   margin-top: 20px;
   margin-right: 30px;
   width: 100%;
-  height: 50%;
+  height: 60%;
   border: 1px solid black;
 
   .google-map {
