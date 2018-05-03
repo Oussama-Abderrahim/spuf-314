@@ -15,7 +15,7 @@
 
 
             <scrollbar>
-              <v-expansion-panel class='steps'>
+              <v-expansion-panel class='steps' v-if='paths[0]'>
                 <v-expansion-panel-content class="step" v-for='(step,i) in paths[0].steps' :key='i' expand-icon="mdi-menu-down">
                   <!-- STEP -->
                   <div slot="header">
@@ -95,7 +95,7 @@ export default {
   name: 'response',
   components: {
     'google-map': MapSection,
-    scrollbar: ScrollBar
+    'scrollbar': ScrollBar
     // put custom components here
   },
   data() {
@@ -148,11 +148,7 @@ export default {
           }
         ]
       },
-      paths: [
-        this.defaultPathObject,
-        this.defaultPathObject,
-        this.defaultPathObject
-      ]
+      paths: []
     }
   },
   methods: {
@@ -230,6 +226,9 @@ export default {
             console.log(errorResponse)
           }
         )
+        .catch(err => {
+          console.log('error fetching paths', err)
+        })
     }
   },
   created() {
@@ -239,7 +238,9 @@ export default {
     this.paths.push(this.defaultPathObject)
   },
   mounted() {
-    this.loadPaths(this.$route.query)
+    if(this.$route.query ) {
+      this.loadPaths(this.$route.query)
+    }
   }
 }
 </script>

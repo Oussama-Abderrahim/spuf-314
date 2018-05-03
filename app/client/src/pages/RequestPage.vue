@@ -96,7 +96,7 @@ export default {
         // Requete à envoyer à Response
         start: '',
         end: '',
-        bus: this,
+        bus: true,
         tram: true,
         walk: true,
         facteurs: 0
@@ -106,6 +106,7 @@ export default {
   mounted() {},
   methods: {
     getPath(event) {
+      console.log("get response")
       this.$router.push({
         name: 'response',
         query: this.query

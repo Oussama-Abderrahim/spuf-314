@@ -59,7 +59,7 @@ export default {
         // scrollBar: true,
         navigation: true,
         sectionsColor: ['#41b883', '#41b883', '#41b883'],
-        lockAnchors: true, // Determines whether anchors in the URL will have any effect at all in the library
+        lockAnchors: false, // Determines whether anchors in the URL will have any effect at all in the library
         anchors: ['mainPage', 'requestPage', 'infoPage'],
         navigationPosition: 'right',
         navigationTooltips: ['About', 'Trouver Chemin', 'Informations'],
@@ -79,8 +79,8 @@ export default {
         // dragAndMove: 'fingersonly',
         offsetSections: false, // Provides a way to use non full screen sections based on percentage
         resetSliders: false, // Defines whether or not to reset every slider after leaving its section
-        fadingEffect: true,
-        normalScrollElements: '.footer', // If you want to avoid the auto scroll when scrolling over some elements
+        fadingEffect: false,
+        normalScrollElements: 'form, .multiselect-container, .footer', // If you want to avoid the auto scroll when scrolling over some elements
         touchSensitivity: 15,
         normalScrollElementTouchThreshold: 5,
         bigSectionsDestination: null,

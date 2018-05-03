@@ -12,11 +12,14 @@
                  :placeholder='placeholder' 
                  :loading="isLoading"
                  :clear-on-select="true" 
+                 :preserveSearch='true'
+                 :close-on-select="true"
                  :options-limit='optionsLimit'
                  :max-height='maxHeight'
                  :show-no-results="false">
       <template slot="tag" slot-scope="props">
         {{ props.option.name }}
+        <!-- <span>{{ props.option.address }}</span> -->
       </template>
     </multiselect>
   </v-container>
@@ -48,10 +51,12 @@ export default {
         name: 'ExampleStation',
         address: 'Example Address'
       },
-      selectedOption: this.defaultObject,
+      selectedOption: null,
       options: [],
       isLoading: false
     }
+  },
+  mounted() {
   },
   methods: {
     asyncFind(query) {
