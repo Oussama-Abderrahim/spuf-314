@@ -15,7 +15,7 @@
 
 
             <scrollbar>
-              <v-expansion-panel>
+              <v-expansion-panel class='steps'>
                 <v-expansion-panel-content class="step" v-for='(step,i) in paths[0].steps' :key='i' expand-icon="mdi-menu-down">
                   <!-- STEP -->
                   <div slot="header">
@@ -31,9 +31,14 @@
 
                   <!-- INFO ABOUT STEP -->
                   <v-card>
-                    <v-card-text>Lost — Yesterday, somewhere between sunrise and sunset, two golden hours, each set with sixty diamond
-                      minutes. No reward is offered, for they are gone forever.
-                    </v-card-text>
+                    <v-stepper value="1" vertical class="step-details">
+                      <v-stepper-step class="step-details-item" 
+                                      v-for='(station, i) in step.intermediate' 
+                                      :key='`${i}-step`' 
+                                      :step='i'>
+                                      {{station.name}}</v-stepper-step>
+                      <v-divider></v-divider>
+                  </v-stepper>
                   </v-card>
                 </v-expansion-panel-content>
               </v-expansion-panel>
@@ -84,217 +89,230 @@
 </template>
 
 <script>
-  /*  eslint-disable */
-  import MapSection from "../components/MapSection";
-  import ScrollBar from "../components/scrollbar";
+/*  eslint-disable */
+import MapSection from '../components/MapSection'
+import ScrollBar from '../components/scrollbar'
 
-  export default {
-    name: "response",
-    components: {
-      "google-map": MapSection,
-      scrollbar: ScrollBar
-      // put custom components here
-    },
-    data() {
-      return {
-        typeIcons: {
-          bus: "directions_bus",
-          tramway: "directions_subway",
-          marche: "directions_walk"
-        },
-        show: false,
-        defaultPathObject: {
-          totalDist: 10,
-          totalPrice: 50,
-          totalTime: 20,
-          steps: [{
-              name: "Prendre Bus 11 pour 3 arrets",
-              type: "directions_bus",
-              time: 5,
-              price: 20,
-              dist: 500
-            },
-            {
-              name: "Marcher jusqu'à arret12",
-              type: "directions_walk",
-              time: 5,
-              price: 0,
-              dist: 200
-            },
-            {
-              name: "Tramway pour 6 arrets",
-              type: "directions_subway",
-              time: 15,
-              price: 40,
-              dist: 850
-            },
-            {
-              name: "Prendre Bus B pour 2 arrets",
-              type: "directions_bus",
-              time: 5,
-              price: 20,
-              dist: 200
-            },
-            {
-              name: "Marcher jusqu'a votre destination",
-              type: "directions_walk",
-              time: 5,
-              price: 0,
-              dist: 200
-            }
-          ]
-        },
-        paths: [
-          this.defaultPathObject,
-          this.defaultPathObject,
-          this.defaultPathObject
-        ]
-      };
-    },
-    methods: {
-      showPath(index) {
-        console.log(index);
-        let tempPath = this.paths[0];
-        this.$set(this.paths, 0, this.paths[index]);
-        this.$set(this.paths, index, tempPath);
+export default {
+  name: 'response',
+  components: {
+    'google-map': MapSection,
+    scrollbar: ScrollBar
+    // put custom components here
+  },
+  data() {
+    return {
+      typeIcons: {
+        bus: 'directions_bus',
+        tramway: 'directions_subway',
+        marche: 'directions_walk'
       },
-      loadPaths(queryParams) {
-        this.$http
-          .get("https://project314.herokuapp.com/api/direction", {
-            params: queryParams
-          })
-          .then(
-            function (response) {
-              // HERE happens the magic
-              this.paths = [];
-              response.body.forEach(path => {
-                // create new path
-                let newPath = {
-                  totalDist: path.totalDist,
-                  totalTime: path.totalTime,
-                  totalPrice: path.totalPrice,
-                  steps: []
-                };
-                // fill steps
-                path.steps.forEach(step => {
-                  let name = "";
-                  switch (step.type.toLowerCase()) {
-                    case "bus":
-                      name = step.name + " pour " + step.intermediate.length + " arrets de " + 
-                      step.from.name + " vers " + step.to.name;
-                      break;
-                    case "tramway":
-                      name = "Prendre le tramway pour " + step.intermediate.length + " arrets";
-                      break;
-                    case "walk":
-                      name = "Marcher jusqu'à arret" + step.to.name;
-                      break;
-                    default:
-                      break;
-                  }
-
-                  newPath.steps.push({
-                    name: name,
-                    type: this.typeIcons[step.type.toLowerCase()],
-                    price: step.price,
-                    time: step.time,
-                    dist: 0
-                  });
-                });
-                // add to data
-                this.paths.push(newPath);
-              });
-
-              this.paths.push(this.defaultPathObject);
-              this.paths.push(this.defaultPathObject);
-              this.paths.push(this.defaultPathObject);
-              console.log("paths", this.paths);
-            },
-            errorResponse => {
-              console.log(errorResponse);
-            }
-          );
-      }
-    },
-    created() {
-      this.paths = [];
-      this.paths.push(this.defaultPathObject);
-      this.paths.push(this.defaultPathObject);
-      this.paths.push(this.defaultPathObject);
-    },
-    mounted() {
-      this.loadPaths(this.$route.query);
+      show: false,
+      defaultPathObject: {
+        totalDist: 10,
+        totalPrice: 50,
+        totalTime: 20,
+        steps: [
+          {
+            name: 'Prendre Bus 11 pour 3 arrets',
+            type: 'directions_bus',
+            time: 5,
+            price: 20,
+            dist: 500
+          },
+          {
+            name: "Marcher jusqu'à arret12",
+            type: 'directions_walk',
+            time: 5,
+            price: 0,
+            dist: 200
+          },
+          {
+            name: 'Tramway pour 6 arrets',
+            type: 'directions_subway',
+            time: 15,
+            price: 40,
+            dist: 850
+          },
+          {
+            name: 'Prendre Bus B pour 2 arrets',
+            type: 'directions_bus',
+            time: 5,
+            price: 20,
+            dist: 200
+          },
+          {
+            name: "Marcher jusqu'a votre destination",
+            type: 'directions_walk',
+            time: 5,
+            price: 0,
+            dist: 200
+          }
+        ]
+      },
+      paths: [
+        this.defaultPathObject,
+        this.defaultPathObject,
+        this.defaultPathObject
+      ]
     }
-  };
+  },
+  methods: {
+    showPath(index) {
+      console.log(index)
+      let tempPath = this.paths[0]
+      this.$set(this.paths, 0, this.paths[index])
+      this.$set(this.paths, index, tempPath)
+    },
+    loadPaths(queryParams) {
+      this.$http
+        .get('https://project314.herokuapp.com/api/direction', {
+          params: queryParams
+        })
+        .then(
+          function(response) {
+            // HERE happens the magic
+            this.paths = []
+            response.body.forEach(path => {
+              // create new path
+              let newPath = {
+                totalDist: path.totalDist,
+                totalTime: path.totalTime,
+                totalPrice: path.totalPrice,
+                steps: []
+              }
+              // fill steps
+              path.steps.forEach(step => {
+                let name = ''
+                switch (step.type.toLowerCase()) {
+                  case 'bus':
+                    name =
+                      step.name +
+                      ' pour ' +
+                      step.intermediate.length +
+                      ' arrets de ' +
+                      step.from.name +
+                      ' vers ' +
+                      step.to.name
+                    break
+                  case 'tramway':
+                    name =
+                      'Prendre le tramway pour ' +
+                      step.intermediate.length +
+                      ' arrets'
+                    break
+                  case 'walk':
+                    name = "Marcher jusqu'à arret" + step.to.name
+                    break
+                  default:
+                    break
+                }
 
+                newPath.steps.push({
+                  name: name,
+                  from: step.from,
+                  to: step.to,
+                  intermediate: step.intermediate,
+                  type: this.typeIcons[step.type.toLowerCase()],
+                  price: step.price,
+                  time: step.time,
+                  dist: step.time
+                })
+              })
+              // add to data
+              this.paths.push(newPath)
+            })
+
+            this.paths.push(this.defaultPathObject)
+            this.paths.push(this.defaultPathObject)
+            this.paths.push(this.defaultPathObject)
+            console.log('paths', this.paths)
+          },
+          errorResponse => {
+            console.log(errorResponse)
+          }
+        )
+    }
+  },
+  created() {
+    this.paths = []
+    this.paths.push(this.defaultPathObject)
+    this.paths.push(this.defaultPathObject)
+    this.paths.push(this.defaultPathObject)
+  },
+  mounted() {
+    this.loadPaths(this.$route.query)
+  }
+}
 </script>
 
 <style lang="scss" scoped>
-  $background: url("../assets/img/Chapelle de Santa Cruz.jpg"); // $blurred-img: url("https://lh3.googleusercontent.com/-m8TxQMObg6c/U474EWu7Y9I/AAAAAAAAI2k/xkRGoIEC1iU/s1600/blur.jpg");
-  $blurred-img: url("../assets/img/blur_bg.jpg");
+$background: url('../assets/img/Chapelle de Santa Cruz.jpg'); // $blurred-img: url("https://lh3.googleusercontent.com/-m8TxQMObg6c/U474EWu7Y9I/AAAAAAAAI2k/xkRGoIEC1iU/s1600/blur.jpg");
+$blurred-img: url('../assets/img/blur_bg.jpg');
 
-  @import "../assets/css/form-layout.scss";
+@import '../assets/css/form-layout.scss';
 
-  #response {
-    overflow: hidden;
-    background: $background no-repeat;
-    background-size: cover;
+#response {
+  overflow: hidden;
+  background: $background no-repeat;
+  background-size: cover;
 
-    height: 100%;
-    width: 100%;
-    margin: auto;
+  height: 100%;
+  width: 100%;
+  margin: auto;
 
-    color: black;
-  }
+  color: black;
+}
 
-  .blurred-bg {
-    background-image: $blurred-img;
+.blurred-bg {
+  background-image: $blurred-img;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+
+  background-position-y: 100vh;
+
+  &.tinted {
+    // background-image: $blurred-img
+    background: $blurred-img,
+      -webkit-linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0.2),
+          rgba(255, 255, 255, 0.2)
+        ) fixed center;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
-
-    background-position-y: 100vh;
-
-    &.tinted {
-      // background-image: $blurred-img
-      background: $blurred-img,
-      -webkit-linear-gradient( 0deg,
-      rgba(255, 255, 255, 0.2),
-      rgba(255, 255, 255, 0.2)) fixed center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-attachment: fixed;
-    }
   }
+}
 
-  .push_down {
-    margin-bottom: 30px;
-  }
+.push_down {
+  margin-bottom: 30px;
+}
 
-  .push_up {
-    margin-top: 30px;
-  }
+.push_up {
+  margin-top: 30px;
+}
 
-  .center-button {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.center-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .text-steps {
-    padding-top: 15px;
-  }
+.text-steps {
+  padding-top: 15px;
+}
 
-  .text-steps-subheading {
-    padding-top: 0px;
-    padding-bottom: 20px;
-  }
+.text-steps-subheading {
+  padding-top: 0px;
+  padding-bottom: 20px;
+}
 
-  .steps {
-    width: 100%;
-    padding: 0;
-  }
+.steps {
+  width: 100%;
+  padding: 0;
 
   .step {
     display: block;
@@ -304,52 +322,62 @@
     &:hover {
       background-color: #eee;
     }
-  }
 
-  .suggestions {
-    margin-right: 30px;
-    margin-bottom: 10px;
-
-    .title {
-      margin-bottom: 30px;
-    }
-
-    .card:hover {
-      background-color: #dedede;
+    &:hover.expansion-panel__container--active {
+      background: #fff;
     }
   }
 
-  .step-content {
+  .step-details-item {
+    &:hover {
+      background-color: #eee;
+    }
+  }
+}
+
+.suggestions {
+  margin-right: 30px;
+  margin-bottom: 10px;
+
+  .title {
+    margin-bottom: 30px;
+  }
+
+  .card:hover {
+    background-color: #dedede;
+  }
+}
+
+.step-content {
+  display: flex;
+
+  .step-text {
     display: flex;
-
-    .step-text {
-      display: flex;
-      flex-direction: column;
-      margin-left: 20px;
-    }
-
-    i.icon {
-      display: inline-block;
-      height: 100%;
-      vertical-align: middle;
-    }
+    flex-direction: column;
+    margin-left: 20px;
   }
 
-  .map {
-    overflow: hidden;
+  i.icon {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+}
+
+.map {
+  overflow: hidden;
+  position: relative;
+  padding: 0;
+  margin-top: 20px;
+  margin-right: 30px;
+  width: 100%;
+  height: 300px;
+  border: 1px solid black;
+
+  .google-map {
     position: relative;
-    padding: 0;
-    margin-top: 20px;
-    margin-right: 30px;
     width: 100%;
-    height: 300px;
-    border: 1px solid black;
-
-    .google-map {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
+    height: 100%;
   }
-
+}
 </style>
