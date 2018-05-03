@@ -9,12 +9,14 @@
               <v-layout row wrap>
                 <v-flex xs12 md10 align-center >
                   <v-form>
-                    <!-- CHAMP DEPART -->
-                    <multi-select class="subheading" :label='"Départ"' :maxHeight='500' :placeholder='"Station, lieu ou adresse"' v-model="query.start" />
-                    <!-- CHAMP ARRIVEE -->
-                    <multi-select class="subheading" :label='"Arrivée"' :maxHeight='500' :placeholder="'Station, lieu ou adresse'" v-model="query.end" />
+                    <div class="request-form-left-select-fields">
+                      <!-- CHAMP DEPART -->
+                      <multi-select class="subheading" :label='"Départ"' :maxHeight='500' :placeholder='"Station, lieu ou adresse"' v-model="query.start" />
+                      <!-- CHAMP ARRIVEE -->
+                      <multi-select class="subheading" :label='"Arrivée"' :maxHeight='500' :placeholder="'Station, lieu ou adresse'" v-model="query.end" />
+                    </div>
                     <!-- CHAMP OPTIONS -->
-                    <v-expansion-panel white class="push_up">
+                    <v-expansion-panel white>
                       <v-expansion-panel-content :value='true'>
                         <div class="subheading" slot="header" >Options</div>
                         <v-card white>
@@ -47,11 +49,11 @@
 
           <!-- RIGHT FORM -->
           <v-flex xs12 md6>
-            <v-layout row wrap>
+            <v-layout row wrap class="request-form-right">
               <v-flex x12 class="map">
                   <google-map name="request-map" class="google-map"></google-map>
               </v-flex>
-              <v-flex x12 fill-height class="center-button">
+              <v-flex x12 class="center-button">
                 <v-btn type="submit" color="black" dark large><v-icon left dark>forward</v-icon>Avoir le Chemin</v-btn>
               </v-flex>
             </v-layout>
@@ -143,55 +145,26 @@ export default {
   padding: 10px;
   width: $form-width;
   height: $form-height;
-  margin-left:auto;
-  margin-right:auto;
-  border: 5px solid rgba(255, 255, 255, .5);
+  margin-left: auto;
+  margin-right: auto;
+  border: 5px solid rgba(255, 255, 255, 0.5);
   overflow: hidden;
 
   &-left {
     margin-top: 10px;
     margin-left: 20px;
+    max-height: $form-height;
+
+    &-select-fields {
+      height: 0.35 * $form-height;
+    }
   }
-  
+
   &-right {
     overflow: hidden;
     position: relative;
+    max-height: $form-height;
     margin: auto;
-  }
-}
-
-@media screen and (max-height: 800px) {
-  .request-form {
-    margin-top: 35px;
-    height: $form-height-min-screen;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .request-form {
-    margin-top: 35px;
-    height: $form-height-min-screen;
-    width: $form-width-min-screen;
-  }
-
-  .map {
-    display: none;
-  }
-}
-
-.push_down {
-  margin-bottom: 30px;
-}
-
-.push_up {
-  margin-top: 30px;
-}
-
-.center-button {
-  width: 100%;
-  text-align: center;
-  button {
-    margin-top: 10%;
   }
 }
 
@@ -212,8 +185,32 @@ export default {
   }
 }
 
+.center-button {
+  width: 100%;
+  text-align: center;
+}
+
 .options-container {
   margin-top: 30px;
   border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+@media screen and (max-height: 800px) {
+  .request-form {
+    margin-top: 35px;
+    height: $form-height-min-screen;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .request-form {
+    margin-top: 35px;
+    height: $form-height-min-screen;
+    width: $form-width-min-screen;
+  }
+
+  .map {
+    display: none;
+  }
 }
 </style>

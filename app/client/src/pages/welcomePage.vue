@@ -1,22 +1,22 @@
 <template>
   <v-container id="welcome">
-  <v-container grid-list-xl>
-    <v-layout v-bind="binding" wrap>
-      <v-flex xs12 class="path-message">
-        <!-- here circle aesthetic-->
-      </v-flex>
+    <v-container grid-list-xl>
+      <v-layout wrap>
+        <v-flex xs12 class="path-message">
+          <!-- here circle aesthetic-->
+        </v-flex>
 
-      <v-flex class="welcome-message">
-        <v-card color="grey lighten-4">
-          <v-card-title primary-title>
-            <v-container><h3>SPUF est un moyen très simple et éfficace pour se déplacer à Oran.
-              Habitant ou un visiteur, notre outil vous sera de grande aide.
-              Use our webapp please *loudcrying*</h3></v-container>
-          </v-card-title>
-        </v-card>
-      </v-flex>
-    </v-layout>
-  </v-container>
+        <v-flex xs12 class="welcome-message">
+          <v-card color="grey lighten-4">
+            <v-card-title primary-title>
+              <v-container><h3>SPUF est un moyen très simple et éfficace pour se déplacer à Oran.
+                Habitant ou un visiteur, notre outil vous sera de grande aide.
+                Use our webapp please *loudcrying*</h3></v-container>
+            </v-card-title>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
 
     <!--
     <v-layout class="main-content" fill-height align-end>

@@ -30,16 +30,14 @@
                   </div>
 
                   <!-- INFO ABOUT STEP -->
-                  <v-card>
                     <v-stepper value="1" vertical class="step-details">
                       <v-stepper-step class="step-details-item" 
-                                      v-for='(station, i) in step.intermediate' 
-                                      :key='`${i}-step`' 
-                                      :step='i'>
+                                      v-for='(station, j) in step.intermediate' 
+                                      :key='`${i*j}-step`' 
+                                      :step='j'>
                                       {{station.name}}</v-stepper-step>
                       <v-divider></v-divider>
                   </v-stepper>
-                  </v-card>
                 </v-expansion-panel-content>
               </v-expansion-panel>
 
