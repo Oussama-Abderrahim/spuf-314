@@ -1,7 +1,7 @@
 <template>
   <v-app id="app">
     
-    <top-bar></top-bar>
+    <top-bar id="topbar"></top-bar>
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -29,6 +29,6 @@ export default {
 
 <style lang="scss">
 #app {
-  overflow: hidden;
+  // overflow: hidden;
 }
 </style>

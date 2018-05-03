@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar class="header toolbar" tag="navbar" absolute=true name="header" height="50vh">
+  <v-toolbar class="header toolbar" tag="navbar" :fixed='true' name="header" height="50vh">
     <v-toolbar-title><v-icon dark>directions_bus</v-icon> SPUF</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
