@@ -120,6 +120,9 @@ export default {
     'google-map': MapSection,
     scrollbar: ScrollBar
   },
+  props() {
+    type: 'Bus'
+  },
   data() {
     return {
       loading: false,

@@ -28,8 +28,8 @@ import Multiselect from 'vue-multiselect'
 export default {
   props: {
     value: '',
-    optionsLimit: {type: Number, default: 20},
-    maxHeight: {type: Number, default: 600},
+    optionsLimit: { type: Number, default: 20 },
+    maxHeight: { type: Number, default: 600 },
     label: { type: String, default: 'Select with search' },
     placeholder: { type: String, default: 'Select One' }
   },
@@ -81,7 +81,12 @@ export default {
   font-size: 1.4;
 }
 
-.multiselect-container .multiselect__tags {
-  border-radius: 1px;
+.multiselect-container {
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  .multiselect__tags {
+    border-radius: 1px;
+  }
 }
 </style>

@@ -7,7 +7,7 @@
           <v-flex xs12 md6>
             <section class="request-form-left">
               <v-layout row wrap>
-                <v-flex xs11 class="field">
+                <v-flex xs12 md10 align-center >
                   <v-form>
                     <!-- CHAMP DEPART -->
                     <multi-select class="subheading" :label='"Départ"' :maxHeight='500' :placeholder='"Station, lieu ou adresse"' v-model="query.start" />
@@ -46,13 +46,13 @@
           </v-flex>
 
           <!-- RIGHT FORM -->
-          <v-flex xs6>
+          <v-flex xs12 md6>
             <v-layout row wrap>
               <v-flex x12 class="map">
                   <google-map name="request-map" class="google-map"></google-map>
               </v-flex>
               <v-flex x12 fill-height class="center-button">
-                <v-btn type="submit" color="black" dark large>Avoir le Chemin</v-btn>
+                <v-btn type="submit" color="black" dark large><v-icon left dark>forward</v-icon>Avoir le Chemin</v-btn>
               </v-flex>
             </v-layout>
           </v-flex>
@@ -150,7 +150,7 @@ export default {
 
   &-left {
     margin-top: 10px;
-    margin-left: 10px;
+    margin-left: 20px;
   }
   
   &-right {
@@ -164,6 +164,18 @@ export default {
   .request-form {
     margin-top: 35px;
     height: $form-height-min-screen;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .request-form {
+    margin-top: 35px;
+    height: $form-height-min-screen;
+    width: $form-width-min-screen;
+  }
+
+  .map {
+    display: none;
   }
 }
 
