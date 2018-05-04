@@ -4,7 +4,7 @@
       <form class="request-form blurred-bg tinted" @submit.prevent="getPath" action='#' method="GET">
         <!-- Left Form -->
         <v-layout row wrap>
-          <v-flex xs12 md6>
+          <v-flex xs12 md6 class=".prevent-scroll">
             <section class="request-form-left">
               <v-layout row wrap>
                 <v-flex xs12 md10 align-center >
@@ -54,7 +54,7 @@
                   <google-map name="request-map" class="google-map"></google-map>
               </v-flex>
               <v-flex x12 class="center-button">
-                <v-btn type="submit" color="black" dark large><v-icon left dark>forward</v-icon>Avoir le Chemin</v-btn>
+                <v-btn type="submit" color="primary" dark large><v-icon left dark>forward</v-icon>Avoir le Chemin</v-btn>
               </v-flex>
             </v-layout>
           </v-flex>

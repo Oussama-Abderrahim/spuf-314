@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar class="header toolbar" tag="navbar" :fixed='true' height="50vh">
+  <v-toolbar class="header toolbar" tag="navbar" color='primary' :fixed='true' height="50vh">
     <v-toolbar-title><v-icon dark>directions_bus</v-icon> SPUF</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
@@ -19,7 +19,6 @@ export default {
 <style lang="scss" scoped>
   .toolbar {
     color: white;
-    background-color: #1F4260;
     * {
       color: white;
     }

@@ -1,9 +1,15 @@
 <template>
   <v-container id="welcome">
-    <v-container grid-list-xl>
-      <v-layout wrap>
-        <v-flex xs12 class="path-message">
+    <v-container grid-list-xl fill-height>
+      <v-layout row wrap fill-height align-end>
+        <v-flex xs12 text-xs-center>
           <!-- here circle aesthetic-->
+          <v-btn fab color="primary" class="circle-button">
+            Show <br>
+            Me <br>
+            The <br>
+            WAAAY <br>
+          </v-btn>
         </v-flex>
 
         <v-flex xs12 class="welcome-message">
@@ -61,7 +67,14 @@ export default {
   max-width: 100%;
 }
 
-.welcome-message {
-  margin-top: 40%;
+.circle-button {
+  // background-image: url('https://i.imgur.com/1eJ1q0V.jpg');
+  // background-size: cover;
+  // color: black;
+  word-wrap: break-word;
+  height: 30vmin;
+  width: 30vmin;
+  font-size: 2em;
 }
+
 </style>

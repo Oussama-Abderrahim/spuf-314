@@ -14,10 +14,20 @@ import './fullpage/jquery.fullPage.min.css'
 // eslint-disable-next-line
 import './fullpage/jquery.fullPage.min.js'
 
-Vue.use(Vuetify)
 Vue.use(VueResource)
 Vue.config.productionTip = false
 
+Vue.use(Vuetify, {
+  theme: {
+    primary: '#1F4260',
+    secondary: '#424242',
+    accent: '#82B1FF',
+    error: '#FF5252',
+    info: '#2196F3',
+    success: '#4CAF50',
+    warning: '#FFC107'
+  }
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

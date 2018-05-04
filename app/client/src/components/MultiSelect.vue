@@ -9,7 +9,7 @@
                  :searchable="true"
                  @search-change="asyncFind"
                  :options="options" 
-                 :placeholder='placeholder' 
+                 :placeholder='currentPlaceholder' 
                  :loading="isLoading"
                  :clear-on-select="true" 
                  :preserveSearch='true'
@@ -38,6 +38,7 @@ export default {
   },
   watch: {
     selectedOption() {
+      this.currentPlaceholder = (this.selectedOption) ? this.selectedOption.name : this.placeholder
       this.$emit('input', this.selectedOption.name)
     }
   },
@@ -46,6 +47,7 @@ export default {
   },
   data() {
     return {
+      currentPlaceholder: this.placeholder,
       defaultObject: {
         ID: '0',
         name: 'ExampleStation',
@@ -59,6 +61,9 @@ export default {
   mounted() {
   },
   methods: {
+    keepText() {
+      this.search = this.selectedOption.name
+    },
     asyncFind(query) {
       this.isLoading = true
       this.$http

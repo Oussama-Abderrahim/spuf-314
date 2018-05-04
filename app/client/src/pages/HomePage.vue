@@ -80,7 +80,7 @@ export default {
         offsetSections: false, // Provides a way to use non full screen sections based on percentage
         resetSliders: false, // Defines whether or not to reset every slider after leaving its section
         fadingEffect: false,
-        normalScrollElements: 'form, .multiselect-container, .footer', // If you want to avoid the auto scroll when scrolling over some elements
+        normalScrollElements: '.prevent-scroll, .footer', // If you want to avoid the auto scroll when scrolling over some elements
         touchSensitivity: 15,
         normalScrollElementTouchThreshold: 5,
         bigSectionsDestination: null,
