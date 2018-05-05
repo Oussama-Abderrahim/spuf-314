@@ -28,7 +28,9 @@ export default {
 </script>
 
 <style lang="scss">
+
 #app {
   // overflow: hidden;
+font-family: 'Work Sans';
 }
 </style>

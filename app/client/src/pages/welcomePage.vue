@@ -4,11 +4,9 @@
       <v-layout row wrap fill-height align-end>
         <v-flex xs12 text-xs-center>
           <!-- here circle aesthetic-->
-          <v-btn fab color="primary" class="circle-button">
-            Show <br>
-            Me <br>
-            The <br>
-            WAAAY <br>
+          <v-btn fab color="primary" class="circle-button" href='#requestPage'>
+            <br>Avoir <br>
+            Le chemin <br><br>
           </v-btn>
         </v-flex>
 
@@ -75,6 +73,8 @@ export default {
   height: 30vmin;
   width: 30vmin;
   font-size: 2em;
+  font-style: Black;
+  opacity: 0.85;
 }
 
 </style>
