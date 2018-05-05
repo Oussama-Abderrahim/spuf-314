@@ -4,10 +4,10 @@
       <form class="request-form blurred-bg tinted" @submit.prevent="getPath" action='#' method="GET">
         <!-- Left Form -->
         <v-layout row wrap>
-          <v-flex xs12 md6 class=".prevent-scroll">
+          <v-flex xs12 md6>
             <section class="request-form-left">
               <v-layout row wrap>
-                <v-flex xs12 md10 align-center >
+                <v-flex xs12 md10 align-center class="prevent-scroll">
                   <v-form>
                     <div class="request-form-left-select-fields">
                       <!-- CHAMP DEPART -->
@@ -49,7 +49,7 @@
 
           <!-- RIGHT FORM -->
           <v-flex xs12 md6>
-            <v-layout row wrap class="request-form-right">
+            <v-layout row wrap class="request-form-right prevent-scroll">
               <v-flex x12 class="map">
                   <google-map name="request-map" class="google-map"></google-map>
               </v-flex>
