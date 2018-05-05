@@ -122,7 +122,7 @@ export default {
 </script>
 
 <style lang="scss">
-$background: url('../assets/img/bg2.jpg');
+$background: url('../assets/img/Rue Khemisti.jpg');
 #app {
   margin: 0;
   border: 0;

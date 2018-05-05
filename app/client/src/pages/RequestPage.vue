@@ -214,4 +214,8 @@ export default {
     display: none;
   }
 }
+.request-form-left-select-fields{
+  color: white;
+}
+
 </style>
