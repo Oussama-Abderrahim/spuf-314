@@ -2,38 +2,22 @@
   <v-container id="welcome">
     <v-container grid-list-xl fill-height>
       <v-layout row wrap fill-height align-end>
-        <v-flex xs12 text-xs-center>
+  
+        <v-flex xs12 text-xs-center class="welcome-message display-3">
+              <v-container>SPUF, when no one else is around</v-container>
+              <blockquote class="subheading">SPUF est votre guide d'Oran pour vous deplacez</blockquote>
+        </v-flex>
+
+        <v-flex xs4 text-xs-center>
           <!-- here circle aesthetic-->
-          <v-btn fab color="primary" class="circle-button" href='#requestPage'>
-            <br>Avoir <br>
-            Le chemin <br><br>
+          <v-btn block color="secondary" class="headline way-btn" href='#requestPage'>
+            Avoir Le chemin
           </v-btn>
         </v-flex>
 
-        <v-flex xs12 class="welcome-message">
-          <v-card color="grey lighten-4">
-            <v-card-title primary-title>
-              <v-container><h3>SPUF est un moyen très simple et éfficace pour se déplacer à Oran.
-                Habitant ou un visiteur, notre outil vous sera de grande aide.
-                Use our webapp please *loudcrying*</h3></v-container>
-            </v-card-title>
-          </v-card>
-        </v-flex>
       </v-layout>
     </v-container>
 
-    <!--
-    <v-layout class="main-content" fill-height align-end>
-      <v-flex xs12 sm6 offset-sm3 class="welcome-message">
-        <v-card color="grey lighten-4">
-          <v-card-title primary-title>
-            <v-container><h3>SPUF est un moyen très simple et éfficace pour se déplacer à Oran.
-              Habitant ou un visiteur, notre outil vous sera de grande aide.
-              Use our webapp please *loudcrying*</h3></v-container>
-          </v-card-title>
-        </v-card>
-      </v-flex>
-      </v-layout>-->
     </v-container>
 </template>
 
@@ -66,15 +50,25 @@ export default {
 }
 
 .circle-button {
-  // background-image: url('https://i.imgur.com/1eJ1q0V.jpg');
-  // background-size: cover;
-  // color: black;
+  background-image: url('https://i.imgur.com/1eJ1q0V.jpg');
+  background-size: cover;
+  color: black;
   word-wrap: break-word;
   height: 30vmin;
   width: 30vmin;
   font-size: 2em;
   font-style: Black;
-  opacity: 0.85;
 }
+
+.welcome-message{
+  color: white;
+}
+
+.way-btn{
+  margin-bottom: 15%;
+  margin-left: 100%;
+  padding: 25px 0px;
+}
+
 
 </style>
