@@ -58,7 +58,7 @@ export default {
       fullPageOptions: {
         // scrollBar: true,
         navigation: true,
-        sectionsColor: ['#41b883', '#41b883', '#41b883'],
+        sectionsColor: [],
         lockAnchors: false, // Determines whether anchors in the URL will have any effect at all in the library
         anchors: ['mainPage', 'requestPage', 'infoPage'],
         navigationPosition: 'right',
@@ -143,7 +143,11 @@ $background: url('../assets/img/Rue Khemisti.jpg');
   // background-attachment: fixed;
 }
 
-// #fp-nav {
-
-// }
+#fp-nav {
+  ul {
+    * {
+      color: white;
+    }
+  }
+}
 </style>

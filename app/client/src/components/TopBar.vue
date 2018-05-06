@@ -1,7 +1,7 @@
 <template>
   <v-toolbar class="header toolbar" tag="navbar" color='primary' :fixed='true' height="52vh">
     <v-toolbar-title>
-      <a href="/#mainPage"><img src="../assets/img/spuf_logo.jpg" height="38" width="115" class="logo"></a>
+      <a href="/#mainPage"><img src="../assets/img/spuf_logo.jpg" class="logo"></a>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down topbar-items">
@@ -22,6 +22,7 @@ export default {
 @import '../assets/css/variables';
 
   .toolbar {
+    opacity: 0.9;
     color: white;
     * {
       color: white;
@@ -31,7 +32,8 @@ export default {
   }
 
   .logo{
-    margin-top:10px;
+    margin: 1.5rem 1.5rem 1rem 0.7rem;
+    height:2em;
   }
 
   .title{

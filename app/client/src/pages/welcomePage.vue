@@ -1,16 +1,16 @@
 <template>
   <v-container id="welcome">
     <v-container grid-list-xl fill-height>
-      <v-layout row wrap fill-height align-end>
+      <v-layout row wrap fill-height align-end justify-center text-xs-center>
   
         <v-flex xs12 text-xs-center class="welcome-message display-3">
               <v-container>SPUF, when no one else is around</v-container>
               <blockquote class="subheading">SPUF est votre guide d'Oran pour vous deplacez</blockquote>
         </v-flex>
 
-        <v-flex xs4 text-xs-center>
+        <v-flex xs3 text-xs-center>
           <!-- here circle aesthetic-->
-          <v-btn block color="secondary" class="headline way-btn" href='#requestPage'>
+          <v-btn round color="primary" class="subheading way-btn" href='#requestPage'>
             Avoir Le chemin
           </v-btn>
         </v-flex>
@@ -62,12 +62,15 @@ export default {
 
 .welcome-message{
   color: white;
+
+  .subheading{
+    color: #E0E0E0;
+  }
 }
 
 .way-btn{
-  margin-bottom: 15%;
-  margin-left: 100%;
-  padding: 25px 0px;
+  margin-bottom: 40%;
+  padding: 25px 30px;
 }
 
 

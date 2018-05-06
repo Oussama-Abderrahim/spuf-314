@@ -166,6 +166,8 @@ export default {
     position: relative;
     max-height: $form-height;
     margin: auto;
+    padding-right: 30px;
+
   }
 }
 
@@ -174,7 +176,6 @@ export default {
   position: relative;
   padding: 0;
   margin-top: 20px;
-  margin-right: 30px;
   width: 100%;
   height: 60%;
   border: 1px solid black;
@@ -189,6 +190,10 @@ export default {
 .center-button {
   width: 100%;
   text-align: center;
+
+  button{
+    // padding
+  }
 }
 
 .options-container {
