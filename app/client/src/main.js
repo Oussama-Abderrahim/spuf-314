@@ -9,7 +9,8 @@ import router from './router'
 
 // import './semantic/dist/semantic.css'
 // import './semantic/dist/semantic.js'
-import 'vuetify/dist/vuetify.min.css'
+// import 'vuetify/dist/vuetify.min.css'
+import './stylus/main.styl'
 import './fullpage/jquery.fullPage.min.css'
 // eslint-disable-next-line
 import './fullpage/jquery.fullPage.min.js'
