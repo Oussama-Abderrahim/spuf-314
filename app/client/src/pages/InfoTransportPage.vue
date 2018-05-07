@@ -1,37 +1,55 @@
 <template>
   <v-container id="info_trafic">
     <v-container grid-list-xs fluid fill-height align-center justify-center>
-      <v-container class="info_trafic blurred-bg">
-        <v-layout row wrap>
+      <div class="info_trafic blurred-bg">
+        <v-layout row>
 
-          <v-flex xs3 class="buttons_part">
-            <v-btn @click="index=1">
-              <v-container class="display-1">
-                <v-icon class="icon">directions_bus</v-icon>Bus
-              </v-container>
-            </v-btn>
+          <v-flex xs3 fill-height>
+            <v-layout row wrap fill-height class="buttons_part">
 
-            <v-btn @click="index=2">
-              <v-container class="display-1">
-                <v-icon class="icon">directions_subway</v-icon>Tram
-              </v-container>
-            </v-btn>
+                <v-flex xs12>
+                  <v-btn @click="index=1">
+                    <v-container class="headline">
+                      <v-icon class="icon">directions_bus</v-icon>Bus
+                    </v-container>
+                  </v-btn>
+                </v-flex>
 
-            <v-btn @click="index=3">
-              <v-container class="display-1">
-                <v-icon class="icon">local_taxi</v-icon>Taxi
-              </v-container>
-            </v-btn>
+                <v-flex xs12>
+                  <v-btn @click="index=2">
+                    <v-container class="headline">
+                      <v-icon class="icon">directions_subway</v-icon>Tram
+                    </v-container>
+                  </v-btn>
+                </v-flex>
+
+                <v-flex xs12>
+                  <v-btn @click="index=3">
+                    <v-container class="headline">
+                      <v-icon class="icon">local_taxi</v-icon>Taxi
+                    </v-container>
+                  </v-btn>
+                </v-flex>
+
+                <v-flex xs12>
+                  <v-btn @click="index=4">
+                    <v-container class="headline">
+                      <v-icon class="icon">subway</v-icon>Metro
+                    </v-container>
+                  </v-btn>
+                </v-flex>
+            </v-layout>
           </v-flex>
 
           <v-flex xs9 class="infos_part">
             <info-transport-page-bus v-if="index===1"></info-transport-page-bus>
             <info-transport-page-tram v-if="index===2"></info-transport-page-tram>
-            <info-transport-page-taxi v-if="index===3"></info-transport-page-taxi> 
+            <info-transport-page-taxi v-if="index===3"></info-transport-page-taxi>
+             
           </v-flex>
 
         </v-layout>
-      </v-container>
+      </div>
     </v-container>
   </v-container>
 </template>
@@ -111,18 +129,17 @@ export default {
 
   .buttons_part {
     background-color: #f5f5f5;
-    margin: 0px 0px 4px 0px;
+    margin: 0.5rem 0.5rem 1rem 0.5rem;
     padding:0;
   }
 
   .icon {
-    font-size: 80px;
+    font-size: 50px;
   }
 
   .btn {
-    height: 30%;
+    height: 95%;
     width: 95%;
-    margin-top: 10px;
   }
 
 

@@ -6,11 +6,9 @@
           <!-- Left Form -->
 
           <v-flex xs12 md6 class="push-down">
-            <v-container display-2 class="text-steps">
-              <v-icon x-large>forward</v-icon>Itinéraire à suivre:
-              <v-container subheading class="text-steps-subheading">
-                Veuillez suivre ces étapes pour arriver à votre destination
-              </v-container>
+            <v-container dark class="text-steps">
+              <v-icon x-large dark>chevron_right</v-icon>Itinéraire à suivre:
+              <v-container class="subheading" text-xs-center>Veuillez suivre les étapes suivants</v-container>
             </v-container>
 
 
@@ -46,18 +44,20 @@
 
 
           <!-- RIGHT FORM -->
+          <!-- MAP -->
           <v-flex xs12 md6>
             <v-layout row wrap>
               <v-flex x12 class="map">
                 <google-map name="response" class="google-map"></google-map>
               </v-flex>
-              
+          
+          <!-- SUGGESTIONS -->
               <v-flex xs12 class="suggestions">
                 <v-layout row wrap>
                   <v-flex xs6 v-for='i in [1,2]' :key='i'>
-                    <v-card white>
+                    <!-- <v-card white v-if="paths[i]">
                       <v-card-text>
-                        <!--<div class="title">2ème suggestion</div>
+                        <div class="title" v-if="paths[i].steps">2ème suggestion</div>
                         {{paths[i].steps[0].from.name}}
                         <v-icon>arrow_forward</v-icon> {{paths[i].steps[paths[i].steps.length-1].to.name}}
                         <br>
@@ -70,12 +70,17 @@
                         <v-icon>av_timer</v-icon>{{paths[i].totalTime}}mn
                         <br>
                         <v-icon>space_bar</v-icon>{{paths[i].totalDist}}m
-                        -->
+                       
                       </v-card-text>
-                    </v-card>
+                    </v-card> -->
                   </v-flex>
                 </v-layout>
               </v-flex>
+
+              <v-btn href='/#requestPage' fab class="back_btn"><v-icon large>keyboard_arrow_left</v-icon></v-btn>
+
+              
+
 
             </v-layout>
 
@@ -302,6 +307,8 @@ $blurred-img: url('../assets/img/blur_RueKhemisti.jpg');
 
 .text-steps {
   padding-top: 15px;
+  color: white;
+  font-size: 40px;
 }
 
 .text-steps-subheading {
@@ -331,7 +338,9 @@ $blurred-img: url('../assets/img/blur_RueKhemisti.jpg');
     &:hover {
       background-color: #eee;
     }
+
   }
+  
 }
 
 .suggestions {
@@ -367,7 +376,7 @@ $blurred-img: url('../assets/img/blur_RueKhemisti.jpg');
   overflow: hidden;
   position: relative;
   padding: 0;
-  margin-top: 20px;
+  margin-top: 3rem;
   margin-right: 30px;
   width: 100%;
   height: 300px;
@@ -378,5 +387,10 @@ $blurred-img: url('../assets/img/blur_RueKhemisti.jpg');
     width: 100%;
     height: 100%;
   }
+}
+
+.back_btn{
+  margin-left: 26rem;
+  margin-top: 6rem;
 }
 </style>

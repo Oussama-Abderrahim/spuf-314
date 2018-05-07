@@ -1,8 +1,8 @@
 <template>
   <v-layout row wrap>
       <v-flex xs12 row wrap class="bus-part" justify-content-space-around>
-        <v-btn color="secondary" fab class="bus_btn" v-for="bus in ['H','11','4G','B','P1','51','K3']" :key=bus>
-          <v-container class="title">{{bus}}</v-container>
+        <v-btn color="secondary" fab class="bus_btn" v-for="(bus, i) in ['H','11','4G','B','P1','51','K3']" :key=i>
+          <v-container class="title" @click = 'bus_index=i'>{{bus}}</v-container>
         </v-btn>
       </v-flex>
 
@@ -10,12 +10,14 @@
         <v-container class="title">
           <v-container class="display-1">ETO</v-container>
           <v-container>
-            Numero: 0000000 Adresse: aaaaaa
+            Numero: Bus ETO (Réclamation)	041 58 11 11
+            <br>Adresse: aaaaaa
           </v-container>
 
-          <v-container class="display-1">Bus privés</v-container>
+          <v-container class="display-1">Urban transport bus station</v-container>
           <v-container>
-            Numero: 0000000 Adresse: aaaaaa
+            Numero: 0000000
+            <br>Adresse: Boulevard Colonel Lotfi, Oran
           </v-container>
 
           <v-container class="display-1">Horraires</v-container>
@@ -55,7 +57,7 @@
 
   .bus-part {
     margin-top: 10px;
-    margin-left: 10rem;
+    margin-left: 4.5rem;
   }
 
 </style>
