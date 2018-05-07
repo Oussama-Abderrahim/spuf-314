@@ -11,9 +11,9 @@
                   <v-form>
                     <div class="request-form-left-select-fields">
                       <!-- CHAMP DEPART -->
-                      <multi-select class="subheading" :label='"Départ"' :maxHeight='500' :placeholder='"Station, lieu ou adresse"' v-model="query.start" />
+                      <multi-select class="subheading" :label='"Départ"' :maxHeight='500' :placeholder='"Station, lieu ou adresse"' @stationSelected='showStartOnMap' v-model="query.start" />
                       <!-- CHAMP ARRIVEE -->
-                      <multi-select class="subheading" :label='"Arrivée"' :maxHeight='500' :placeholder="'Station, lieu ou adresse'" v-model="query.end" />
+                      <multi-select class="subheading" :label='"Arrivée"' :maxHeight='500' :placeholder="'Station, lieu ou adresse'" @stationSelected='showEndOnMap' v-model="query.end" />
                     </div>
                     <!-- CHAMP OPTIONS -->
                     <v-expansion-panel white>
@@ -51,7 +51,7 @@
           <v-flex xs12 md6>
             <v-layout row wrap class="request-form-right prevent-scroll">
               <v-flex x12 class="map">
-                  <google-map name="request-map" class="google-map"></google-map>
+                  <google-map name="request-map" :startCoord='startCoord' :endCoord='endCoord' class="google-map"></google-map>
               </v-flex>
               <v-flex x12 class="center-button">
                 <v-btn type="submit" color="primary" dark large><v-icon left dark>forward</v-icon>Avoir le Chemin</v-btn>
@@ -92,6 +92,8 @@ export default {
         'Min de correspondance',
         'Min de marche'
       ],
+      startCoord: null,
+      endCoord: null,
       query: {
         // Requete à envoyer à Response
         start: '',
@@ -105,6 +107,22 @@ export default {
   },
   mounted() {},
   methods: {
+    showStartOnMap(s) {
+      if(s.coord) {
+        this.startCoord = {
+          lat: s.coord.lat,
+          lng: s.coord.lon
+        }
+      }
+    },
+    showEndOnMap(s) {
+      if(s.coord) {
+        this.endCoord = {
+          lat: s.coord.lat,
+          lng: s.coord.lon
+        }
+      }
+    },
     getPath(event) {
       console.log("get response")
       this.$router.push({
