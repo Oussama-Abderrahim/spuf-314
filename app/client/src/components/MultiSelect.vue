@@ -38,8 +38,13 @@ export default {
   },
   watch: {
     selectedOption() {
-      this.currentPlaceholder = (this.selectedOption) ? this.selectedOption.name : this.placeholder
-      this.$emit('input', this.selectedOption.name)
+      if (this.selectedOption) {
+        this.currentPlaceholder = this.selectedOption.name
+        this.$emit('input', this.selectedOption.name)
+        this.$emit('stationSelected', this.selectedOption)
+      } else {
+        this.currentPlaceholder = this.placeholder
+      }
     }
   },
   components: {
@@ -51,7 +56,8 @@ export default {
       defaultObject: {
         ID: '0',
         name: 'ExampleStation',
-        address: 'Example Address'
+        address: 'Example Address',
+        coords: { lat: 35.69111, lon: -0.64167 }
       },
       selectedOption: null,
       options: [],
