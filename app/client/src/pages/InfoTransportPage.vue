@@ -5,56 +5,29 @@
         <v-layout row wrap>
 
           <v-flex xs3 class="buttons_part">
-            <v-btn>
+            <v-btn @click="index=1">
               <v-container class="display-1">
                 <v-icon class="icon">directions_bus</v-icon>Bus
               </v-container>
             </v-btn>
 
-            <v-btn>
+            <v-btn @click="index=2">
               <v-container class="display-1">
                 <v-icon class="icon">directions_subway</v-icon>Tram
               </v-container>
             </v-btn>
 
-            <v-btn>
+            <v-btn @click="index=3">
               <v-container class="display-1">
                 <v-icon class="icon">local_taxi</v-icon>Taxi
               </v-container>
             </v-btn>
           </v-flex>
 
-
           <v-flex xs9 class="infos_part">
-            <v-layout row wrap>
-              <v-flex xs12 row wrap class="bus-part" justify-content-space-around >
-                <v-btn color="secondary" fab class="bus_btn" v-for="bus in ['H','11','4G','B','P1','51','K3']" :key=bus>
-                  <v-container class="title">{{bus}}</v-container>
-                </v-btn>
-              </v-flex>
-
-              <v-flex xs12 class="info_trafic-part">
-                <v-container class="title">
-                  <v-container class="display-1">ETO</v-container>
-                  <v-container>
-                  Numero: 0000000
-                  Adresse: aaaaaa
-                  </v-container>
-
-                  <v-container class="display-1">Bus privés</v-container>
-                  <v-container>
-                  Numero:   0000000
-                  Adresse: aaaaaa
-                  </v-container>
-
-                  <v-container class="display-1">Horraires</v-container>
-                  <v-container>
-                    6:00h - 18:00h
-                  </v-container>
-                </v-container>
-              </v-flex>
-
-            </v-layout>
+            <info-transport-page-bus v-if="index===1"></info-transport-page-bus>
+            <info-transport-page-tram v-if="index===2"></info-transport-page-tram>
+            <info-transport-page-taxi v-if="index===3"></info-transport-page-taxi> 
           </v-flex>
 
         </v-layout>
@@ -62,6 +35,26 @@
     </v-container>
   </v-container>
 </template>
+
+<script>
+import infoTransportPageBus from '../components/infoTransportPageBus'
+import infoTransportPageTram from '../components/infoTransportPageTram'
+import infoTransportPageTaxi from '../components/infoTransportPageTaxi'
+
+export default {
+  data() {
+    return {
+      index: 1,
+    }
+  },
+  components: {
+    'infoTransportPageBus' : infoTransportPageBus,
+    'infoTransportPageTram' : infoTransportPageTram,
+    'infoTransportPageTaxi' : infoTransportPageTaxi
+    // put custom components here
+  }
+}
+</script>
 
 
 
@@ -122,10 +115,8 @@
     padding:0;
   }
 
-  .info_trafic-part{
-    background-color: #f5f5f5;
-    margin: 30px 30px 50px 50px;
-    height: 77%;
+  .icon {
+    font-size: 80px;
   }
 
   .btn {
@@ -134,18 +125,5 @@
     margin-top: 10px;
   }
 
-  .bus_btn {
-    height: 63px;
-    width: 65px;
-  }
-
-  .bus-part {
-    margin-top: 10px;
-    margin-left: 10rem;
-  }
-
-  .icon {
-    font-size: 80px;
-  }
 
 </style>
