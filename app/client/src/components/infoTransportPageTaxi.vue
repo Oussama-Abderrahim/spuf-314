@@ -1,25 +1,9 @@
 <template>
   <v-layout row wrap>
-    <v-flex xs12 row wrap class="bus-part" justify-content-space-around>
-      <v-btn color="secondary" fab class="bus_btn" v-for="bus in ['H','11','4G','B','P1','51','K3']" :key=bus>
-        <v-container class="title">{{bus}}</v-container>
-      </v-btn>
-    </v-flex>
-
+    <v-flex xs12 class="display-3 tram_title" text-xs-center>Taxi d'Oran</v-flex>
     <v-flex xs12 class="info_trafic-part">
       <v-container class="title">
-        <v-container class="display-1">ETO</v-container>
-        <v-container>
-          TAXIIIIIIIIII
-        </v-container>
-
-        <v-container class="display-1">Bus privés</v-container>
-        <v-container>
-          TAXIIIIIIIIII </v-container>
-
-        <v-container class="display-1">Horraires</v-container>
-        <v-container>
-          TAXIIIIIIIIII </v-container>
+        liste des taxi et num 
       </v-container>
     </v-flex>
 
