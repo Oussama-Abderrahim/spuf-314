@@ -51,7 +51,7 @@
           <v-flex xs12 md6>
             <v-layout row wrap class="request-form-right prevent-scroll">
               <v-flex x12 class="map">
-                  <google-map name="request-map" :startCoord='startCoord' :endCoord='endCoord' class="google-map"></google-map>
+                <google-map name="request-map" :coords='mapCoords' class="google-map"></google-map>
               </v-flex>
               <v-flex x12 class="center-button">
                 <v-btn type="submit" color="primary" dark large><v-icon left dark>forward</v-icon>Avoir le Chemin</v-btn>
@@ -92,8 +92,7 @@ export default {
         'Min de correspondance',
         'Min de marche'
       ],
-      startCoord: null,
-      endCoord: null,
+      mapCoords: [null, null],
       query: {
         // Requete à envoyer à Response
         start: '',
@@ -109,18 +108,18 @@ export default {
   methods: {
     showStartOnMap(s) {
       if(s.coord) {
-        this.startCoord = {
+        this.$set(this.mapCoords, 0, {
           lat: s.coord.lat,
           lng: s.coord.lon
-        }
+        })
       }
     },
     showEndOnMap(s) {
       if(s.coord) {
-        this.endCoord = {
+        this.$set(this.mapCoords, 1, {
           lat: s.coord.lat,
           lng: s.coord.lon
-        }
+        })
       }
     },
     getPath(event) {

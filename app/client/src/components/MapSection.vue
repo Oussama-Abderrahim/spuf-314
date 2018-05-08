@@ -7,44 +7,30 @@
 
 export default {
   name: 'google-map',
-  props: ['name', 'startCoord', 'endCoord'],
+  props: ['name', 'coords'],
   data: function() {
     return {
       mapName: this.name + '-map',
-      startMarker: null,
-      endMarker: null,
+      markers: [],
       geoCoder: null,
       infowindow: null,
       map: null
     }
   },
   mounted: function() {
-    const intialCoord = { lat: 35.69111, lng: -0.64167 }
+    const initialCoord = { lat: 35.69111, lng: -0.64167 }
 
     const element = document.getElementById(this.mapName)
     const options = {
       zoom: 14,
-      center: intialCoord
+      center: initialCoord
     }
     this.map = new google.maps.Map(element, options)
     this.geoCoder = new google.maps.Geocoder()
     this.infowindow = new google.maps.InfoWindow()
 
     // Create a marker and set its position.
-    this.startMarker = new google.maps.Marker({
-      map: this.map,
-      draggable: false,
-      position: intialCoord,
-      title: 'Station de départ'
-    })
-
-    this.endMarker = new google.maps.Marker({
-      map: this.map,
-      draggable: false,
-      position: intialCoord,
-      title: 'Station d\'arrivée'
-    })
-
+    
     // this.map.addListener('dblclick', e => {
     //   this.placeMarkerAndPanTo(e.latLng, this.map)
     // })
@@ -54,19 +40,34 @@ export default {
 
   },
   watch: {
-    startCoord(value) {
-      console.log("start changed")
-      this.startMarker.setPosition(value)
-      this.placeMarkerAndPanTo(this.startMarker, this.map)
-    },
-    endCoord(value) {
-      this.endMarker.setPosition(value)
-      this.placeMarkerAndPanTo(this.endMarker, this.map)
+    coords(arr) {
+      console.log("arr", arr)
+      // fill markers array if new coords added
+      while(this.markers.length < arr.length) this.markers.push(null)
+      // update all elements
+      for(let i = 0; i < arr.length; i++) {
+        if(arr[i] && this.markers[i]) {
+          this.markers[i].setPosition(arr[i])
+        } else if (arr[i] && !this.markers[i]) {
+          this.$set(this.markers, i, new google.maps.Marker({
+            map: this.map,
+            draggable: false,
+            position: arr[i],
+            title: ''
+          }))
+        } else {
+          continue;
+        }
+        // finally, update on map
+        this.placeMarkerAndPanTo(this.markers[i], this.map)
+      }
     }
   },
   methods: {
     placeMarkerAndPanTo(marker, map) {
-      map.panTo(marker.getPosition())
+      if(marker) {
+        map.panTo(marker.getPosition())
+      }
     },
     geocodeLatLng(map, geoCoder, latLng, infowindow) {
       geoCoder.geocode({ location: latLng }, (results, status) => {
