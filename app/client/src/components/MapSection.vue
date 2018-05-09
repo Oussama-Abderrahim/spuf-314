@@ -12,6 +12,7 @@ export default {
     return {
       mapName: this.name + '-map',
       markers: [],
+      bounds: null,
       geoCoder: null,
       infowindow: null,
       map: null
@@ -28,46 +29,50 @@ export default {
     this.map = new google.maps.Map(element, options)
     this.geoCoder = new google.maps.Geocoder()
     this.infowindow = new google.maps.InfoWindow()
+    this.bounds = new google.maps.LatLngBounds()
 
     // Create a marker and set its position.
-    
+
     // this.map.addListener('dblclick', e => {
     //   this.placeMarkerAndPanTo(e.latLng, this.map)
     // })
 
     // this.marker.addListener('dragend', () => {
     // })
-
   },
   watch: {
     coords(arr) {
-      console.log("arr", arr)
       // fill markers array if new coords added
-      while(this.markers.length < arr.length) this.markers.push(null)
+      while (this.markers.length < arr.length) this.markers.push(null)
       // update all elements
-      for(let i = 0; i < arr.length; i++) {
-        if(arr[i] && this.markers[i]) {
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i] && this.markers[i]) {
           this.markers[i].setPosition(arr[i])
+          this.updateBounds()
         } else if (arr[i] && !this.markers[i]) {
-          this.$set(this.markers, i, new google.maps.Marker({
-            map: this.map,
-            draggable: false,
-            position: arr[i],
-            title: ''
-          }))
+          this.$set(this.markers,i, new google.maps.Marker({
+              map: this.map,
+              draggable: false,
+              position: arr[i],
+              title: ''
+            })
+          )
+          this.bounds.extend(this.markers[i].getPosition())
         } else {
-          continue;
+          continue
         }
         // finally, update on map
-        this.placeMarkerAndPanTo(this.markers[i], this.map)
+        this.map.fitBounds(this.bounds)
+        this.map.setCenter(this.bounds.getCenter());
       }
     }
   },
   methods: {
-    placeMarkerAndPanTo(marker, map) {
-      if(marker) {
-        map.panTo(marker.getPosition())
-      }
+    updateBounds() {
+      this.bounds = new google.maps.LatLngBounds()
+      this.markers.forEach(marker => {
+        if(marker) this.bounds.extend(marker.getPosition())
+      })
     },
     geocodeLatLng(map, geoCoder, latLng, infowindow) {
       geoCoder.geocode({ location: latLng }, (results, status) => {

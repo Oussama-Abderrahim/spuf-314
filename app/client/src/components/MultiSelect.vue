@@ -11,7 +11,7 @@
                  :options="options" 
                  :placeholder='currentPlaceholder' 
                  :loading="isLoading"
-                 :clear-on-select="true" 
+                 :clear-on-select="false" 
                  :preserveSearch='true'
                  :close-on-select="true"
                  :options-limit='optionsLimit'
@@ -37,13 +37,17 @@ export default {
     placeholder: { type: String, default: 'Select One' }
   },
   watch: {
+    currentSearch() {
+      if (this.currentSearch) this.currentPlaceholder = this.currentSearch
+      else this.currentPlaceholder = this.placeholder
+    },
     selectedOption() {
       if (this.selectedOption) {
-        this.currentPlaceholder = this.selectedOption.name
+        this.currentSearch = this.selectedOption.name
         this.$emit('input', this.selectedOption.name)
         this.$emit('stationSelected', this.selectedOption)
       } else {
-        this.currentPlaceholder = this.placeholder
+        this.currentSearch = ''
       }
     }
   },
@@ -53,6 +57,7 @@ export default {
   data() {
     return {
       currentPlaceholder: this.placeholder,
+      currentSearch: '',
       defaultObject: {
         ID: '0',
         name: 'ExampleStation',
@@ -64,13 +69,13 @@ export default {
       isLoading: false
     }
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     keepText() {
       this.search = this.selectedOption.name
     },
     asyncFind(query) {
+      this.currentSearch = query
       this.isLoading = true
       this.$http
         .get(`https://project314.herokuapp.com/api/station/`)

@@ -6,9 +6,8 @@
           <!-- Left Form -->
 
           <v-flex xs12 md6 class="push-down">
-            <v-container dark class="text-steps">
-              <v-icon x-large dark>chevron_right</v-icon>Itinéraire à suivre:
-              <v-container class="subheading" text-xs-center>Veuillez suivre les étapes suivants</v-container>
+            <v-container dark class="text-steps">              
+              <v-container text-xs-left><v-icon x-large dark>chevron_right</v-icon>Itinéraire à suivre:</v-container>
             </v-container>
 
 
@@ -31,7 +30,7 @@
                     <v-stepper value="1" vertical class="step-details">
                       <v-stepper-step class="step-details-item" 
                                       v-for='(station, j) in step.intermediate' 
-                                      :key='`${i*j}-step`' 
+                                      :key='`${(i+1)*(j+1)}-step`' 
                                       :step='j'>
                                       {{station.name}}</v-stepper-step>
                       <v-divider></v-divider>
@@ -48,16 +47,16 @@
           <v-flex xs12 md6>
             <v-layout row wrap>
               <v-flex x12 class="map">
-                <google-map name="response" class="google-map"></google-map>
+                <google-map name="response" :coords='mapCoords' class="google-map"></google-map>
               </v-flex>
           
           <!-- SUGGESTIONS -->
               <v-flex xs12 class="suggestions">
                 <v-layout row wrap>
                   <v-flex xs6 v-for='i in [1,2]' :key='i'>
-                    <!-- <v-card white v-if="paths[i]">
-                      <v-card-text>
-                        <div class="title" v-if="paths[i].steps">2ème suggestion</div>
+                    <v-card white v-if="paths[i]">
+                      <v-card-text v-if="paths[i].steps">
+                        <div class="title">2ème suggestion</div>
                         {{paths[i].steps[0].from.name}}
                         <v-icon>arrow_forward</v-icon> {{paths[i].steps[paths[i].steps.length-1].to.name}}
                         <br>
@@ -72,7 +71,7 @@
                         <v-icon>space_bar</v-icon>{{paths[i].totalDist}}m
                        
                       </v-card-text>
-                    </v-card> -->
+                    </v-card>
                   </v-flex>
                 </v-layout>
               </v-flex>
@@ -100,7 +99,7 @@ export default {
   name: 'response',
   components: {
     'google-map': MapSection,
-    'scrollbar': ScrollBar
+    scrollbar: ScrollBar
     // put custom components here
   },
   data() {
@@ -110,47 +109,22 @@ export default {
         tramway: 'directions_subway',
         marche: 'directions_walk'
       },
-      show: false,
+      mapCoords: [],
       defaultPathObject: {
         totalDist: 10,
         totalPrice: 50,
         totalTime: 20,
         steps: [
           {
-            name: 'Prendre Bus 11 pour 3 arrets',
+            name: '',
+            from: '',
+            to: '',
+            intermediate: [],
             type: 'directions_bus',
-            time: 5,
-            price: 20,
-            dist: 500
+            price: '0',
+            time: '0',
+            dist: '0'
           },
-          {
-            name: "Marcher jusqu'à arret12",
-            type: 'directions_walk',
-            time: 5,
-            price: 0,
-            dist: 200
-          },
-          {
-            name: 'Tramway pour 6 arrets',
-            type: 'directions_subway',
-            time: 15,
-            price: 40,
-            dist: 850
-          },
-          {
-            name: 'Prendre Bus B pour 2 arrets',
-            type: 'directions_bus',
-            time: 5,
-            price: 20,
-            dist: 200
-          },
-          {
-            name: "Marcher jusqu'a votre destination",
-            type: 'directions_walk',
-            time: 5,
-            price: 0,
-            dist: 200
-          }
         ]
       },
       paths: []
@@ -217,7 +191,17 @@ export default {
                   time: step.time,
                   dist: step.time
                 })
+
+                this.mapCoords.push({
+                  lng: step.from.coord.lon,
+                  lat: step.from.coord.lat
+                })
               })
+
+              this.mapCoords.push({
+                  lng: newPath.steps[newPath.steps.length-1].to.coord.lon,
+                  lat: newPath.steps[newPath.steps.length-1].to.coord.lat
+                })
               // add to data
               this.paths.push(newPath)
             })
@@ -243,7 +227,7 @@ export default {
     this.paths.push(this.defaultPathObject)
   },
   mounted() {
-    if(this.$route.query ) {
+    if (this.$route.query) {
       this.loadPaths(this.$route.query)
     }
   }
@@ -338,9 +322,7 @@ $blurred-img: url('../assets/img/blur_RueKhemisti.jpg');
     &:hover {
       background-color: #eee;
     }
-
   }
-  
 }
 
 .suggestions {
@@ -389,7 +371,7 @@ $blurred-img: url('../assets/img/blur_RueKhemisti.jpg');
   }
 }
 
-.back_btn{
+.back_btn {
   margin-left: 26rem;
   margin-top: 6rem;
 }
