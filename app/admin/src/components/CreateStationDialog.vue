@@ -144,6 +144,7 @@ export default {
   margin: auto;
   width: 80%;
   max-width: 100%;
+  height: 100%;
   display: flex;
   color: black;
 }
@@ -162,7 +163,7 @@ export default {
   padding: 0;
   margin: 20px;
   width: 200px;
-  height: 500px;
+  height: 50%;
   border: 1px solid black;
   margin-top: 60px;
 
