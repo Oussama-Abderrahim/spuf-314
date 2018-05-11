@@ -15,7 +15,7 @@ const routes = [
   },
   {
     path: '/addnewline',
-    name: 'addnewline',
+    name: 'update me in router indexjs',
     component: AddNewLine
   },
   {

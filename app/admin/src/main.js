@@ -5,12 +5,22 @@ import Vuetify from 'vuetify'
 import router from './router'
 import 'vuetify/dist/vuetify.css'
 
-Vue.use(Vuetify)
+Vue.use(Vuetify, {
+  theme: {
+    primary: '#1f5860',
+    secondary: '#1c717c',
+    accent: '#82B1FF',
+    error: '#FF5252',
+    info: '#2196F3',
+    success: '#4CAF50',
+    warning: '#FFC107'
+  }
+})
 Vue.use(VueResource)
 Vue.config.productionTip = false
 
-// Vue.http.options.root = 'https://project314.herokuapp.com/api';
-Vue.http.options.root = 'http://localhost:3000/api';
+Vue.http.options.root = 'https://project314.herokuapp.com/api';
+//Vue.http.options.root = 'http://localhost:3000/api';
 Vue.http.headers.common['Authorization'] = 'Basic YXBpOnBhc3N3b3Jk';
 
 // create an after interceptor

@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialogCreate" fullscreen transition="dialog-bottom-transition" :overlay="false">
+  <v-dialog v-model="dialogCreate" fullscreen  :overlay="false">
     <v-btn color="primary" dark slot="activator" @click.stop="dialogCreate = true">Créer</v-btn>
 
     <v-card>
@@ -50,7 +50,7 @@
               <v-flex xs12 align-center>
                 <v-container class="buttons" align-center>
                   <v-btn type="submit" :loading='loading'>Ajouter</v-btn>
-                  <v-btn type="cancel">Annuler</v-btn>
+                  <v-btn type="cancel" @click.native="dialogCreate = false">Annuler</v-btn>
                 </v-container>
               </v-flex>
             </v-layout>
