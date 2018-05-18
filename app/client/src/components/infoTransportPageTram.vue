@@ -21,9 +21,8 @@
             <br> 21h10 - 23h10: 8min
           </v-container>
 
-          <v-container>Tél. : +213.(0).41.72.07.85
-            <br> Fax : +213.(0).41.72.07.85
-            <br> Unité Opérationnelle d’Oran, Route de Sidi Maarouf, chemin de la wilaya N°46, Sidi Chahmi.
+          <v-container><v-icon>phone</v-icon>Tél. : +213.(0).41.72.07.85
+            <br><v-icon>location_on</v-icon>Unité Opérationnelle d’Oran, Route de Sidi Maarouf, chemin de la wilaya N°46, Sidi Chahmi.
           </v-container>
         </v-flex>
 

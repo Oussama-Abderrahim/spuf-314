@@ -62,7 +62,7 @@ export default {
         lockAnchors: false, // Determines whether anchors in the URL will have any effect at all in the library
         anchors: ['mainPage', 'requestPage', 'infoPage'],
         navigationPosition: 'right',
-        navigationTooltips: ['About', 'Trouver Chemin', 'Informations'],
+        navigationTooltips: ['Acceuil', 'Trouver Chemin', 'Informations'],
         showActiveTooltip: true,
         slidesNavigation: false,
         slidesNavPosition: 'bottom',

@@ -45,6 +45,7 @@
             <info-transport-page-bus v-if="index===1"></info-transport-page-bus>
             <info-transport-page-tram v-if="index===2"></info-transport-page-tram>
             <info-transport-page-taxi v-if="index===3"></info-transport-page-taxi>
+            <info-transport-page-metro v-if="index===4"></info-transport-page-metro>
              
           </v-flex>
 
@@ -58,17 +59,19 @@
 import infoTransportPageBus from '../components/infoTransportPageBus'
 import infoTransportPageTram from '../components/infoTransportPageTram'
 import infoTransportPageTaxi from '../components/infoTransportPageTaxi'
+import infoTransportPageMetro from '../components/infoTransportPageMetro'
 
 export default {
   data() {
     return {
-      index: 1,
+      index: 1
     }
   },
   components: {
-    'infoTransportPageBus' : infoTransportPageBus,
-    'infoTransportPageTram' : infoTransportPageTram,
-    'infoTransportPageTaxi' : infoTransportPageTaxi
+    'infoTransportPageBus': infoTransportPageBus,
+    'infoTransportPageTram': infoTransportPageTram,
+    'infoTransportPageTaxi': infoTransportPageTaxi,
+    'infoTransportPageMetro': infoTransportPageMetro
     // put custom components here
   }
 }

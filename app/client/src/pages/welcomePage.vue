@@ -5,7 +5,7 @@
   
         <v-flex xs12 text-xs-center class="welcome-message display-3">
               <v-container>SPUF, when no one else is around</v-container>
-              <blockquote class="subheading">SPUF est votre guide d'Oran pour vous deplacer</blockquote>
+              <blockquote class="subheading">SPUF est votre guide transport pour vous deplacer à Oran</blockquote>
         </v-flex>
 
         <v-flex xs3 text-xs-center>

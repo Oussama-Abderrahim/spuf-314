@@ -1,8 +1,8 @@
 <template>
   <v-container id="add" align-center>
 
-    <v-container display-2 class="form-title">Ajout d'une nouvelle ligne</v-container>
-
+    <!-- <v-container display-2 class="form-title">Ajout d'une nouvelle ligne</v-container> -->
+<br>
     <v-form ref="form" align-center>
       <v-layout row>
         <v-flex xs6 md5 mx-auto>
