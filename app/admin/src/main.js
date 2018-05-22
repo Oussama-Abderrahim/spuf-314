@@ -16,19 +16,11 @@ Vue.use(Vuetify, {
     warning: '#FFC107'
   }
 })
-<<<<<<< HEAD
-
-=======
->>>>>>> ba601341007c9909477ecf9ffbf80b525370690a
 Vue.use(VueResource)
 Vue.config.productionTip = false
 
 Vue.http.options.root = 'https://project314.herokuapp.com/api';
-<<<<<<< HEAD
 // Vue.http.options.root = 'http://localhost:3000/api';
-=======
-//Vue.http.options.root = 'http://localhost:3000/api';
->>>>>>> ba601341007c9909477ecf9ffbf80b525370690a
 Vue.http.headers.common['Authorization'] = 'Basic YXBpOnBhc3N3b3Jk';
 
 // create an after interceptor

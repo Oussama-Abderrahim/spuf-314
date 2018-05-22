@@ -24,7 +24,7 @@
                 <v-text-field name="input-1-3" label="Informations sur la station" class="coordonnees-info"></v-text-field>
                 <br>
 
-                <v-container title prepend-icon="place">Les coordonnées:</v-container>
+                <v-container title prepend-icon="place">Coordonnées de la station:</v-container>
                 <v-text-field name="input-1-3" label="Longitude" v-model="station.coordLon" required></v-text-field>
                 <v-text-field name="input-1-3" label="Latitude" v-model="station.coordLat" required></v-text-field>
 

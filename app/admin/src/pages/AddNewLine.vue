@@ -24,9 +24,9 @@
               <v-container headline class="text-xs-center">Informations sur l'horaire</v-container>
             </v-toolbar>
             <v-container class="form-bus">
-              <v-text-field label="Temps d'attente moyen dans chaque arrêt" v-model="bus.avgWaitTime" suffix="MN:SS" mask="time" required></v-text-field>
-              <v-text-field label="Temps d'attente moyen durant les heures de pointe" v-model="bus.avgStopTime" suffix="MN:SS" mask="time" required></v-text-field>
-              <v-text-field label="Temps d'attente maximal" v-model="bus.maxStopTime" suffix="MN:SS" mask="time" required></v-text-field>
+              <v-text-field label="Frequence"  required></v-text-field>
+              <v-text-field label="Temps d'attente moyen" v-model="bus.avgWaitTime" suffix="MN:SS" mask="time" required></v-text-field>
+              <v-text-field label="Nombre de bus dans cette ligne" required></v-text-field>
             </v-container>
           </v-card>
 
@@ -88,10 +88,10 @@
               <v-text-field label="Nom de l'arrêt" v-model="tableStations.editedItem.item.name" disabled></v-text-field>
             </v-flex>
             <v-flex xs12 sm6 md8>
-              <v-text-field label="L'adresse" v-model="tableStations.editedItem.item.address" disabled></v-text-field>
+              <v-text-field label="Adresse" v-model="tableStations.editedItem.item.address" disabled></v-text-field>
             </v-flex>
             <v-flex xs12 sm6 md4>
-              <v-text-field label="La longueur" v-model="tableStations.editedItem.item.dist"></v-text-field>
+              <v-text-field label="Longueur" v-model="tableStations.editedItem.item.dist"></v-text-field>
             </v-flex>
             <v-flex xs12 sm6 md4>
               <v-text-field label="Durée (mn)" v-model="tableStations.editedItem.item.time"></v-text-field>
