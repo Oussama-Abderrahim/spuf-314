@@ -10,14 +10,14 @@
         <v-container class="title">
           <v-container class="display-1">ETO</v-container>
           <v-container>
-            Numero: Bus ETO (Réclamation)	041 58 11 11
-            <br>Adresse: aaaaaa
+            <v-icon>phone</v-icon> 041 58 11 11
+            <br><v-icon>location_on</v-icon> insert_address
           </v-container>
 
-          <v-container class="display-1">Urban transport bus station</v-container>
+          <v-container class="display-1">Station de bus de transport urbain</v-container>
           <v-container>
-            Numero: 0000000
-            <br>Adresse: Boulevard Colonel Lotfi, Oran
+            <v-icon>phone</v-icon> insert_number
+            <br><v-icon>location_on</v-icon>Boulevard Colonel Lotfi, Oran
           </v-container>
 
           <v-container class="display-1">Horraires</v-container>

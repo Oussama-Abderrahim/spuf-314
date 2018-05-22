@@ -3,14 +3,12 @@
 
     <v-content>
       <v-toolbar color="primary" dark style='width : 100%' v-if="$route.name != 'home'">
-        <v-btn icon>
+        <v-btn icon href='/#AdminPage'>
           <v-icon>arrow_back</v-icon>
         </v-btn>
+        <v-spacer></v-spacer>
         <v-toolbar-title>{{$route.name}}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn icon>
-          <v-icon>more_vert</v-icon>
-        </v-btn>
       </v-toolbar>
       <router-view></router-view>
     </v-content>

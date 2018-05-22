@@ -64,7 +64,7 @@
                         <v-icon>arrow_forward</v-icon>
                         <v-icon>directions_bus</v-icon>{{paths[i].transportTypes}}
                         <br>
-                        <v-icon>attach_money</v-icon>{{paths[i].totalPrice}}
+                        {{paths[i].totalPrice}} (DZD)
                         <br>
                         <v-icon>av_timer</v-icon>{{paths[i].totalTime}}mn
                         <br>

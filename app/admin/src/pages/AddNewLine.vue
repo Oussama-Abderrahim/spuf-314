@@ -1,14 +1,14 @@
 <template>
   <v-container id="add" align-center>
 
-    <v-container display-2 class="form-title">Ajout d'une nouvelle ligne</v-container>
-
+    <!-- <v-container display-2 class="form-title">Ajout d'une nouvelle ligne</v-container> -->
+<br>
     <v-form ref="form" align-center>
       <v-layout row>
         <v-flex xs6 md5 mx-auto>
           <v-card>
             <v-toolbar color="primary" dark>
-              <v-container headline class="text-xs-center">Bus informations</v-container>
+              <v-container headline class="text-xs-center">Informations de bus</v-container>
             </v-toolbar>
             <v-container class="form-bus">
               <v-text-field label="Nom du bus" v-model="bus.name"></v-text-field>
@@ -21,7 +21,7 @@
         <v-flex xs6 md5 mx-auto>
           <v-card>
             <v-toolbar color="primary" dark>
-              <v-container headline class="text-xs-center">Schedule informations</v-container>
+              <v-container headline class="text-xs-center">Informations sur l'horaire</v-container>
             </v-toolbar>
             <v-container class="form-bus">
               <v-text-field label="Temps d'attente moyen dans chaque arrêt" v-model="bus.avgWaitTime" suffix="MN:SS" mask="time" required></v-text-field>

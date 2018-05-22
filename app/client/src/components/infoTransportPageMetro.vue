@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap>
-    <v-flex xs12 class="display-3 tram_title" text-xs-center>Taxi d'Oran</v-flex>
+    <v-flex xs12 class="display-3 tram_title" text-xs-center>Metro d'Oran</v-flex>
     <v-flex xs12 class="info_trafic-part">
       <v-container class="title"> 
       </v-container>

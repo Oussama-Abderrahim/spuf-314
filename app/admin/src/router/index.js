@@ -15,7 +15,7 @@ const routes = [
   },
   {
     path: '/addnewline',
-    name: 'addnewline',
+    name: 'Ajouter une nouvelle ligne',
     component: AddNewLine
   },
   {
