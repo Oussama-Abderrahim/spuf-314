@@ -1,6 +1,6 @@
 <template>
   <!-- Add new Station Dialog  -->
-  <v-dialog v-model="addStationDialog" scrollable max-width="30%" class="insert-dialog">
+  <v-dialog v-model="addStationDialog" scrollable max-width="40%" class="insert-dialog">
     <v-btn color="primary" dark slot="activator" @click="loadStations">Ajouter un nouvel arrêt</v-btn>
     <v-card class="insert-dialog-card">
       <v-card-title><h3>Selectionnez un arrêt</h3><v-spacer></v-spacer>
@@ -103,7 +103,7 @@ export default {
 
 <style lang="scss" scoped>
 .insert-dialog {
-  width: 300px;
+  width: 3  00px;
 
 }
 

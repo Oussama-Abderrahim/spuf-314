@@ -27,20 +27,8 @@
                               <!--<v-layout xs6 class="options-moyens">-->
                                 Moyens:
                               <v-container class="options-moyens" white>
-                                <v-btn-toggle v-model="toggle_multiple" multiple>
-                                  <v-btn >
-                                    <v-icon x-large>directions_bus</v-icon>
-                                  </v-btn>
-                                  <v-btn >
-                                    <v-icon x-large>directions_walk</v-icon>
-                                  </v-btn>
-                                  <v-btn >
-                                    <v-icon x-large>directions_subway</v-icon>
-                                  </v-btn>
-                                </v-btn-toggle>
-
-                                <!-- <v-select color="black" label="Moyens" :items="moyens_items" v-model="moyens_model" multiple max-height="400" hint="Choisir vos moyens de transport"
-                                  persistent-hint></v-select> -->
+                                <v-select color="black" label="Moyens" :items="moyens_items" v-model="moyens_model" multiple max-height="400" hint="Choisir vos moyens de transport"
+                                  persistent-hint></v-select> 
                               </v-container>
                               <!--</v-layout>-->
                               <br>

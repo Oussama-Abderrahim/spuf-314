@@ -8,7 +8,7 @@
         <v-flex xs6 md5 mx-auto>
           <v-card>
             <v-toolbar color="primary" dark>
-              <v-container headline class="text-xs-center">Bus informations</v-container>
+              <v-container headline class="text-xs-center">Informations de bus</v-container>
             </v-toolbar>
             <v-container class="form-bus">
               <v-text-field label="Nom du bus" v-model="bus.name"></v-text-field>
@@ -21,7 +21,7 @@
         <v-flex xs6 md5 mx-auto>
           <v-card>
             <v-toolbar color="primary" dark>
-              <v-container headline class="text-xs-center">Schedule informations</v-container>
+              <v-container headline class="text-xs-center">Informations sur l'horaire</v-container>
             </v-toolbar>
             <v-container class="form-bus">
               <v-text-field label="Temps d'attente moyen dans chaque arrêt" v-model="bus.avgWaitTime" suffix="MN:SS" mask="time" required></v-text-field>
