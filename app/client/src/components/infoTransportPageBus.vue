@@ -14,7 +14,7 @@
             <br><v-icon>location_on</v-icon> insert_address
           </v-container>
 
-          <v-container class="display-1">Station de bus de transport urbain</v-container>
+          <v-container class="display-1">Transport urbain privé</v-container>
           <v-container>
             <v-icon>phone</v-icon> insert_number
             <br><v-icon>location_on</v-icon>Boulevard Colonel Lotfi, Oran

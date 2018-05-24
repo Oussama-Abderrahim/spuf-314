@@ -12,7 +12,7 @@
             </v-toolbar>
             <v-container class="form-bus">
               <v-text-field label="Nom du bus" v-model="bus.name"></v-text-field>
-              <v-text-field label="Fréquence de bus" v-model="bus.frequence" mask="##" required></v-text-field>
+              <v-text-field label="Nombre de bus" v-model="bus.frequence" mask="##" required></v-text-field>
               <v-text-field label="Prix du ticket" v-model="bus.price" suffix="DA" required></v-text-field>
             </v-container>
           </v-card>
