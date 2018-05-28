@@ -101,10 +101,10 @@ module.exports = function(dbSession) {
      * Fetch all stations from Graph database
      * @returns {Promise.<Array.<Station>, Error>} An array of Station objects
      */
-    static getAll() {
+    static getAll(match) {
       return new Promise((resolve, reject) => {
         let stations = []
-        GraphNode.getAllStations()
+        GraphNode.getAllStations(match)
           .then(stationNodes => {
             stationNodes.forEach(node => {
               stations.push(Station.convertNodeToStation(node))

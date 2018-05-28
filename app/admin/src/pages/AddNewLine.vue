@@ -24,9 +24,9 @@
               <v-container headline class="text-xs-center">Informations sur l'horaire</v-container>
             </v-toolbar>
             <v-container class="form-bus">
-              <v-text-field label="Frequence"  required></v-text-field>
-              <v-text-field label="Temps d'attente moyen" v-model="bus.avgWaitTime" suffix="MN:SS" mask="time" required></v-text-field>
+              <v-text-field label="Distance totale de la ligne"  required></v-text-field>
               <v-text-field label="Nombre de bus dans cette ligne" required></v-text-field>
+              <v-text-field label="Temps d'attente moyen" v-model="bus.avgWaitTime" suffix="MN:SS" mask="time" required></v-text-field>
             </v-container>
           </v-card>
 

@@ -33,12 +33,12 @@
             <v-flex d-flex class="tram">
               <v-card dark color="red accent-2" class="tram-content">
                 <v-card-text>
-                  <h1 class="ui header">TRAM</h1>
+                  <h1 class="ui header">TRAMWAY</h1>
                 </v-card-text>
                 <v-container mr-5>
                   <v-btn fab dark large color="grey darken-4">
                     <v-icon dark large>tram</v-icon>
-                  </v-btn>Gestion de Tram
+                  </v-btn>Gestion de Tramway
                 </v-container>
               </v-card>
             </v-flex>
