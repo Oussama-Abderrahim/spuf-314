@@ -73,13 +73,15 @@ module.exports = function(dbSession) {
     /**
      * @param {Object} lineParams
      * @param {String} lineParams.name Name of the line (usualy same name as Bus).
-     * @param {Type} linesParams.type The type of transport of this line
+     * @param {TransportType} linesParams.type The type of transport of this line
      * @param {Bus} lineParams.bus The Bus serving this line (one bus per line).
      * @param {Array.<LineStation>} lineParams.stations an array of Station, sorted from source to destination.
      */
     static createLine(lineParams) {
       lineParams.type = lineParams.type || TransportType.Bus // by default Bus
       
+      lineParams.type = lineParams.type.db_label
+
       return new Promise((resolve, reject) => {
 
         // Create Line from Schema
@@ -119,7 +121,8 @@ module.exports = function(dbSession) {
             lineStations[i + 1].stationID,
             line.type,
             lineStations[i + 1].distFromPrev,
-            lineStations[i + 1].timeFromPrev
+            lineStations[i + 1].timeFromPrev,
+            line.bus.name
           )
         )
       }

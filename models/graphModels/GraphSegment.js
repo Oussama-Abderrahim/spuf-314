@@ -3,12 +3,12 @@ module.exports = function(dbSession) {
     /**
      * @param {ID} srcStationID ID of the source station
      * @param {ID} destStationID ID of the destination station
-     * @param {TransportType} type
+     * @param {String} type
      * @param {Number} distance in meters
      * @param {Number} avgTime average time to get from src to dst (in minutes)
-     * @param {Bus} bus
+     * @param {String} bus
      */
-    constructor(srcStationID,destStationID,type,distance,avgTime,bus = {}) {
+    constructor(srcStationID,destStationID,type,distance,avgTime,bus = '') {
       this.srcStationID = srcStationID
       this.destStationID = destStationID
       this.type = type
@@ -51,10 +51,10 @@ module.exports = function(dbSession) {
           `WHERE ID(s${index + 1}) = ${segment.destStationID}\n`
 
         // Create segment between last station and current one
-        createQueries += `CREATE (s${index}) - [:${segment.type.db_label}{
+        createQueries += `CREATE (s${index}) - [:${segment.type}{
           distance: ${segment.distance},
           avgTime: ${segment.avgTime},
-          bus: ${segment.bus}
+          bus: '${segment.bus}'
         }] -> (s${index + 1}) \n`
       })
 
