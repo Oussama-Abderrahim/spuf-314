@@ -43,10 +43,10 @@ module.exports = function(dbSession) {
    */
   const _getPrice = function(type) {
     switch (type) {
-      case TransportType.Bus:
+      case TransportType.Bus.label:
         return 20;
         break;
-      case TransportType.Tramway:
+      case TransportType.Tramway.label:
         return 40;
         break;
       default:
