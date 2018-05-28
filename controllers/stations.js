@@ -150,7 +150,8 @@ module.exports = function(dbSession) {
       return router
     },
     stations: (req, res) => {
-      Station.getAll()
+      const matchParam = req.query.match || "";
+      Station.getAll(matchParam)
         .then(stations => {
           res.json(stations)
         })

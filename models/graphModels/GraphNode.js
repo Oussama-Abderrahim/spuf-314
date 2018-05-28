@@ -46,11 +46,11 @@ module.exports = function(dbSession) {
     /**
      *
      */
-    static getAllStations() {
+    static getAllStations(match) {
       return new Promise((resolve, reject) => {
         let stations = []
         session
-          .run('MATCH (n) RETURN n')
+          .run(`MATCH (n) WHERE n.name CONTAINS '${match}' RETURN n`)
           .then(result => {
             result.records.forEach(function(record) {
               stations.push(new GraphNode(record.get(0)))

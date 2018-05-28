@@ -8,14 +8,7 @@ module.exports = function(dbSession) {
      * @param {Number} avgTime average time to get from src to dst (in minutes)
      * @param {Bus} bus
      */
-    constructor(
-      srcStationID,
-      destStationID,
-      type,
-      distance,
-      avgTime,
-      bus = {}
-    ) {
+    constructor(srcStationID,destStationID,type,distance,avgTime,bus = {}) {
       this.srcStationID = srcStationID
       this.destStationID = destStationID
       this.type = type
@@ -35,9 +28,7 @@ module.exports = function(dbSession) {
 
         dbSession
           .run(query)
-          .then(result => {
-            resolve(result.records)
-          })
+          .then(result => resolve(result.records))
           .catch(err => reject(err))
       })
     }

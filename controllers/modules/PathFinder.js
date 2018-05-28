@@ -29,15 +29,7 @@ module.exports = function(dbSession) {
 
       let name = segments[i].properties.bus ? segments[i].properties.bus : "X";
 
-      let step = new Step(
-        sourceStation,
-        destStation,
-        price,
-        dist,
-        time,
-        type,
-        name
-      );
+      let step = new Step(sourceStation, destStation, price, dist, time, type, name);
 
       path.addStep(step);
     }
