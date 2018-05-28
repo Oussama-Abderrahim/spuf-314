@@ -16,6 +16,22 @@ module.exports = function(dbSession) {
        *     summary: Get all stations
        *     produces:
        *       - application/json
+       *     parameters:
+       *       - name: match
+       *         description: name of station to match
+       *         in: query
+       *         required: false
+       *         type: string
+       *       - name: limit
+       *         description: maximum number of stations to return
+       *         in: query
+       *         required: false
+       *         type: number
+       *       - name: offset
+       *         description: number of stations to skip when returning with limit
+       *         in: query
+       *         required: false
+       *         type: number
        *     responses:
        *       200:
        *         description: A list of stations
