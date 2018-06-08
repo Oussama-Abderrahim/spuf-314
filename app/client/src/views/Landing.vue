@@ -1,9 +1,9 @@
 <template>
-  <v-container id="welcome">
+  <v-container id="landing">
     <v-container grid-list-xl fill-height>
       <v-layout row wrap fill-height align-end justify-center text-xs-center>
   
-        <v-flex xs12 text-xs-center class="welcome-message display-3">
+        <v-flex xs12 text-xs-center class="landing-message display-3">
               <v-container>SPUF, when no one else is around</v-container>
               <blockquote class="subheading">SPUF est votre guide transport pour vous deplacer à Oran</blockquote>
         </v-flex>
@@ -37,7 +37,7 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/css/variables';
 
-#welcome {
+#landing {
   background-image: $welcome-page-bg-img;
   width: 100%;
   max-width: 100%;
@@ -60,7 +60,7 @@ export default {
   font-style: Black;
 }
 
-.welcome-message{
+.landing-message{
   color: white;
 
   .subheading{

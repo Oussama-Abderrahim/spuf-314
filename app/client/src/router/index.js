@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HomePage from '@/pages/HomePage'
-import ResponsePage from '@/pages/ResponsePage'
-import ErrorPage from '@/pages/ErrorPage'
+import HomePage from '@/views/HomePage'
+import ResponsePage from '@/views/ResponsePage'
+import ErrorPage from '@/views/ErrorPage'
 
 Vue.use(Router)
 

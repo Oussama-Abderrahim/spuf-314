@@ -1,15 +1,9 @@
 <template>
   <v-app>
-    
     <top-bar id="topbar"></top-bar>
     <v-content>
       <router-view></router-view>
     </v-content>
-
-    <!-- <v-footer app>
-      <span>&copy; SPUF 2018</span>
-    </v-footer> -->
-
   </v-app>
 </template>
 

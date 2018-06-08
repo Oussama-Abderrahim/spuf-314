@@ -82,11 +82,7 @@
               </v-flex>
 
               <v-btn href='/#requestPage' fab class="back_btn"><v-icon large>keyboard_arrow_left</v-icon></v-btn>
-
-              
-
-
-            </v-layout>
+              </v-layout>
 
           </v-flex>
         </v-layout>
@@ -97,22 +93,22 @@
 
 <script>
 /*  eslint-disable */
-import MapSection from "../components/MapSection";
-import ScrollBar from "../components/scrollbar";
+import MapSection from '../components/MapSection'
+import ScrollBar from '../components/scrollbar'
 
 export default {
-  name: "response",
+  name: 'response',
   components: {
-    "google-map": MapSection,
+    'google-map': MapSection,
     scrollbar: ScrollBar
     // put custom components here
   },
   data() {
     return {
       typeIcons: {
-        bus: "directions_bus",
-        tramway: "directions_subway",
-        marche: "directions_walk"
+        bus: 'directions_bus',
+        tramway: 'directions_subway',
+        marche: 'directions_walk'
       },
       mapCoords: [],
       defaultPathObject: {
@@ -121,36 +117,36 @@ export default {
         totalTime: 20,
         steps: [
           {
-            name: "",
-            from: "",
-            to: "",
+            name: '',
+            from: '',
+            to: '',
             intermediate: [],
-            type: "directions_bus",
-            price: "0",
-            time: "0",
-            dist: "0"
+            type: 'directions_bus',
+            price: '0',
+            time: '0',
+            dist: '0'
           }
         ]
       },
       paths: []
-    };
+    }
   },
   methods: {
     showPath(index) {
-      console.log(index);
-      let tempPath = this.paths[0];
-      this.$set(this.paths, 0, this.paths[index]);
-      this.$set(this.paths, index, tempPath);
+      console.log(index)
+      let tempPath = this.paths[0]
+      this.$set(this.paths, 0, this.paths[index])
+      this.$set(this.paths, index, tempPath)
     },
     loadPaths(queryParams) {
       this.$http
-        .get("https://project314.herokuapp.com/api/direction", {
+        .get('https://project314.herokuapp.com/api/direction', {
           params: queryParams
         })
         .then(
           function(response) {
             // HERE happens the magic
-            this.paths = [];
+            this.paths = []
             response.body.forEach(path => {
               // create new path
               let newPath = {
@@ -158,32 +154,32 @@ export default {
                 totalTime: path.totalTime,
                 totalPrice: path.totalPrice,
                 steps: []
-              };
+              }
               // fill steps
               path.steps.forEach(step => {
-                let name = "";
+                let name = ''
                 switch (step.type.toLowerCase()) {
-                  case "bus":
+                  case 'bus':
                     name =
                       step.name +
-                      " pour " +
+                      ' pour ' +
                       step.intermediate.length +
-                      " arrets de " +
+                      ' arrets de ' +
                       step.from.name +
-                      " vers " +
-                      step.to.name;
-                    break;
-                  case "tramway":
+                      ' vers ' +
+                      step.to.name
+                    break
+                  case 'tramway':
                     name =
-                      "Prendre le tramway pour " +
+                      'Prendre le tramway pour ' +
                       step.intermediate.length +
-                      " arrets";
-                    break;
-                  case "marche":
-                    name = "Marcher jusqu'à arrêt" + step.to.name;
-                    break;
+                      ' arrets'
+                    break
+                  case 'marche':
+                    name = "Marcher jusqu'à arrêt" + step.to.name
+                    break
                   default:
-                    break;
+                    break
                 }
 
                 newPath.steps.push({
@@ -195,55 +191,55 @@ export default {
                   price: step.price,
                   time: step.time,
                   dist: step.time
-                });
+                })
 
                 this.mapCoords.push({
                   lng: step.from.coord.lon,
                   lat: step.from.coord.lat
-                });
-              });
+                })
+              })
 
               this.mapCoords.push({
                 lng: newPath.steps[newPath.steps.length - 1].to.coord.lon,
                 lat: newPath.steps[newPath.steps.length - 1].to.coord.lat
-              });
+              })
               // add to data
-              this.paths.push(newPath);
-            });
+              this.paths.push(newPath)
+            })
 
-            this.paths.push(this.defaultPathObject);
-            this.paths.push(this.defaultPathObject);
-            this.paths.push(this.defaultPathObject);
-            console.log("paths", this.paths);
+            this.paths.push(this.defaultPathObject)
+            this.paths.push(this.defaultPathObject)
+            this.paths.push(this.defaultPathObject)
+            console.log('paths', this.paths)
           },
           errorResponse => {
-            console.log(errorResponse);
+            console.log(errorResponse)
           }
         )
         .catch(err => {
-          console.log("error fetching paths", err);
-        });
+          console.log('error fetching paths', err)
+        })
     }
   },
   created() {
-    this.paths = [];
-    this.paths.push(this.defaultPathObject);
-    this.paths.push(this.defaultPathObject);
-    this.paths.push(this.defaultPathObject);
+    this.paths = []
+    this.paths.push(this.defaultPathObject)
+    this.paths.push(this.defaultPathObject)
+    this.paths.push(this.defaultPathObject)
   },
   mounted() {
     if (this.$route.query) {
-      this.loadPaths(this.$route.query);
+      this.loadPaths(this.$route.query)
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-$background: url("../assets/img/Rue Khemisti.jpg"); // $blurred-img: url("https://lh3.googleusercontent.com/-m8TxQMObg6c/U474EWu7Y9I/AAAAAAAAI2k/xkRGoIEC1iU/s1600/blur.jpg");
-$blurred-img: url("../assets/img/blur_RueKhemisti.jpg");
+$background: url('../assets/img/Rue Khemisti.jpg'); // $blurred-img: url("https://lh3.googleusercontent.com/-m8TxQMObg6c/U474EWu7Y9I/AAAAAAAAI2k/xkRGoIEC1iU/s1600/blur.jpg");
+$blurred-img: url('../assets/img/blur_RueKhemisti.jpg');
 
-@import "../assets/css/form-layout.scss";
+@import '../assets/css/form-layout.scss';
 
 #response {
   overflow: hidden;
