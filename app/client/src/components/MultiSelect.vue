@@ -78,7 +78,7 @@ export default {
       this.currentSearch = query
       this.isLoading = true
       this.$http
-        .get(`https://project314.herokuapp.com/api/station/`)
+        .get(`station/`)
         .then(response => {
           console.log('query', query)
           this.options = response.body

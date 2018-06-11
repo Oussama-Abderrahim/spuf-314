@@ -13,13 +13,14 @@
 
             <scrollbar>
               <v-expansion-panel class='steps' v-if='paths[0]'>
+                <!-- STEP SUMMARY -->
                 <v-card class="steps-summary title">
                     <span><v-icon>av_timer</v-icon>{{paths[0].totalTime}}mn </span>
                     <span><v-icon>space_bar</v-icon>{{paths[0].totalDist}}m</span>
                     <span>{{paths[0].totalPrice}}(DZD) </span>
                 </v-card>
+                <!-- STEPS -->
                 <v-expansion-panel-content class="step" v-for='(step,i) in paths[0].steps' :key='i' expand-icon="mdi-menu-down">
-                  <!-- STEP -->
                   <div slot="header">
                     <div class="content step-content push-down">
                       <v-icon large>{{step.type}}</v-icon>
@@ -31,14 +32,14 @@
                     </div>
                   </div>
 
-                  <!-- INFO ABOUT STEP -->
-                    <v-stepper value="1" vertical class="step-details">
-                      <v-stepper-step class="step-details-item" 
-                                      v-for='(station, j) in step.intermediate' 
-                                      :key='`${(i+1)*(j+1)}-step`' 
-                                      :step='j'>
-                                      {{station.name}}</v-stepper-step>
-                      <v-divider></v-divider>
+                  <!-- STEP DETAILS -->
+                  <v-stepper value="1" vertical class="step-details">
+                    <v-stepper-step class="step-details-item" 
+                                    v-for='(station, j) in step.intermediate' 
+                                    :key='`${(i+1)*(j+1)}-step`' 
+                                    :step='j'>
+                                    {{station.name}}</v-stepper-step>
+                    <v-divider></v-divider>
                   </v-stepper>
                 </v-expansion-panel-content>
               </v-expansion-panel>
@@ -51,8 +52,8 @@
           <!-- MAP -->
           <v-flex xs12 md6>
             <v-layout row wrap>
-              <v-flex x12 class="map">
-                <google-map name="response" :coords='mapCoords' class="google-map"></google-map>
+              <v-flex x12 class="map-container">
+                <google-map name="response" :coords='mapCoords' class="map"></google-map>
               </v-flex>
           
           <!-- SUGGESTIONS -->
@@ -93,8 +94,8 @@
 
 <script>
 /*  eslint-disable */
-import MapSection from '../components/MapSection'
-import ScrollBar from '../components/scrollbar'
+import MapSection from '@/components/Map'
+import ScrollBar from '@/components/scrollBar'
 
 export default {
   name: 'response',
@@ -140,7 +141,7 @@ export default {
     },
     loadPaths(queryParams) {
       this.$http
-        .get('https://project314.herokuapp.com/api/direction', {
+        .get('direction', {
           params: queryParams
         })
         .then(
@@ -236,10 +237,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$background: url('../assets/img/Rue Khemisti.jpg'); // $blurred-img: url("https://lh3.googleusercontent.com/-m8TxQMObg6c/U474EWu7Y9I/AAAAAAAAI2k/xkRGoIEC1iU/s1600/blur.jpg");
+$background: url('../assets/img/Rue Khemisti.jpg');
 $blurred-img: url('../assets/img/blur_RueKhemisti.jpg');
 
-@import '../assets/css/form-layout.scss';
+@import '../assets/scss/variables';
 
 #response {
   overflow: hidden;
@@ -258,20 +259,35 @@ $blurred-img: url('../assets/img/blur_RueKhemisti.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
-
   background-position-y: 100vh;
+}
 
-  &.tinted {
-    // background-image: $blurred-img
-    background: $blurred-img,
-      -webkit-linear-gradient(
-          0deg,
-          rgba(255, 255, 255, 0.2),
-          rgba(255, 255, 255, 0.2)
-        ) fixed center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
+.request-form {
+  display: block;
+  padding: 10px;
+  width: $form-width;
+  height: $form-height;
+  margin-left: auto;
+  margin-right: auto;
+  border: 5px solid rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+
+  &-left {
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+
+  &-right {
+    overflow: hidden;
+    position: relative;
+    margin: auto;
+  }
+}
+
+@media screen and (max-height: 800px) {
+  .request-form {
+    margin-top: 35px;
+    height: $form-height-min-screen;
   }
 }
 
@@ -365,7 +381,7 @@ $blurred-img: url('../assets/img/blur_RueKhemisti.jpg');
   }
 }
 
-.map {
+.map-container {
   overflow: hidden;
   position: relative;
   padding: 0;
@@ -375,7 +391,7 @@ $blurred-img: url('../assets/img/blur_RueKhemisti.jpg');
   height: 300px;
   border: 1px solid black;
 
-  .google-map {
+  .map {
     position: relative;
     width: 100%;
     height: 100%;

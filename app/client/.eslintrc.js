@@ -1,26 +1,26 @@
-// https://eslint.org/docs/user-guide/configuring
-
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
-  parserOptions: {
-    sourceType: 'module'
-  },
   env: {
-    browser: true,
+    node: true
   },
-  // https://github.com/standard/standard/blob/master/docs/RULES-en.md
-  extends: 'standard',
-  // required to lint *.vue files
-  plugins: [
-    'html'
+  'extends': [
+    'plugin:vue/essential',
+    '@vue/prettier'
   ],
-  // add your custom rules here
   rules: {
-    // allow async-await
-    'generator-star-spacing': 'off',
-    'space-before-function-paren': 'off',
-    // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    "quotes": [2, "single", { "avoidEscape": true }],
+    "prettier/prettier" : [
+      "error",
+      {
+        "traillingComma": "es5",
+        "singleQuote": true,
+        "printWidth": 120
+      }
+    ]
+  },
+  parserOptions: {
+    parser: 'babel-eslint'
   }
 }

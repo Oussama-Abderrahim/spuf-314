@@ -24,18 +24,12 @@
 
 <script>
 export default {
-  name: 'home',
-  data() {
-    return {
-      card_text:
-        'Lorem ipsum dolor sit amet, brute iriure accusata ne mea. Eos suavitate referrentur ad, te duo agam libris qualisque, utroque quaestio accommodare no qui. Et percipit laboramus usu, no invidunt verterem nominati mel. Dolorem ancillae an mei, ut putant invenire splendide mel, ea nec propriae adipisci. Ignota salutandi accusamus in sed, et per malis fuisset, qui id ludus appareat.'
-    }
-  }
+  name: 'landing',
 }
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/css/variables';
+@import '../assets/scss/variables';
 
 #landing {
   background-image: $welcome-page-bg-img;
@@ -60,18 +54,16 @@ export default {
   font-style: Black;
 }
 
-.landing-message{
+.landing-message {
   color: white;
 
-  .subheading{
-    color: #E0E0E0;
+  .subheading {
+    color: #e0e0e0;
   }
 }
 
-.way-btn{
+.way-btn {
   margin-bottom: 40%;
   padding: 25px 30px;
 }
-
-
 </style>
