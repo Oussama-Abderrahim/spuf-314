@@ -54,8 +54,8 @@
           <!-- RIGHT FORM -->
           <v-flex xs12 md6>
             <v-layout row wrap class="request-form-right prevent-scroll">
-              <v-flex x12 class="map">
-                <google-map name="request-map" :coords='mapCoords' class="google-map"></google-map>
+              <v-flex x12 class="map-container">
+                <map-section name="request-map" :coords='mapCoords' class="map"></map-section>
               </v-flex>
               <v-flex x12 class="center-button">
                 <v-btn type="submit" color="primary" dark large>
@@ -75,21 +75,18 @@
 
 <script>
   /*  eslint-disable */
-  import MapSection from '../components/MapSection'
-  import MultiSelect from '../components/MultiSelect'
+  import MapSection from '@/components/Map'
+  import MultiSelect from '@/components/MultiSelect'
 
   export default {
     name: 'request',
     components: {
-      'google-map': MapSection,
+      'map-section': MapSection,
       'multi-select': MultiSelect
       // put custom components here
     },
     data() {
       return {
-        // put variables here
-        show: true, //drop down options
-        toggle_multiple: [0, 1, 2],
         moyens_model: [0, 1, 2], // multiple select
         facteurs_model: [], // one select
         moyens_items: ['Bus', 'Tramway', 'Marche'],
@@ -110,7 +107,6 @@
         }
       }
     },
-    mounted() {},
     methods: {
       showStartOnMap(s) {
         if (s.coord) {
@@ -129,7 +125,6 @@
         }
       },
       getPath(event) {
-        console.log("get response")
         this.$router.push({
           name: 'response',
           query: this.query
@@ -141,109 +136,109 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../assets/css/variables';
+@import '../assets/scss/variables';
 
-  #request {
-    position: relative;
-    background-image: $request-page-bg-img;
-    width: 100%;
-    max-width: 100%;
-    display: flex;
-    color: black;
+#request {
+  position: relative;
+  background-image: $request-page-bg-img;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  color: black;
+}
+
+.blurred-bg {
+  background: $request-page-bg-blurred-img,
+    -webkit-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.2),
+        rgba(255, 255, 255, 0.2)
+      ) fixed center;
+  background-repeat: no-repeat;
+  background-size: cover; // NOTE: This is a hack to make the background fixed in SECOND section (FullPageJs)
+  background-position-y: 100vh;
+  background-attachment: fixed;
+}
+
+.request-form {
+  display: block;
+  padding: 10px;
+  width: $form-width;
+  height: $form-height;
+  margin-left: auto;
+  margin-right: auto;
+  border: 5px solid rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+
+  &-left {
+    margin-top: 10px;
+    margin-left: 20px;
+    max-height: $form-height;
+
+    &-select-fields {
+      height: 0.35 * $form-height;
+    }
   }
 
-  .blurred-bg {
-    background: $request-page-bg-blurred-img,
-    -webkit-linear-gradient( 0deg,
-    rgba(255, 255, 255, 0.2),
-    rgba(255, 255, 255, 0.2)) fixed center;
-    background-repeat: no-repeat;
-    background-size: cover; // NOTE: This is a hack to make the background fixed in SECOND section (FullPageJs)
-    background-position-y: 100vh;
-    background-attachment: fixed;
-  }
-
-  .request-form {
-    display: block;
-    padding: 10px;
-    width: $form-width;
-    height: $form-height;
-    margin-left: auto;
-    margin-right: auto;
-    border: 5px solid rgba(255, 255, 255, 0.5);
+  &-right {
     overflow: hidden;
-
-    &-left {
-      margin-top: 10px;
-      margin-left: 20px;
-      max-height: $form-height;
-
-      &-select-fields {
-        height: 0.35 * $form-height;
-      }
-    }
-
-    &-right {
-      overflow: hidden;
-      position: relative;
-      max-height: $form-height;
-      margin: auto;
-      padding-right: 30px;
-
-    }
+    position: relative;
+    max-height: $form-height;
+    margin: auto;
+    padding-right: 30px;
   }
+}
+
+.map-container {
+  overflow: hidden;
+  position: relative;
+  padding: 0;
+  margin-top: 20px;
+  width: 100%;
+  height: 60%;
+  border: 1px solid black;
 
   .map {
-    overflow: hidden;
     position: relative;
-    padding: 0;
-    margin-top: 20px;
     width: 100%;
-    height: 60%;
-    border: 1px solid black;
+    height: 100%;
+  }
+}
 
-    .google-map {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
+.center-button {
+  width: 100%;
+  text-align: center;
+
+  button {
+    // padding
+  }
+}
+
+.options-container {
+  margin-top: 30px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+@media screen and (max-height: 800px) {
+  .request-form {
+    margin-top: 35px;
+    height: $form-height-min-screen;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .request-form {
+    margin-top: 35px;
+    height: $form-height-min-screen;
+    width: $form-width-min-screen;
   }
 
-  .center-button {
-    width: 100%;
-    text-align: center;
-
-    button {
-      // padding
-    }
+  .map-container {
+    display: none;
   }
+}
 
-  .options-container {
-    margin-top: 30px;
-    border: 3px solid rgba(255, 255, 255, 0.2);
-  }
-
-  @media screen and (max-height: 800px) {
-    .request-form {
-      margin-top: 35px;
-      height: $form-height-min-screen;
-    }
-  }
-
-  @media screen and (max-width: 400px) {
-    .request-form {
-      margin-top: 35px;
-      height: $form-height-min-screen;
-      width: $form-width-min-screen;
-    }
-
-    .map {
-      display: none;
-    }
-  }
-
-  .request-form-left-select-fields {
-    color: white;
-  }
-
+.request-form-left-select-fields {
+  color: white;
+}
 </style>

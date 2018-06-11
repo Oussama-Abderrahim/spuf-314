@@ -1,5 +1,5 @@
 <template>
-  <div class="google-map" :id="mapName"></div>
+  <div class="map" :id="mapName"></div>
 </template>
 
 <script>

@@ -42,11 +42,10 @@
           </v-flex>
 
           <v-flex xs9 class="infos_part">
-            <info-transport-page-bus v-if="index===1"></info-transport-page-bus>
+            <!-- <info-transport-page-bus v-if="index===1"></info-transport-page-bus>
             <info-transport-page-tram v-if="index===2"></info-transport-page-tram>
             <info-transport-page-taxi v-if="index===3"></info-transport-page-taxi>
-            <info-transport-page-metro v-if="index===4"></info-transport-page-metro>
-             
+            <info-transport-page-metro v-if="index===4"></info-transport-page-metro> -->
           </v-flex>
 
         </v-layout>
@@ -56,10 +55,10 @@
 </template>
 
 <script>
-import infoTransportPageBus from '../components/infoTransportPageBus'
-import infoTransportPageTram from '../components/infoTransportPageTram'
-import infoTransportPageTaxi from '../components/infoTransportPageTaxi'
-import infoTransportPageMetro from '../components/infoTransportPageMetro'
+// import infoTransportPageBus from '../components/infoTransportPageBus'
+// import infoTransportPageTram from '../components/infoTransportPageTram'
+// import infoTransportPageTaxi from '../components/infoTransportPageTaxi'
+// import infoTransportPageMetro from '../components/infoTransportPageMetro'
 
 export default {
   data() {
@@ -68,10 +67,10 @@ export default {
     }
   },
   components: {
-    'infoTransportPageBus': infoTransportPageBus,
-    'infoTransportPageTram': infoTransportPageTram,
-    'infoTransportPageTaxi': infoTransportPageTaxi,
-    'infoTransportPageMetro': infoTransportPageMetro
+    // 'infoTransportPageBus': infoTransportPageBus,
+    // 'infoTransportPageTram': infoTransportPageTram,
+    // 'infoTransportPageTaxi': infoTransportPageTaxi,
+    // 'infoTransportPageMetro': infoTransportPageMetro
     // put custom components here
   }
 }
@@ -80,70 +79,69 @@ export default {
 
 
 <style lang="scss" scoped>
-  @import "../assets/css/variables";
+@import '../assets/scss/variables';
 
-  #info_trafic {
-    background-image: $info-page-bg-img;
-    width: 100%;
-    max-width: 100%;
-    display: flex;
-    color: black;
+#info_trafic {
+  background-image: $info-page-bg-img;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  color: black;
 
-    position: relative;
+  position: relative;
+}
 
-  }
+.blurred-bg {
+  background: $info-page-bg-blurred-img,
+    -webkit-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.2),
+        rgba(255, 255, 255, 0.2)
+      ) fixed center;
+  background-repeat: no-repeat;
+  background-size: cover; // NOTE: This is a hack to make the background fixed in SECOND section (FullPageJs)
+  background-position-y: 200vh;
+  background-attachment: fixed;
+}
 
-  .blurred-bg {
-    background: $info-page-bg-blurred-img,
-    -webkit-linear-gradient( 0deg,
-    rgba(255, 255, 255, 0.2),
-    rgba(255, 255, 255, 0.2)) fixed center;
-    background-repeat: no-repeat;
-    background-size: cover; // NOTE: This is a hack to make the background fixed in SECOND section (FullPageJs)
-    background-position-y: 200vh;
-    background-attachment: fixed;
-  }
+.info_trafic {
+  display: block;
+  padding: 10px;
+  width: $form-width;
+  height: $form-height;
+  margin-left: auto;
+  margin-right: auto;
+  border: 5px solid rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+}
 
+@media screen and (max-height: 800px) {
   .info_trafic {
-    display: block;
-    padding: 10px;
-    width: $form-width;
-    height: $form-height;
-    margin-left: auto;
-    margin-right: auto;
-    border: 5px solid rgba(255, 255, 255, 0.5);
-    overflow: hidden;
+    margin-top: 35px;
+    height: $form-height-min-screen;
   }
+}
 
-  @media screen and (max-height: 800px) {
-    .info_trafic {
-      margin-top: 35px;
-      height: $form-height-min-screen;
-    }
+@media screen and (max-width: 400px) {
+  .info_trafic {
+    margin-top: 35px;
+    height: $form-height-min-screen;
+    width: $form-width-min-screen;
   }
+}
 
-  @media screen and (max-width: 400px) {
-    .info_trafic {
-      margin-top: 35px;
-      height: $form-height-min-screen;
-      width: $form-width-min-screen;
-    }
-  }
+.buttons_part {
+  background-color: #f5f5f5;
+  margin: 0.5rem 0.5rem 1rem 0.5rem;
+  padding: 0;
+}
 
-  .buttons_part {
-    background-color: #f5f5f5;
-    margin: 0.5rem 0.5rem 1rem 0.5rem;
-    padding:0;
-  }
+.icon {
+  font-size: 50px;
+}
 
-  .icon {
-    font-size: 50px;
-  }
-
-  .btn {
-    height: 95%;
-    width: 95%;
-  }
-
-
+.btn {
+  height: 95%;
+  width: 95%;
+}
 </style>

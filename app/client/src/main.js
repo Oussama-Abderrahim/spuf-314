@@ -1,20 +1,19 @@
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
+import VueResource from 'vue-resource';
+import Vuetify from 'vuetify';
+/* Styles */
+import 'vuetify/dist/vuetify.min.css';
+// import './fullpage/jquery.fullPage.min.css'
+// import './fullpage/jquery.fullPage.min.js'
 
-import Vue from 'vue'
-import VueResource from 'vue-resource'
-import Vuetify from 'vuetify'
-import App from './App'
-import router from './router'
+Vue.config.productionTip = false;
 
-// import './semantic/dist/semantic.css'
-// import './semantic/dist/semantic.js'
-import 'vuetify/dist/vuetify.min.css'
-import './fullpage/jquery.fullPage.min.css'
-// eslint-disable-next-line
-import './fullpage/jquery.fullPage.min.js'
-
-Vue.use(VueResource)
-Vue.config.productionTip = false
+Vue.use(VueResource);
+// Vue.http.options.root = 'http://localhost:3000/api';
+Vue.http.options.root = 'https://project314.herokuapp.com/api';
+Vue.http.headers.common['Authorization'] = 'Basic YXBpOnBhc3N3b3Jk';
 
 Vue.use(Vuetify, {
   theme: {
@@ -26,11 +25,8 @@ Vue.use(Vuetify, {
     success: '#4CAF50',
     warning: '#FFC107'
   }
-})
-/* eslint-disable no-new */
+});
 new Vue({
-  el: '#app',
   router,
-  template: '<App/>',
-  components: { App }
-})
+  render: h => h(App)
+}).$mount('#app');

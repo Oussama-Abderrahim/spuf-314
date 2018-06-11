@@ -19,28 +19,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/css/variables';
+@import '../assets/scss/variables';
 
-  .toolbar {
-    opacity: 0.9;
+.toolbar {
+  opacity: 0.9;
+  color: white;
+  * {
     color: white;
-    * {
-      color: white;
-    }
-
-    font-family: $font3;
   }
 
-  .logo{
-    margin: 1.5rem 1.5rem 1rem 0.7rem;
-    height:2em;
-  }
+  font-family: $font3;
+}
 
-  .title{
-    font-size: 10px;
-  }
+.logo {
+  margin: 1.5rem 1.5rem 1rem 0.7rem;
+  height: 2em;
+}
 
-  .topbar-items{
-    text-transform: inherit;
-  }
+.title {
+  font-size: 10px;
+}
+
+.topbar-items {
+  text-transform: inherit;
+}
 </style>
