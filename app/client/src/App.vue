@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <!-- <top-bar id="topbar"></top-bar> -->
+    <top-bar id="topbar"></top-bar>
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -8,12 +8,14 @@
 </template>
 
 <script>
-// @ is an alias to /srcw
+// @ is an alias to /src
 import TopBar from '@/components/TopBar'
+import MultiSelect from '@/components/MultiSelect'
 
 export default {
   components: {
-    'top-bar': TopBar
+    'top-bar': TopBar,
+    MultiSelect
   }
 }
 </script>

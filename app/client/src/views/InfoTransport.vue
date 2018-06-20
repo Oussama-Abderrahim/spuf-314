@@ -64,7 +64,7 @@ export default {
   data() {
     return {
       index: 1
-    }
+    };
   },
   components: {
     // 'infoTransportPageBus': infoTransportPageBus,
@@ -73,7 +73,7 @@ export default {
     // 'infoTransportPageMetro': infoTransportPageMetro
     // put custom components here
   }
-}
+};
 </script>
 
 

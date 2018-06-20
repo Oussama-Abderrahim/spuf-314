@@ -5,8 +5,8 @@ import VueResource from 'vue-resource';
 import Vuetify from 'vuetify';
 /* Styles */
 import 'vuetify/dist/vuetify.min.css';
-// import './fullpage/jquery.fullPage.min.css'
-// import './fullpage/jquery.fullPage.min.js'
+import './fullpage/jquery.fullpage.min.css';
+import './fullpage/jquery.fullpage.min.js';
 
 Vue.config.productionTip = false;
 

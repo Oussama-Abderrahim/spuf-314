@@ -208,10 +208,6 @@
 .center-button {
   width: 100%;
   text-align: center;
-
-  button {
-    // padding
-  }
 }
 
 .options-container {

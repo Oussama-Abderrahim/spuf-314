@@ -13,7 +13,8 @@
     "vue-multiselect": "^2.1.0",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1",
-    "vuetify": "^1.0.19"
+    "vuetify": "^1.0.19",
+    "vue-fullpage.js": "0.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-beta.15",
